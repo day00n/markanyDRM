@@ -8,7 +8,6 @@ group = 'com.stove.drm.adapter'
 version = '0.0.1-SNAPSHOT'
 description = 'StoveDRMAdapter'
 
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
