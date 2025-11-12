@@ -1,0 +1,53 @@
+#spring.application.name=StoveDRMAdapter
+application:
+        title: StoveDRMAdapter
+        version: 1.0
+server:
+    port: 8040
+
+# Swagger ?? /swagger-ui/index.html
+springdoc:
+  api-docs.path: /api-docs
+  swagger-ui:
+    path: /docs
+  packages-to-scan: com.stove.drm.adapter.biz.controller
+  paths-to-match: /api/v1/**
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+drm:
+  softcampProperties: "classpath:softcamp_local_test/softcamp.properties"
+  keyfilePath: "classpath:softcamp_local_test/keyDAC_SVR0.sc"
+  fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
+  defaultDomain: "SECURITYDOMAIN"
+  defaultAuthBits: "111001100"
+  doorayFilePath: "file:${user.dir}/dooray/{seq}/"   # 상대경로 로컬 생성
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+drm:
+  softcampProperties: "/home/dooray/ServiceLinker_File/02_Module/02_ServiceLinker/softcamp.properties"
+  keyfilePath: "/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc"
+  fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
+  defaultDomain: "SECURITYDOMAIN"
+  defaultAuthBits: "111001100"
+  doorayFilePath: "file:/home/dooray/app/adapter/{seq}/"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+drm:
+  softcampProperties: "/home/dooray/ServiceLinker_File/02_Module/02_ServiceLinker/softcamp.properties"
+  keyfilePath: "/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc"
+  fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
+  defaultDomain: "SECURITYDOMAIN"
+  defaultAuthBits: "111001100"
+  doorayFilePath: "file:/home/dooray/app/adapter/{seq}/"

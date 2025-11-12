@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.7'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.stove.drm.adapter'
+version = '0.0.1-SNAPSHOT'
+description = 'StoveDRMAdapter'
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Swagger UI + OpenAPI
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0" // 2.x 최신 권장
+    implementation "commons-io:commons-io:2.15.0"
+    // softcamp jar 포함
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

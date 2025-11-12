@@ -1,0 +1,877 @@
+┌															┐
+   user.home : /home/dooray
+   java.home : /usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64/jre
+   java.vendor : Amazon.com Inc.
+   java.version : 1.8.0_412
+   os.name : Linux
+   os.arch : amd64
+   os.version : 6.1.94-99.176.amzn2023.x86_64
+   sun.cpu.endian : little
+   user.timezone : UTC
+   file.encoding : UTF-8
+└															┘
+02:41:46 [DEBUG] setLogFileName() : SCKM
+02:41:46 [INFO] Version : 5.0.0.4
+02:41:46 [ERROR] SCKMDaemon : 
+
+=============================================================
+ Softcamp Key Manager REGISTER
+=============================================================
+02:41:46 [INFO] Version : 5.0.0.4
+02:41:46 [sckmenv] SCKMEnv() - lastModified(1970-01-01 00:00:00)
+02:41:46 [DEBUG] [0] Update Time : 3, 
+02:41:46 [INFO] --> 172.26.21.70, KeyFileVer : 4
+02:41:46 [DEBUG] ==================================================
+02:41:46 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:41:46 [DEBUG] SCKMClient - sendPacket
+02:41:46 [DEBUG] SCKMClient - receivePacket
+02:41:46 [DEBUG] SCKMClient - receivePacket Packet Size : 183
+02:41:46 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:41:49 [DEBUG] ==================================================
+02:41:49 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:41:49 [DEBUG] getRegisterStream('4','02') : ip[172.26.102.72], hostName[stovepay-Dooray-ec2-drm-a-01]
+02:41:49 [DEBUG] SCKMClient - sendPacket
+02:41:49 [DEBUG] SCKMClient - receivePacket
+02:41:49 [DEBUG] SCKMClient - receivePacket Packet Size : 69
+02:41:49 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:41:49 [INFO] Softcamp Key Manager REGISTER END
+02:43:05 [DEBUG] setLogFileName() : SCKM
+02:43:05 [INFO] Version : 5.0.0.4
+02:43:06 [ERROR] SCKMDaemon : 
+02:43:06 [LIB] properties.LockPath -> ./
+02:43:06 [LIB] SimpleDaemon name of the class -> com.softcamp.sckm.SCKMDaemon
+02:43:06 [LIB] Daemon is the leading name -> .//.NKJSD_com.softcamp.sckm.SCKMDaemon
+02:43:06 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Create a lock file.
+02:43:06 [INFO] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Create a lock file.
+
+=============================================================
+ Softcamp Key Manager START
+=============================================================
+02:43:06 [LIB] ExitNUpdateFlagFilePoll() method call.
+02:43:06 [INFO] Version : 5.0.0.4
+02:43:06 [sckmenv] SCKMEnv() - lastModified(1970-01-01 00:00:00)
+02:43:06 [DEBUG] [0] Update Time : 3, 
+02:43:06 [DEBUG] isEndian: true
+02:43:06 [INFO] IDX:[0] DaemonThread Start
+02:43:06 [sckmenv] IDX:[0] lastModified(2025-11-10 02:43:00)
+02:43:06 [DEBUG] IDX(0) retryCnt : 0
+02:43:06 [INFO] IDX:[0] BACKUPEXT:[1] Update Time
+02:43:06 [INFO] IDX:[0] ReqKeyType:[7] Key File Version 4
+02:43:06 [DEBUG] ==================================================
+02:43:06 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:43:06 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+02:43:06 [DEBUG] SCKMClient - sendPacket
+02:43:06 [DEBUG] SCKMClient - receivePacket
+02:43:06 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+02:43:06 [DEBUG] =================== Server Confirm Info =====================
+02:43:06 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+02:43:06 [DEBUG] --------------------------------------------------
+02:43:06 [DEBUG] DDT_SERVICEID : 02
+02:43:06 [DEBUG] DDT_SERVICENAME : 두레이
+02:43:06 [DEBUG] DDT_STANDARDTIME : 3
+02:43:06 [DEBUG] DDT_PERIOD : 24
+02:43:06 [DEBUG] DDT_VALIDTIME : 99
+02:43:06 [DEBUG] DDT_USE_SERVICELINKER : 1
+02:43:06 [DEBUG] =================== Server Confirm Info =====================
+02:43:06 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:43:06 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/key0.sc]
+02:43:06 [DEBUG] downloadAndSave : KeyFile Version 4 [1]
+02:43:06 [INFO] keyManagerAuthType : 0
+02:43:06 [INFO] hostMaxLength : 15
+02:43:06 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+02:43:06 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp
+02:43:06 [DEBUG] ==================================================
+02:43:06 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:43:06 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+02:43:06 [DEBUG] SCKMClient - sendPacket
+02:43:06 [DEBUG] SCKMClient - receivePacket
+02:43:06 [DEBUG] SCKMClient - receivePacket Packet Size : 467
+02:43:06 [DEBUG] =================== Key Server Info =====================
+02:43:06 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+02:43:06 [DEBUG] SERVER_NAME : 스토브페이
+02:43:06 [DEBUG] BACKUPTIME : 2025-11-10 02:42:56
+02:43:06 [DEBUG] =================== Key Server Info =====================
+02:43:06 [INFO] cipher AES : Created
+02:43:06 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+02:43:06 [DEBUG] DDT_COUNT_CATEGORYKEY : 1
+02:43:06 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+02:43:06 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:43:06 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 467
+02:43:06 [INFO] checkKeyFile - :key0.sc.tmp.tmp:
+02:43:06 [INFO] keyManagerAuthType : 0
+02:43:06 [INFO] hostMaxLength : 15
+02:43:06 [INFO] cipher DEC AES : Created
+02:43:06 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+02:43:06 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln
+02:43:06 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln2
+02:43:06 [INFO] checkKeyFile - : (compare success)
+02:43:06 [INFO] verifyKey : success
+02:43:06 [INFO] verifyKey() success - key0.sc.tmp.tmp
+02:43:06 [DEBUG] key0.sc.tmp file saved.
+02:43:06 [DEBUG] key0.sc.tmp - BACKUP_TIME : 2025-11-10 02:42:56
+02:43:06 [DEBUG] key0.sc.tmp - LAST_MODIFIED : 2025-11-10 02:43:16
+02:43:06 [INFO] REQUEST KeyFile : [4] [key0.sc.tmp] KeyType [1] TotalKeyCount : 1
+02:43:06 [INFO] backupKeyFile - key0.sc.backup
+02:43:06 [INFO] currKeyFile - key0.sc
+02:43:06 [INFO] newDownFile - key0.sc.tmp
+02:43:06 [DEBUG] Download Key file[key0.sc.tmp]->[key0.sc] rename success. 
+02:43:06 [INFO] ContainKeyFile :: mkdir containDir Success
+02:43:06 [INFO] ContainKeyFile :: [20251110024306]key0.sc success. 
+02:43:06 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [key0.sc] Download Success
+02:43:06 [DEBUG] ==================================================
+02:43:06 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:43:06 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+02:43:06 [DEBUG] SCKMClient - sendPacket
+02:43:06 [DEBUG] SCKMClient - receivePacket
+02:43:06 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+02:43:06 [DEBUG] =================== Server Confirm Info =====================
+02:43:06 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+02:43:06 [DEBUG] --------------------------------------------------
+02:43:06 [DEBUG] DDT_SERVICEID : 02
+02:43:06 [DEBUG] DDT_SERVICENAME : 두레이
+02:43:06 [DEBUG] DDT_STANDARDTIME : 3
+02:43:06 [DEBUG] DDT_PERIOD : 24
+02:43:06 [DEBUG] DDT_VALIDTIME : 99
+02:43:06 [DEBUG] DDT_USE_SERVICELINKER : 1
+02:43:06 [DEBUG] =================== Server Confirm Info =====================
+02:43:06 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:43:06 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc]
+02:43:06 [DEBUG] downloadAndSave : KeyFile Version 4 [6]
+02:43:06 [INFO] keyManagerAuthType : 0
+02:43:06 [INFO] hostMaxLength : 15
+02:43:06 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+02:43:06 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp
+02:43:06 [DEBUG] ==================================================
+02:43:06 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:43:06 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+02:43:06 [DEBUG] SCKMClient - sendPacket
+02:43:06 [DEBUG] SCKMClient - receivePacket
+02:43:06 [DEBUG] SCKMClient - receivePacket Packet Size : 15943
+02:43:06 [DEBUG] =================== Key Server Info =====================
+02:43:06 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+02:43:06 [DEBUG] SERVER_NAME : 스토브페이
+02:43:06 [DEBUG] BACKUPTIME : 2025-11-10 02:42:56
+02:43:06 [DEBUG] =================== Key Server Info =====================
+02:43:06 [INFO] cipher AES : Created
+02:43:06 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+02:43:06 [DEBUG] DDT_COUNT_USERKEY : 39
+02:43:06 [DEBUG] DDT_COUNT_GROUPKEY : 32
+02:43:06 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+02:43:06 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:43:06 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 15943
+02:43:06 [INFO] checkKeyFile - :keyDAC_SVR0.sc.tmp.tmp:
+02:43:06 [INFO] keyManagerAuthType : 0
+02:43:06 [INFO] hostMaxLength : 15
+02:43:06 [INFO] cipher DEC AES : Created
+02:43:06 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+02:43:06 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln
+02:43:06 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln2
+02:43:06 [INFO] checkKeyFile - : (compare success)
+02:43:06 [INFO] verifyKey : success
+02:43:06 [INFO] verifyKey() success - keyDAC_SVR0.sc.tmp.tmp
+02:43:06 [DEBUG] keyDAC_SVR0.sc.tmp file saved.
+02:43:06 [DEBUG] keyDAC_SVR0.sc.tmp - BACKUP_TIME : 2025-11-10 02:42:56
+02:43:06 [DEBUG] keyDAC_SVR0.sc.tmp - LAST_MODIFIED : 2025-11-10 02:43:16
+02:43:06 [INFO] REQUEST KeyFile : [4] [keyDAC_SVR0.sc.tmp] KeyType [6] TotalKeyCount : 71
+02:43:06 [INFO] backupKeyFile - keyDAC_SVR0.sc.backup
+02:43:06 [INFO] currKeyFile - keyDAC_SVR0.sc
+02:43:06 [INFO] newDownFile - keyDAC_SVR0.sc.tmp
+02:43:06 [DEBUG] Download Key file[keyDAC_SVR0.sc.tmp]->[keyDAC_SVR0.sc] rename success. 
+02:43:06 [INFO] ContainKeyFile :: [20251110024306]keyDAC_SVR0.sc success. 
+02:43:06 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [keyDAC_SVR0.sc] Download Success
+02:43:06 [DEBUG] ==================================================
+02:43:06 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:43:06 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+02:43:06 [DEBUG] SCKMClient - sendPacket
+02:43:06 [DEBUG] SCKMClient - receivePacket
+02:43:06 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+02:43:06 [DEBUG] =================== Server Confirm Info =====================
+02:43:06 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+02:43:06 [DEBUG] --------------------------------------------------
+02:43:06 [DEBUG] DDT_SERVICEID : 02
+02:43:06 [DEBUG] DDT_SERVICENAME : 두레이
+02:43:06 [DEBUG] DDT_STANDARDTIME : 3
+02:43:06 [DEBUG] DDT_PERIOD : 24
+02:43:06 [DEBUG] DDT_VALIDTIME : 99
+02:43:06 [DEBUG] DDT_USE_SERVICELINKER : 1
+02:43:06 [DEBUG] =================== Server Confirm Info =====================
+02:43:06 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:43:06 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc]
+02:43:06 [DEBUG] downloadAndSave : KeyFile Version 4 [8]
+02:43:06 [INFO] keyManagerAuthType : 0
+02:43:06 [INFO] hostMaxLength : 15
+02:43:06 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+02:43:06 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp
+02:43:06 [DEBUG] ==================================================
+02:43:06 [DEBUG] AKS connect (172.26.21.70, 62000)
+02:43:06 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+02:43:06 [DEBUG] SCKMClient - sendPacket
+02:43:06 [DEBUG] SCKMClient - receivePacket
+02:43:06 [DEBUG] SCKMClient - receivePacket Packet Size : 571
+02:43:06 [DEBUG] =================== Key Server Info =====================
+02:43:06 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+02:43:06 [DEBUG] SERVER_NAME : 스토브페이
+02:43:06 [DEBUG] BACKUPTIME : 2025-11-10 02:42:56
+02:43:06 [DEBUG] =================== Key Server Info =====================
+02:43:06 [INFO] cipher AES : Created
+02:43:06 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+02:43:06 [DEBUG] DDT_COUNT_GRADEKEY : 1
+02:43:06 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+02:43:06 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+02:43:06 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 571
+02:43:06 [INFO] checkKeyFile - :Grade0.sc.tmp.tmp:
+02:43:06 [INFO] keyManagerAuthType : 0
+02:43:06 [INFO] hostMaxLength : 15
+02:43:06 [INFO] cipher DEC AES : Created
+02:43:06 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+02:43:06 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln
+02:43:06 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln2
+02:43:06 [INFO] checkKeyFile - : (compare success)
+02:43:06 [INFO] verifyKey : success
+02:43:06 [INFO] verifyKey() success - Grade0.sc.tmp.tmp
+02:43:06 [DEBUG] Grade0.sc.tmp file saved.
+02:43:06 [DEBUG] Grade0.sc.tmp - BACKUP_TIME : 2025-11-10 02:42:56
+02:43:06 [DEBUG] Grade0.sc.tmp - LAST_MODIFIED : 2025-11-10 02:43:16
+02:43:06 [INFO] REQUEST KeyFile : [4] [Grade0.sc.tmp] KeyType [8] TotalKeyCount : 1
+02:43:06 [INFO] backupKeyFile - Grade0.sc.backup
+02:43:06 [INFO] currKeyFile - Grade0.sc
+02:43:06 [INFO] newDownFile - Grade0.sc.tmp
+02:43:06 [DEBUG] Download Key file[Grade0.sc.tmp]->[Grade0.sc] rename success. 
+02:43:06 [INFO] ContainKeyFile :: [20251110024306]Grade0.sc success. 
+02:43:06 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [Grade0.sc] Download Success
+03:43:00 [sckmenv] IDX:[0] computeUpdate() - lastModified(2025-11-10 02:43:00), calendar(2025-11-10 03:43:00)
+03:43:00 [DEBUG] IDX(0) retryCnt : 0
+03:43:00 [INFO] IDX:[0] BACKUPEXT:[1] Update Time
+03:43:00 [INFO] clearOldKeyFiles :: 0 file(s) Deleted 
+03:43:00 [INFO] IDX:[0] ReqKeyType:[7] Key File Version 4
+03:43:00 [DEBUG] ==================================================
+03:43:00 [DEBUG] AKS connect (172.26.21.70, 62000)
+03:43:00 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+03:43:00 [DEBUG] SCKMClient - sendPacket
+03:43:00 [DEBUG] SCKMClient - receivePacket
+03:43:00 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+03:43:00 [DEBUG] =================== Server Confirm Info =====================
+03:43:00 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+03:43:00 [DEBUG] --------------------------------------------------
+03:43:00 [DEBUG] DDT_SERVICEID : 02
+03:43:00 [DEBUG] DDT_SERVICENAME : 두레이
+03:43:00 [DEBUG] DDT_STANDARDTIME : 3
+03:43:00 [DEBUG] DDT_PERIOD : 24
+03:43:00 [DEBUG] DDT_VALIDTIME : 99
+03:43:00 [DEBUG] DDT_USE_SERVICELINKER : 1
+03:43:00 [DEBUG] =================== Server Confirm Info =====================
+03:43:00 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+03:43:00 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/key0.sc]
+03:43:00 [DEBUG] downloadAndSave : KeyFile Version 4 [1]
+03:43:00 [INFO] keyManagerAuthType : 0
+03:43:00 [INFO] hostMaxLength : 15
+03:43:00 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+03:43:00 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp
+03:43:00 [DEBUG] ==================================================
+03:43:00 [DEBUG] AKS connect (172.26.21.70, 62000)
+03:43:00 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+03:43:00 [DEBUG] SCKMClient - sendPacket
+03:43:00 [DEBUG] SCKMClient - receivePacket
+03:43:00 [DEBUG] SCKMClient - receivePacket Packet Size : 467
+03:43:00 [DEBUG] =================== Key Server Info =====================
+03:43:00 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+03:43:00 [DEBUG] SERVER_NAME : 스토브페이
+03:43:00 [DEBUG] BACKUPTIME : 2025-11-10 03:42:50
+03:43:00 [DEBUG] =================== Key Server Info =====================
+03:43:00 [INFO] cipher AES : Created
+03:43:00 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+03:43:00 [DEBUG] DDT_COUNT_CATEGORYKEY : 1
+03:43:00 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+03:43:00 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+03:43:00 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 467
+03:43:00 [INFO] checkKeyFile - :key0.sc.tmp.tmp:
+03:43:00 [INFO] keyManagerAuthType : 0
+03:43:00 [INFO] hostMaxLength : 15
+03:43:00 [INFO] cipher DEC AES : Created
+03:43:00 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+03:43:00 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln
+03:43:00 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln2
+03:43:00 [INFO] checkKeyFile - : (compare success)
+03:43:00 [INFO] verifyKey : success
+03:43:00 [INFO] verifyKey() success - key0.sc.tmp.tmp
+03:43:00 [DEBUG] key0.sc.tmp file saved.
+03:43:00 [DEBUG] key0.sc.tmp - BACKUP_TIME : 2025-11-10 03:42:50
+03:43:00 [DEBUG] key0.sc.tmp - LAST_MODIFIED : 2025-11-10 03:43:10
+03:43:00 [INFO] REQUEST KeyFile : [4] [key0.sc.tmp] KeyType [1] TotalKeyCount : 1
+03:43:00 [INFO] backupKeyFile - key0.sc.backup
+03:43:00 [INFO] currKeyFile - key0.sc
+03:43:00 [INFO] newDownFile - key0.sc.tmp
+03:43:00 [DEBUG] Download Key file[key0.sc.tmp]->[key0.sc] rename success. 
+03:43:00 [INFO] ContainKeyFile :: [20251110034300]key0.sc success. 
+03:43:00 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [key0.sc] Download Success
+03:43:00 [DEBUG] ==================================================
+03:43:00 [DEBUG] AKS connect (172.26.21.70, 62000)
+03:43:00 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+03:43:00 [DEBUG] SCKMClient - sendPacket
+03:43:00 [DEBUG] SCKMClient - receivePacket
+03:43:00 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+03:43:00 [DEBUG] =================== Server Confirm Info =====================
+03:43:00 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+03:43:00 [DEBUG] --------------------------------------------------
+03:43:00 [DEBUG] DDT_SERVICEID : 02
+03:43:00 [DEBUG] DDT_SERVICENAME : 두레이
+03:43:00 [DEBUG] DDT_STANDARDTIME : 3
+03:43:00 [DEBUG] DDT_PERIOD : 24
+03:43:00 [DEBUG] DDT_VALIDTIME : 99
+03:43:00 [DEBUG] DDT_USE_SERVICELINKER : 1
+03:43:00 [DEBUG] =================== Server Confirm Info =====================
+03:43:00 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+03:43:00 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc]
+03:43:00 [DEBUG] downloadAndSave : KeyFile Version 4 [6]
+03:43:00 [INFO] keyManagerAuthType : 0
+03:43:00 [INFO] hostMaxLength : 15
+03:43:00 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+03:43:00 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp
+03:43:00 [DEBUG] ==================================================
+03:43:00 [DEBUG] AKS connect (172.26.21.70, 62000)
+03:43:00 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+03:43:00 [DEBUG] SCKMClient - sendPacket
+03:43:00 [DEBUG] SCKMClient - receivePacket
+03:43:00 [DEBUG] SCKMClient - receivePacket Packet Size : 15943
+03:43:00 [DEBUG] =================== Key Server Info =====================
+03:43:00 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+03:43:00 [DEBUG] SERVER_NAME : 스토브페이
+03:43:00 [DEBUG] BACKUPTIME : 2025-11-10 03:42:50
+03:43:00 [DEBUG] =================== Key Server Info =====================
+03:43:00 [INFO] cipher AES : Created
+03:43:00 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+03:43:00 [DEBUG] DDT_COUNT_USERKEY : 39
+03:43:00 [DEBUG] DDT_COUNT_GROUPKEY : 32
+03:43:00 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+03:43:00 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+03:43:00 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 15943
+03:43:00 [INFO] checkKeyFile - :keyDAC_SVR0.sc.tmp.tmp:
+03:43:00 [INFO] keyManagerAuthType : 0
+03:43:00 [INFO] hostMaxLength : 15
+03:43:00 [INFO] cipher DEC AES : Created
+03:43:00 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+03:43:00 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln
+03:43:00 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln2
+03:43:00 [INFO] checkKeyFile - : (compare success)
+03:43:00 [INFO] verifyKey : success
+03:43:00 [INFO] verifyKey() success - keyDAC_SVR0.sc.tmp.tmp
+03:43:00 [DEBUG] keyDAC_SVR0.sc.tmp file saved.
+03:43:00 [DEBUG] keyDAC_SVR0.sc.tmp - BACKUP_TIME : 2025-11-10 03:42:50
+03:43:00 [DEBUG] keyDAC_SVR0.sc.tmp - LAST_MODIFIED : 2025-11-10 03:43:10
+03:43:00 [INFO] REQUEST KeyFile : [4] [keyDAC_SVR0.sc.tmp] KeyType [6] TotalKeyCount : 71
+03:43:00 [INFO] backupKeyFile - keyDAC_SVR0.sc.backup
+03:43:00 [INFO] currKeyFile - keyDAC_SVR0.sc
+03:43:00 [INFO] newDownFile - keyDAC_SVR0.sc.tmp
+03:43:00 [DEBUG] Download Key file[keyDAC_SVR0.sc.tmp]->[keyDAC_SVR0.sc] rename success. 
+03:43:00 [INFO] ContainKeyFile :: [20251110034300]keyDAC_SVR0.sc success. 
+03:43:00 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [keyDAC_SVR0.sc] Download Success
+03:43:00 [DEBUG] ==================================================
+03:43:00 [DEBUG] AKS connect (172.26.21.70, 62000)
+03:43:00 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+03:43:00 [DEBUG] SCKMClient - sendPacket
+03:43:00 [DEBUG] SCKMClient - receivePacket
+03:43:00 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+03:43:00 [DEBUG] =================== Server Confirm Info =====================
+03:43:00 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+03:43:00 [DEBUG] --------------------------------------------------
+03:43:00 [DEBUG] DDT_SERVICEID : 02
+03:43:00 [DEBUG] DDT_SERVICENAME : 두레이
+03:43:00 [DEBUG] DDT_STANDARDTIME : 3
+03:43:00 [DEBUG] DDT_PERIOD : 24
+03:43:00 [DEBUG] DDT_VALIDTIME : 99
+03:43:00 [DEBUG] DDT_USE_SERVICELINKER : 1
+03:43:00 [DEBUG] =================== Server Confirm Info =====================
+03:43:00 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+03:43:00 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc]
+03:43:00 [DEBUG] downloadAndSave : KeyFile Version 4 [8]
+03:43:00 [INFO] keyManagerAuthType : 0
+03:43:00 [INFO] hostMaxLength : 15
+03:43:00 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+03:43:00 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp
+03:43:00 [DEBUG] ==================================================
+03:43:00 [DEBUG] AKS connect (172.26.21.70, 62000)
+03:43:00 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+03:43:00 [DEBUG] SCKMClient - sendPacket
+03:43:00 [DEBUG] SCKMClient - receivePacket
+03:43:00 [DEBUG] SCKMClient - receivePacket Packet Size : 571
+03:43:00 [DEBUG] =================== Key Server Info =====================
+03:43:00 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+03:43:00 [DEBUG] SERVER_NAME : 스토브페이
+03:43:00 [DEBUG] BACKUPTIME : 2025-11-10 03:42:50
+03:43:00 [DEBUG] =================== Key Server Info =====================
+03:43:00 [INFO] cipher AES : Created
+03:43:00 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+03:43:00 [DEBUG] DDT_COUNT_GRADEKEY : 1
+03:43:00 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+03:43:00 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+03:43:00 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 571
+03:43:00 [INFO] checkKeyFile - :Grade0.sc.tmp.tmp:
+03:43:00 [INFO] keyManagerAuthType : 0
+03:43:00 [INFO] hostMaxLength : 15
+03:43:00 [INFO] cipher DEC AES : Created
+03:43:00 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+03:43:00 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln
+03:43:00 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln2
+03:43:00 [INFO] checkKeyFile - : (compare success)
+03:43:00 [INFO] verifyKey : success
+03:43:00 [INFO] verifyKey() success - Grade0.sc.tmp.tmp
+03:43:00 [DEBUG] Grade0.sc.tmp file saved.
+03:43:00 [DEBUG] Grade0.sc.tmp - BACKUP_TIME : 2025-11-10 03:42:50
+03:43:00 [DEBUG] Grade0.sc.tmp - LAST_MODIFIED : 2025-11-10 03:43:10
+03:43:00 [INFO] REQUEST KeyFile : [4] [Grade0.sc.tmp] KeyType [8] TotalKeyCount : 1
+03:43:00 [INFO] backupKeyFile - Grade0.sc.backup
+03:43:00 [INFO] currKeyFile - Grade0.sc
+03:43:00 [INFO] newDownFile - Grade0.sc.tmp
+03:43:00 [DEBUG] Download Key file[Grade0.sc.tmp]->[Grade0.sc] rename success. 
+03:43:00 [INFO] ContainKeyFile :: [20251110034300]Grade0.sc success. 
+03:43:00 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [Grade0.sc] Download Success
+06:46:31 [DEBUG] setLogFileName() : SCKM
+06:46:31 [INFO] Version : 5.0.0.4
+06:46:31 [ERROR] SCKMDaemon : 
+06:46:31 [LIB] properties.LockPath -> ./
+06:46:31 [LIB] SimpleDaemon name of the class -> com.softcamp.sckm.SCKMDaemon
+06:46:31 [LIB] Daemon is the leading name -> .//.NKJSD_com.softcamp.sckm.SCKMDaemon
+06:46:31 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Try to delete the files lock.
+06:46:31 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Locking file was deleted.
+06:46:31 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.shutdown exists. Daemon will soon be terminated.
+06:46:32 [LIB] .//.NKJSD_com.softcamp.sckm.SCKMDaemon.shutdown exists. Start the shutdown
+06:46:32 [LIB] Daemon's shutdown() method call.
+
+=============================================================
+ Softcamp Key Manager SHUTDOWN
+=============================================================
+06:46:32 [INFO] Version : 5.0.0.4
+06:46:32 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Try to delete the files lock.
+06:46:32 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Locking file does not exist.
+06:46:32 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.shutdown - Try to delete the file markers.
+06:46:32 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.shutdown - Marker file was deleted.
+06:46:32 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.update - Try to delete the files update marker.
+06:46:32 [LIB] Daemon's exit has been completed.
+06:46:32 [INFO] Daemon's exit has been completed.
+06:46:57 [DEBUG] setLogFileName() : SCKM
+06:46:57 [INFO] Version : 5.0.0.4
+06:46:57 [ERROR] SCKMDaemon : 
+06:46:57 [LIB] properties.LockPath -> ./
+06:46:57 [LIB] SimpleDaemon name of the class -> com.softcamp.sckm.SCKMDaemon
+06:46:57 [LIB] Daemon is the leading name -> .//.NKJSD_com.softcamp.sckm.SCKMDaemon
+06:46:57 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Create a lock file.
+06:46:57 [INFO] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Create a lock file.
+
+=============================================================
+ Softcamp Key Manager START
+=============================================================
+06:46:57 [LIB] ExitNUpdateFlagFilePoll() method call.
+06:46:57 [INFO] Version : 5.0.0.4
+06:46:57 [sckmenv] SCKMEnv() - lastModified(1970-01-01 00:00:00)
+06:46:57 [DEBUG] [0] Update Time : 3, 
+06:46:57 [DEBUG] isEndian: true
+06:46:57 [INFO] IDX:[0] DaemonThread Start
+06:46:57 [sckmenv] IDX:[0] lastModified(2025-11-10 06:46:00)
+06:46:57 [DEBUG] IDX(0) retryCnt : 0
+06:46:57 [INFO] IDX:[0] BACKUPEXT:[1] Update Time
+06:46:57 [INFO] clearOldKeyFiles :: 0 file(s) Deleted 
+06:46:57 [INFO] IDX:[0] ReqKeyType:[7] Key File Version 4
+06:46:57 [DEBUG] ==================================================
+06:46:57 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:46:57 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+06:46:57 [DEBUG] SCKMClient - sendPacket
+06:46:57 [DEBUG] SCKMClient - receivePacket
+06:46:57 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+06:46:57 [DEBUG] =================== Server Confirm Info =====================
+06:46:57 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+06:46:57 [DEBUG] --------------------------------------------------
+06:46:57 [DEBUG] DDT_SERVICEID : 02
+06:46:57 [DEBUG] DDT_SERVICENAME : 두레이
+06:46:57 [DEBUG] DDT_STANDARDTIME : 3
+06:46:57 [DEBUG] DDT_PERIOD : 24
+06:46:57 [DEBUG] DDT_VALIDTIME : 99
+06:46:57 [DEBUG] DDT_USE_SERVICELINKER : 1
+06:46:57 [DEBUG] =================== Server Confirm Info =====================
+06:46:57 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:46:57 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/key0.sc]
+06:46:57 [DEBUG] downloadAndSave : KeyFile Version 4 [1]
+06:46:57 [INFO] keyManagerAuthType : 0
+06:46:57 [INFO] hostMaxLength : 15
+06:46:57 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+06:46:57 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp
+06:46:57 [DEBUG] ==================================================
+06:46:57 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:46:57 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+06:46:57 [DEBUG] SCKMClient - sendPacket
+06:46:57 [DEBUG] SCKMClient - receivePacket
+06:46:57 [DEBUG] SCKMClient - receivePacket Packet Size : 467
+06:46:57 [DEBUG] =================== Key Server Info =====================
+06:46:57 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+06:46:57 [DEBUG] SERVER_NAME : 스토브페이
+06:46:57 [DEBUG] BACKUPTIME : 2025-11-10 06:46:47
+06:46:57 [DEBUG] =================== Key Server Info =====================
+06:46:57 [INFO] cipher AES : Created
+06:46:57 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:46:57 [DEBUG] DDT_COUNT_CATEGORYKEY : 1
+06:46:57 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+06:46:57 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:46:57 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 467
+06:46:57 [INFO] checkKeyFile - :key0.sc.tmp.tmp:
+06:46:57 [INFO] keyManagerAuthType : 0
+06:46:57 [INFO] hostMaxLength : 15
+06:46:57 [INFO] cipher DEC AES : Created
+06:46:57 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:46:57 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln
+06:46:57 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln2
+06:46:57 [INFO] checkKeyFile - : (compare success)
+06:46:57 [INFO] verifyKey : success
+06:46:57 [INFO] verifyKey() success - key0.sc.tmp.tmp
+06:46:57 [DEBUG] key0.sc.tmp file saved.
+06:46:57 [DEBUG] key0.sc.tmp - BACKUP_TIME : 2025-11-10 06:46:47
+06:46:57 [DEBUG] key0.sc.tmp - LAST_MODIFIED : 2025-11-10 06:47:07
+06:46:57 [INFO] REQUEST KeyFile : [4] [key0.sc.tmp] KeyType [1] TotalKeyCount : 1
+06:46:57 [INFO] backupKeyFile - key0.sc.backup
+06:46:57 [INFO] currKeyFile - key0.sc
+06:46:57 [INFO] newDownFile - key0.sc.tmp
+06:46:57 [DEBUG] Previous backup file[key0.sc.backup] delete success. 
+06:46:57 [DEBUG] Download Key file[key0.sc.tmp]->[key0.sc] rename success. 
+06:46:57 [INFO] ContainKeyFile :: [20251110064657]key0.sc success. 
+06:46:57 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [key0.sc] Download Success
+06:46:57 [DEBUG] ==================================================
+06:46:57 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:46:57 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+06:46:57 [DEBUG] SCKMClient - sendPacket
+06:46:57 [DEBUG] SCKMClient - receivePacket
+06:46:57 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+06:46:57 [DEBUG] =================== Server Confirm Info =====================
+06:46:57 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+06:46:57 [DEBUG] --------------------------------------------------
+06:46:57 [DEBUG] DDT_SERVICEID : 02
+06:46:57 [DEBUG] DDT_SERVICENAME : 두레이
+06:46:57 [DEBUG] DDT_STANDARDTIME : 3
+06:46:57 [DEBUG] DDT_PERIOD : 24
+06:46:57 [DEBUG] DDT_VALIDTIME : 99
+06:46:57 [DEBUG] DDT_USE_SERVICELINKER : 1
+06:46:57 [DEBUG] =================== Server Confirm Info =====================
+06:46:57 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:46:57 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc]
+06:46:57 [DEBUG] downloadAndSave : KeyFile Version 4 [6]
+06:46:57 [INFO] keyManagerAuthType : 0
+06:46:57 [INFO] hostMaxLength : 15
+06:46:57 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+06:46:57 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp
+06:46:57 [DEBUG] ==================================================
+06:46:57 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:46:57 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+06:46:57 [DEBUG] SCKMClient - sendPacket
+06:46:57 [DEBUG] SCKMClient - receivePacket
+06:46:57 [DEBUG] SCKMClient - receivePacket Packet Size : 15943
+06:46:57 [DEBUG] =================== Key Server Info =====================
+06:46:57 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+06:46:57 [DEBUG] SERVER_NAME : 스토브페이
+06:46:57 [DEBUG] BACKUPTIME : 2025-11-10 06:46:47
+06:46:57 [DEBUG] =================== Key Server Info =====================
+06:46:57 [INFO] cipher AES : Created
+06:46:57 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:46:57 [DEBUG] DDT_COUNT_USERKEY : 39
+06:46:57 [DEBUG] DDT_COUNT_GROUPKEY : 32
+06:46:57 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+06:46:57 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:46:57 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 15943
+06:46:57 [INFO] checkKeyFile - :keyDAC_SVR0.sc.tmp.tmp:
+06:46:57 [INFO] keyManagerAuthType : 0
+06:46:57 [INFO] hostMaxLength : 15
+06:46:57 [INFO] cipher DEC AES : Created
+06:46:57 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:46:57 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln
+06:46:57 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln2
+06:46:57 [INFO] checkKeyFile - : (compare success)
+06:46:57 [INFO] verifyKey : success
+06:46:57 [INFO] verifyKey() success - keyDAC_SVR0.sc.tmp.tmp
+06:46:57 [DEBUG] keyDAC_SVR0.sc.tmp file saved.
+06:46:57 [DEBUG] keyDAC_SVR0.sc.tmp - BACKUP_TIME : 2025-11-10 06:46:47
+06:46:57 [DEBUG] keyDAC_SVR0.sc.tmp - LAST_MODIFIED : 2025-11-10 06:47:07
+06:46:57 [INFO] REQUEST KeyFile : [4] [keyDAC_SVR0.sc.tmp] KeyType [6] TotalKeyCount : 71
+06:46:57 [INFO] backupKeyFile - keyDAC_SVR0.sc.backup
+06:46:57 [INFO] currKeyFile - keyDAC_SVR0.sc
+06:46:57 [INFO] newDownFile - keyDAC_SVR0.sc.tmp
+06:46:57 [DEBUG] Previous backup file[keyDAC_SVR0.sc.backup] delete success. 
+06:46:57 [DEBUG] Download Key file[keyDAC_SVR0.sc.tmp]->[keyDAC_SVR0.sc] rename success. 
+06:46:57 [INFO] ContainKeyFile :: [20251110064657]keyDAC_SVR0.sc success. 
+06:46:57 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [keyDAC_SVR0.sc] Download Success
+06:46:57 [DEBUG] ==================================================
+06:46:57 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:46:57 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+06:46:57 [DEBUG] SCKMClient - sendPacket
+06:46:57 [DEBUG] SCKMClient - receivePacket
+06:46:57 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+06:46:57 [DEBUG] =================== Server Confirm Info =====================
+06:46:57 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+06:46:57 [DEBUG] --------------------------------------------------
+06:46:57 [DEBUG] DDT_SERVICEID : 02
+06:46:57 [DEBUG] DDT_SERVICENAME : 두레이
+06:46:57 [DEBUG] DDT_STANDARDTIME : 3
+06:46:57 [DEBUG] DDT_PERIOD : 24
+06:46:57 [DEBUG] DDT_VALIDTIME : 99
+06:46:57 [DEBUG] DDT_USE_SERVICELINKER : 1
+06:46:57 [DEBUG] =================== Server Confirm Info =====================
+06:46:57 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:46:57 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc]
+06:46:57 [DEBUG] downloadAndSave : KeyFile Version 4 [8]
+06:46:57 [INFO] keyManagerAuthType : 0
+06:46:57 [INFO] hostMaxLength : 15
+06:46:57 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+06:46:57 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp
+06:46:57 [DEBUG] ==================================================
+06:46:57 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:46:57 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+06:46:57 [DEBUG] SCKMClient - sendPacket
+06:46:57 [DEBUG] SCKMClient - receivePacket
+06:46:57 [DEBUG] SCKMClient - receivePacket Packet Size : 571
+06:46:57 [DEBUG] =================== Key Server Info =====================
+06:46:57 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+06:46:57 [DEBUG] SERVER_NAME : 스토브페이
+06:46:57 [DEBUG] BACKUPTIME : 2025-11-10 06:46:47
+06:46:57 [DEBUG] =================== Key Server Info =====================
+06:46:57 [INFO] cipher AES : Created
+06:46:57 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:46:57 [DEBUG] DDT_COUNT_GRADEKEY : 1
+06:46:57 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+06:46:57 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:46:57 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 571
+06:46:57 [INFO] checkKeyFile - :Grade0.sc.tmp.tmp:
+06:46:57 [INFO] keyManagerAuthType : 0
+06:46:57 [INFO] hostMaxLength : 15
+06:46:57 [INFO] cipher DEC AES : Created
+06:46:57 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:46:57 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln
+06:46:57 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln2
+06:46:57 [INFO] checkKeyFile - : (compare success)
+06:46:57 [INFO] verifyKey : success
+06:46:57 [INFO] verifyKey() success - Grade0.sc.tmp.tmp
+06:46:57 [DEBUG] Grade0.sc.tmp file saved.
+06:46:57 [DEBUG] Grade0.sc.tmp - BACKUP_TIME : 2025-11-10 06:46:47
+06:46:57 [DEBUG] Grade0.sc.tmp - LAST_MODIFIED : 2025-11-10 06:47:07
+06:46:57 [INFO] REQUEST KeyFile : [4] [Grade0.sc.tmp] KeyType [8] TotalKeyCount : 1
+06:46:57 [INFO] backupKeyFile - Grade0.sc.backup
+06:46:57 [INFO] currKeyFile - Grade0.sc
+06:46:57 [INFO] newDownFile - Grade0.sc.tmp
+06:46:57 [DEBUG] Previous backup file[Grade0.sc.backup] delete success. 
+06:46:57 [DEBUG] Download Key file[Grade0.sc.tmp]->[Grade0.sc] rename success. 
+06:46:57 [INFO] ContainKeyFile :: [20251110064657]Grade0.sc success. 
+06:46:57 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [Grade0.sc] Download Success
+06:59:06 [LIB] Daemon's shutdown() method call.
+
+=============================================================
+ Softcamp Key Manager SHUTDOWN
+=============================================================
+06:59:06 [INFO] Version : 5.0.0.4
+06:59:06 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Try to delete the files lock.
+06:59:06 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Locking file was deleted.
+06:59:06 [INFO] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Locking file was deleted.
+06:59:06 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.shutdown - Try to delete the file markers.
+06:59:06 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.update - Try to delete the files update marker.
+06:59:06 [LIB] Daemon's exit has been completed.
+06:59:06 [INFO] Daemon's exit has been completed.
+06:59:27 [DEBUG] setLogFileName() : SCKM
+06:59:27 [INFO] Version : 5.0.0.4
+06:59:27 [ERROR] SCKMDaemon : 
+06:59:27 [LIB] properties.LockPath -> ./
+06:59:27 [LIB] SimpleDaemon name of the class -> com.softcamp.sckm.SCKMDaemon
+06:59:27 [LIB] Daemon is the leading name -> .//.NKJSD_com.softcamp.sckm.SCKMDaemon
+06:59:27 [LIB] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Create a lock file.
+06:59:27 [INFO] /home/dooray/ServiceLinker_File/02_Module/01_KeyManager/./.NKJSD_com.softcamp.sckm.SCKMDaemon.lock - Create a lock file.
+
+=============================================================
+ Softcamp Key Manager START
+=============================================================
+06:59:27 [LIB] ExitNUpdateFlagFilePoll() method call.
+06:59:27 [INFO] Version : 5.0.0.4
+06:59:27 [sckmenv] SCKMEnv() - lastModified(1970-01-01 00:00:00)
+06:59:27 [DEBUG] [0] Update Time : 3, 
+06:59:27 [DEBUG] isEndian: true
+06:59:27 [INFO] IDX:[0] DaemonThread Start
+06:59:27 [sckmenv] IDX:[0] lastModified(2025-11-10 06:59:00)
+06:59:27 [DEBUG] IDX(0) retryCnt : 0
+06:59:27 [INFO] IDX:[0] BACKUPEXT:[1] Update Time
+06:59:27 [INFO] clearOldKeyFiles :: 0 file(s) Deleted 
+06:59:27 [INFO] IDX:[0] ReqKeyType:[7] Key File Version 4
+06:59:27 [DEBUG] ==================================================
+06:59:27 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:59:27 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+06:59:27 [DEBUG] SCKMClient - sendPacket
+06:59:27 [DEBUG] SCKMClient - receivePacket
+06:59:27 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+06:59:27 [DEBUG] =================== Server Confirm Info =====================
+06:59:27 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+06:59:27 [DEBUG] --------------------------------------------------
+06:59:27 [DEBUG] DDT_SERVICEID : 02
+06:59:27 [DEBUG] DDT_SERVICENAME : 두레이
+06:59:27 [DEBUG] DDT_STANDARDTIME : 3
+06:59:27 [DEBUG] DDT_PERIOD : 24
+06:59:27 [DEBUG] DDT_VALIDTIME : 99
+06:59:27 [DEBUG] DDT_USE_SERVICELINKER : 1
+06:59:27 [DEBUG] =================== Server Confirm Info =====================
+06:59:27 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:59:27 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/key0.sc]
+06:59:27 [DEBUG] downloadAndSave : KeyFile Version 4 [1]
+06:59:27 [INFO] keyManagerAuthType : 0
+06:59:27 [INFO] hostMaxLength : 15
+06:59:27 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+06:59:27 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp
+06:59:27 [DEBUG] ==================================================
+06:59:27 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:59:27 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+06:59:27 [DEBUG] SCKMClient - sendPacket
+06:59:27 [DEBUG] SCKMClient - receivePacket
+06:59:27 [DEBUG] SCKMClient - receivePacket Packet Size : 467
+06:59:27 [DEBUG] =================== Key Server Info =====================
+06:59:27 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+06:59:27 [DEBUG] SERVER_NAME : 스토브페이
+06:59:27 [DEBUG] BACKUPTIME : 2025-11-10 06:59:17
+06:59:27 [DEBUG] =================== Key Server Info =====================
+06:59:27 [INFO] cipher AES : Created
+06:59:27 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:59:27 [DEBUG] DDT_COUNT_CATEGORYKEY : 1
+06:59:27 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+06:59:27 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:59:27 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 467
+06:59:27 [INFO] checkKeyFile - :key0.sc.tmp.tmp:
+06:59:27 [INFO] keyManagerAuthType : 0
+06:59:27 [INFO] hostMaxLength : 15
+06:59:27 [INFO] cipher DEC AES : Created
+06:59:27 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:59:27 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln
+06:59:27 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/key0.sc.tmp.tmp.pln2
+06:59:27 [INFO] checkKeyFile - : (compare success)
+06:59:27 [INFO] verifyKey : success
+06:59:27 [INFO] verifyKey() success - key0.sc.tmp.tmp
+06:59:27 [DEBUG] key0.sc.tmp file saved.
+06:59:27 [DEBUG] key0.sc.tmp - BACKUP_TIME : 2025-11-10 06:59:17
+06:59:27 [DEBUG] key0.sc.tmp - LAST_MODIFIED : 2025-11-10 06:59:37
+06:59:27 [INFO] REQUEST KeyFile : [4] [key0.sc.tmp] KeyType [1] TotalKeyCount : 1
+06:59:27 [INFO] backupKeyFile - key0.sc.backup
+06:59:27 [INFO] currKeyFile - key0.sc
+06:59:27 [INFO] newDownFile - key0.sc.tmp
+06:59:27 [DEBUG] Previous backup file[key0.sc.backup] delete success. 
+06:59:27 [DEBUG] Download Key file[key0.sc.tmp]->[key0.sc] rename success. 
+06:59:27 [INFO] ContainKeyFile :: [20251110065927]key0.sc success. 
+06:59:27 [INFO] REQUEST KeyFileType : 1, Version :4 Filename : [key0.sc] Download Success
+06:59:27 [DEBUG] ==================================================
+06:59:27 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:59:27 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+06:59:27 [DEBUG] SCKMClient - sendPacket
+06:59:27 [DEBUG] SCKMClient - receivePacket
+06:59:27 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+06:59:27 [DEBUG] =================== Server Confirm Info =====================
+06:59:27 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+06:59:27 [DEBUG] --------------------------------------------------
+06:59:27 [DEBUG] DDT_SERVICEID : 02
+06:59:27 [DEBUG] DDT_SERVICENAME : 두레이
+06:59:27 [DEBUG] DDT_STANDARDTIME : 3
+06:59:27 [DEBUG] DDT_PERIOD : 24
+06:59:27 [DEBUG] DDT_VALIDTIME : 99
+06:59:27 [DEBUG] DDT_USE_SERVICELINKER : 1
+06:59:27 [DEBUG] =================== Server Confirm Info =====================
+06:59:27 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:59:27 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc]
+06:59:27 [DEBUG] downloadAndSave : KeyFile Version 4 [6]
+06:59:27 [INFO] keyManagerAuthType : 0
+06:59:27 [INFO] hostMaxLength : 15
+06:59:27 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+06:59:27 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp
+06:59:27 [DEBUG] ==================================================
+06:59:27 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:59:27 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+06:59:27 [DEBUG] SCKMClient - sendPacket
+06:59:27 [DEBUG] SCKMClient - receivePacket
+06:59:27 [DEBUG] SCKMClient - receivePacket Packet Size : 15943
+06:59:27 [DEBUG] =================== Key Server Info =====================
+06:59:27 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+06:59:27 [DEBUG] SERVER_NAME : 스토브페이
+06:59:27 [DEBUG] BACKUPTIME : 2025-11-10 06:59:17
+06:59:27 [DEBUG] =================== Key Server Info =====================
+06:59:27 [INFO] cipher AES : Created
+06:59:27 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:59:27 [DEBUG] DDT_COUNT_USERKEY : 39
+06:59:27 [DEBUG] DDT_COUNT_GROUPKEY : 32
+06:59:27 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+06:59:27 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:59:27 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 15943
+06:59:27 [INFO] checkKeyFile - :keyDAC_SVR0.sc.tmp.tmp:
+06:59:27 [INFO] keyManagerAuthType : 0
+06:59:27 [INFO] hostMaxLength : 15
+06:59:27 [INFO] cipher DEC AES : Created
+06:59:27 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:59:27 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln
+06:59:27 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc.tmp.tmp.pln2
+06:59:27 [INFO] checkKeyFile - : (compare success)
+06:59:27 [INFO] verifyKey : success
+06:59:27 [INFO] verifyKey() success - keyDAC_SVR0.sc.tmp.tmp
+06:59:27 [DEBUG] keyDAC_SVR0.sc.tmp file saved.
+06:59:27 [DEBUG] keyDAC_SVR0.sc.tmp - BACKUP_TIME : 2025-11-10 06:59:17
+06:59:27 [DEBUG] keyDAC_SVR0.sc.tmp - LAST_MODIFIED : 2025-11-10 06:59:37
+06:59:27 [INFO] REQUEST KeyFile : [4] [keyDAC_SVR0.sc.tmp] KeyType [6] TotalKeyCount : 71
+06:59:27 [INFO] backupKeyFile - keyDAC_SVR0.sc.backup
+06:59:27 [INFO] currKeyFile - keyDAC_SVR0.sc
+06:59:27 [INFO] newDownFile - keyDAC_SVR0.sc.tmp
+06:59:27 [DEBUG] Previous backup file[keyDAC_SVR0.sc.backup] delete success. 
+06:59:27 [DEBUG] Download Key file[keyDAC_SVR0.sc.tmp]->[keyDAC_SVR0.sc] rename success. 
+06:59:27 [INFO] ContainKeyFile :: [20251110065927]keyDAC_SVR0.sc success. 
+06:59:27 [INFO] REQUEST KeyFileType : 6, Version :4 Filename : [keyDAC_SVR0.sc] Download Success
+06:59:27 [DEBUG] ==================================================
+06:59:27 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:59:27 [DEBUG] downloadConfirmInfo - getHostAddress() : 172.26.102.72, getHostName() : stovepay-Dooray-ec2-drm-a-01
+06:59:27 [DEBUG] SCKMClient - sendPacket
+06:59:27 [DEBUG] SCKMClient - receivePacket
+06:59:27 [DEBUG] SCKMClient - receivePacket Packet Size : 165
+06:59:27 [DEBUG] =================== Server Confirm Info =====================
+06:59:27 [DEBUG] printConfirmInfo - confirmInfo.getCount() : 1
+06:59:27 [DEBUG] --------------------------------------------------
+06:59:27 [DEBUG] DDT_SERVICEID : 02
+06:59:27 [DEBUG] DDT_SERVICENAME : 두레이
+06:59:27 [DEBUG] DDT_STANDARDTIME : 3
+06:59:27 [DEBUG] DDT_PERIOD : 24
+06:59:27 [DEBUG] DDT_VALIDTIME : 99
+06:59:27 [DEBUG] DDT_USE_SERVICELINKER : 1
+06:59:27 [DEBUG] =================== Server Confirm Info =====================
+06:59:27 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:59:27 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [/home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc]
+06:59:27 [DEBUG] downloadAndSave : KeyFile Version 4 [8]
+06:59:27 [INFO] keyManagerAuthType : 0
+06:59:27 [INFO] hostMaxLength : 15
+06:59:27 [INFO] KeyFile Download (RequestKeyCountAtOnce) : 1000
+06:59:27 [INFO] KeyFile Download tmpSaveFile : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp
+06:59:27 [DEBUG] ==================================================
+06:59:27 [DEBUG] AKS connect (172.26.21.70, 62000)
+06:59:27 [DEBUG] downloadAndSave - DDT_LAST_TARGET_ID : new byte[0]
+06:59:27 [DEBUG] SCKMClient - sendPacket
+06:59:27 [DEBUG] SCKMClient - receivePacket
+06:59:27 [DEBUG] SCKMClient - receivePacket Packet Size : 571
+06:59:27 [DEBUG] =================== Key Server Info =====================
+06:59:27 [DEBUG] SERVER_ID : SPDS-1E3B-FEC3-A677-0001
+06:59:27 [DEBUG] SERVER_NAME : 스토브페이
+06:59:27 [DEBUG] BACKUPTIME : 2025-11-10 06:59:17
+06:59:27 [DEBUG] =================== Key Server Info =====================
+06:59:27 [INFO] cipher AES : Created
+06:59:27 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:59:27 [DEBUG] DDT_COUNT_GRADEKEY : 1
+06:59:27 [DEBUG] downloadAndSave - DSDataType.DDT_OPT_STARTEND : 1
+06:59:27 [DEBUG] AKS disconnect (172.26.21.70, 62000)
+06:59:27 [DEBUG] SCKMDaemon - Total receivePacket Packet Size(RequestKeyCount) : 571
+06:59:27 [INFO] checkKeyFile - :Grade0.sc.tmp.tmp:
+06:59:27 [INFO] keyManagerAuthType : 0
+06:59:27 [INFO] hostMaxLength : 15
+06:59:27 [INFO] cipher DEC AES : Created
+06:59:27 [INFO] cipher getSystemIP[-84.0.0.0.26.0.0.0.102.0.0.0.72.0.0.0.]
+06:59:27 [INFO] checkKeyFile - : comapre file 1 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln
+06:59:27 [INFO] checkKeyFile - : comapre file 2 : /home/dooray/ServiceLinker_File/04_KeyFile/Grade0.sc.tmp.tmp.pln2
+06:59:27 [INFO] checkKeyFile - : (compare success)
+06:59:27 [INFO] verifyKey : success
+06:59:27 [INFO] verifyKey() success - Grade0.sc.tmp.tmp
+06:59:27 [DEBUG] Grade0.sc.tmp file saved.
+06:59:27 [DEBUG] Grade0.sc.tmp - BACKUP_TIME : 2025-11-10 06:59:17
+06:59:27 [DEBUG] Grade0.sc.tmp - LAST_MODIFIED : 2025-11-10 06:59:37
+06:59:27 [INFO] REQUEST KeyFile : [4] [Grade0.sc.tmp] KeyType [8] TotalKeyCount : 1
+06:59:27 [INFO] backupKeyFile - Grade0.sc.backup
+06:59:27 [INFO] currKeyFile - Grade0.sc
+06:59:27 [INFO] newDownFile - Grade0.sc.tmp
+06:59:27 [DEBUG] Previous backup file[Grade0.sc.backup] delete success. 
+06:59:27 [DEBUG] Download Key file[Grade0.sc.tmp]->[Grade0.sc] rename success. 
+06:59:27 [INFO] ContainKeyFile :: [20251110065927]Grade0.sc success. 
+06:59:27 [INFO] REQUEST KeyFileType : 8, Version :4 Filename : [Grade0.sc] Download Success
