@@ -56,27 +56,27 @@ public class SampleController extends BaseRestController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDisposition(ContentDisposition.attachment().filename(originalName).build());
 
-        try {
-            byte[] inputBytes = file.getBytes();
-
-            // 3) 이미 암호화 파일 여부 판정
-            if (drmService.isEncrypted(inputBytes)) {
-                // 원문 그대로 반환 + 헤더 부가
-                headers.add("Dooray-Drm-Result", "already-encrypted");
-                return new ResponseEntity<>(new ByteArrayResource(inputBytes), headers, HttpStatus.OK);
-            }
-
-            // 4) 암호화 수행 (drmLabel 옵션 전달)
-            byte[] encrypted = drmService.encrypt(inputBytes, drmLabel);
-
-            // 결과 반환
-            return new ResponseEntity<>(new ByteArrayResource(encrypted), headers, HttpStatus.OK);
-
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } catch (Exception e) {
-            // DRM 서버 오류 등
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+//        try {
+//            byte[] inputBytes = file.getBytes();
+//
+//            // 3) 이미 암호화 파일 여부 판정
+//            if (drmService.isEncrypted(inputBytes)) {
+//                // 원문 그대로 반환 + 헤더 부가
+//                headers.add("Dooray-Drm-Result", "already-encrypted");
+//                return new ResponseEntity<>(new ByteArrayResource(inputBytes), headers, HttpStatus.OK);
+//            }
+//
+//            // 4) 암호화 수행 (drmLabel 옵션 전달)
+//            byte[] encrypted = drmService.encrypt(inputBytes, drmLabel);
+//
+//            // 결과 반환
+//            return new ResponseEntity<>(new ByteArrayResource(encrypted), headers, HttpStatus.OK);
+//
+//        } catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//        } catch (Exception e) {
+//            // DRM 서버 오류 등
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
     }
 }

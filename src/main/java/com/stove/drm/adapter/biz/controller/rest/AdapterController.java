@@ -70,13 +70,74 @@ public class AdapterController extends BaseRestController {
 
             // 4) 암호화 수행 (drmLabel 옵션 전달)
 //            byte[] encrypted = drmService.encrypt(inputBytes, drmLabel);
-
+            byte[] rst = drmAdapterService.encrypt("",null);
             // 결과 반환
-            return new ResponseEntity<>(new ByteArrayResource(encrypted), headers, HttpStatus.OK);
+            return new ResponseEntity<>(new ByteArrayResource(rst), headers, HttpStatus.OK);
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
+            // DRM 서버 오류 등
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @Operation(
+            summary  = "DRM 암호화",
+            description  = "multipart/form-data로 drmLabel(옵션), file(필수)을 받아 암호화합니다. " +
+                    "이미 암호화된 파일이면 원문 그대로 반환하고 Dooray-Drm-Result 헤더를 추가합니다."
+    )
+    @PostMapping(
+            value = "/decrypt",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+    )
+    public ResponseEntity<Resource> decrypt(
+            @RequestHeader(name = "Authorization", required = false) String authorization,
+
+            @Parameter(description = "DRM 라벨 (옵션)", required = false)
+            @RequestParam(name = "drmLabel", required = false) String drmLabel,
+
+            @Parameter(description = "암/복호화 대상 파일", required = true)
+            @RequestPart("file") MultipartFile file
+    ) {
+        // 1) JWT 검증: 실패 시 403
+        if (!jwtService.isValid(authorization)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 403
+        }
+
+        // 2) 파일명/타입 준비
+        String originalName = file.getOriginalFilename();
+        // 파일 확장자.
+        String ext = FilenameUtils.getExtension(originalName);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDisposition(ContentDisposition.attachment().filename(originalName).build());
+
+        try {
+            byte[] inputBytes = file.getBytes();
+
+            // 3) 이미 암호화 파일 여부 판정
+            if (drmAdapterService.isEncrypted(originalName,inputBytes)) {
+                // 원문 그대로 반환 + 헤더 부가
+                headers.add("Dooray-Drm-Result", "already-encrypted");
+                return new ResponseEntity<>(new ByteArrayResource(inputBytes), headers, HttpStatus.OK);
+            }
+
+            // 4) 암호화 수행 (drmLabel 옵션 전달)
+//            byte[] encrypted = drmService.encrypt(inputBytes, drmLabel);
+            byte[] rst = drmAdapterService.decrypt("",null);
+            // 결과 반환
+            return new ResponseEntity<>(new ByteArrayResource(rst), headers, HttpStatus.OK);
+
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (Exception e) {
+            if(e.getMessage().equals("-36")){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
             // DRM 서버 오류 등
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

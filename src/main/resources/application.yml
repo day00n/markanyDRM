@@ -24,6 +24,7 @@ drm:
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
   defaultDomain: "SECURITYDOMAIN"
   defaultAuthBits: "111001100"
+  groupId: "System"
   doorayFilePath: "file:${user.dir}/dooray/{seq}/"   # 상대경로 로컬 생성
 
 ---
@@ -37,6 +38,7 @@ drm:
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
   defaultDomain: "SECURITYDOMAIN"
   defaultAuthBits: "111001100"
+  groupId: "System"
   doorayFilePath: "file:/home/dooray/app/adapter/{seq}/"
 
 ---
@@ -50,4 +52,5 @@ drm:
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
   defaultDomain: "SECURITYDOMAIN"
   defaultAuthBits: "111001100"
+  groupId: "System"
   doorayFilePath: "file:/home/dooray/app/adapter/{seq}/"
