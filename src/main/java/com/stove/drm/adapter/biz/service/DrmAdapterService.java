@@ -1,7 +1,9 @@
 package com.stove.drm.adapter.biz.service;
 
+import com.stove.drm.adapter.biz.exception.DRMException;
 import com.stove.drm.adapter.biz.module.DrmService;
 import com.stove.drm.adapter.biz.module.FileManagerService;
+import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
@@ -27,43 +29,38 @@ public class DrmAdapterService {
         return rst; 
     }
     
-    public byte[] encrypt(String fileName, byte[] inputBytes) throws Exception {
+    public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
          //01. 암호화대상 여부확인
          boolean val = drmService.checkExt(fileName);
-         if (val == false)
-             return null;                        
+         if (!val) return null;
          
          //02. 임시파일 생성
          Path srcPath = fileManagerService.createFile(fileName, inputBytes);
          
          //03. 암호화 진행
-        byte[] encFile = null;
         try {
-            encFile = drmService.encrypt(srcPath, fileName+"_Enc");
+            return drmService.encrypt(srcPath, fileName+"_Enc");
+        } finally {
             fileManagerService.clearTmpDir(srcPath);
-            return encFile;
-        } catch (Exception e) {
-            fileManagerService.clearTmpDir(srcPath);
-            throw new Exception("암호화파일 이상.[]");
         }
     } 
     
-    public byte[] decrypt(String fileName, byte[] inputBytes) throws Exception {
+    public byte[] decrypt(String fileName, byte[] inputBytes) throws DRMException{
         //01. 임시파일 생성  
         Path srcPath = fileManagerService.createFile(fileName,inputBytes);
         
         //02. 암호화 여부 확인 
         boolean rst =  drmService.isEncrypted(srcPath);
+        if (!rst) {
+            throw new DRMException(DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value());
+        }
         
-        //03. 복호화 요청 
-        if (rst == true){
-            byte[] decFile = drmService.decrypt(srcPath, "decrypt");
+        //03. 복호화 요청
+        try {
+            return drmService.decrypt(srcPath, "decrypt");
+        }finally {
             fileManagerService.clearTmpDir(srcPath);
-            return decFile;
-        } else{
-            throw new Exception("-36");
         }
 
-       
     }
 }

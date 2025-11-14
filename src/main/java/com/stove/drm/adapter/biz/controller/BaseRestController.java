@@ -5,12 +5,14 @@ package com.stove.drm.adapter.biz.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 /**
  * rest controller을 공통으로 관리한다.
@@ -21,62 +23,93 @@ import org.springframework.web.bind.annotation.RestController;
 public class BaseRestController {
 
 
+
+	//헤더 만들기
+
+
 	
+	private HttpHeaders generateFileHeader(byte[] file, String fileName){
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		ContentDisposition contentDisposition = ContentDisposition.attachment().filename(fileName, StandardCharsets.UTF_8).build();
+		headers.setContentDisposition(contentDisposition);
+		headers.setContentLength(file.length);
+		return headers;
+	}
+
 	/**
 	 * 성공
 	 */
-	protected ResponseEntity<Object> success(Object data) {
-		/**
-		 * 로그출력
-		 */
-		return new ResponseEntity<>(data, HttpStatus.OK);
+	protected ResponseEntity<?> fileOk(byte[] file, String fileName) {
+		return fileOkWithHeader(file,fileName,null);
+	}
+	protected ResponseEntity<?> fileOkWithHeader(byte[] file, String fileName, Map<String,String> headerData) {
+		HttpHeaders headers = generateFileHeader(file, fileName);
+		if (headerData != null && !headerData.isEmpty()) {
+			headerData.forEach((k,v)->{
+				headers.add(k,v);
+			});
+		}
+		return   new ResponseEntity<>(new ByteArrayResource(file), headers, HttpStatus.OK);
+	}
+
+	protected ResponseEntity<?> fileFail(HttpStatus status,byte[] file,String fileName) {
+		return fileFailWithHeader(status,file,fileName,null);
+	}
+	protected ResponseEntity<?> fileFailWithHeader(HttpStatus status,byte[] file,String fileName,Map<String,String> headerData) {
+		HttpHeaders headers = generateFileHeader(file, fileName);
+		if (headerData != null && !headerData.isEmpty()) {
+			headerData.forEach((k,v)->{
+				headers.add(k,v);
+			});
+		}
+		return   new ResponseEntity<>(new ByteArrayResource(file), headers, status);
+	}
+
+	protected ResponseEntity<?> jsonOk(Object object) {
+		return jsonOkWithHeader(object,null);
+	}
+	protected ResponseEntity<?> jsonOkWithHeader(Object object, Map<String, String> headerData) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		if (headerData != null && !headerData.isEmpty()) {
+			headerData.forEach((k,v)->{
+				headers.add(k,v);
+			});
+		}
+
+		return new ResponseEntity<>(object, headers, HttpStatus.OK);
+	}
+
+	protected ResponseEntity<?> jsonFail(HttpStatus status,Object object) {
+		return jsonFailWithHeader(status, object, null);
+	}
+	protected ResponseEntity<?> jsonFailWithHeader(HttpStatus status,Object object, Map<String, String> headerData) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		if (headerData != null && !headerData.isEmpty()) {
+			headerData.forEach((k,v)->{
+				headers.add(k,v);
+			});
+		}
+
+		return new ResponseEntity<>(object, headers, status);
 	}
 
 
-	protected ResponseEntity<Object> successWithHeader(Object data, HttpHeaders httpHeaders) {
-		/**
-		 * 로그출력
-		 */
-		return new ResponseEntity<>(data,httpHeaders, HttpStatus.OK);
-	}
 
-
-
-
-	/**
-	 * 비즈니스 로직에 의해 데이타 정확성들의 문제가 발생시 Fail코드를 처리한다.
-	 */
-	protected ResponseEntity<Object> fail(String failMsg) {
-
-		return new ResponseEntity<>(failMsg, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	/**
-	 * 비지니스 로직에 의한 에러발생시 Fail코드를 처리한다.
-	 */
-	protected ResponseEntity<Object> forbiden(Object errorInfoVo) {
-		/**
-		 * 로그출력
-		 */
-		return new ResponseEntity<>(errorInfoVo, HttpStatus.FORBIDDEN);
-	}
-
-	protected ResponseEntity<Object> error(Object errorInfoVo) {
-
-		return new ResponseEntity<>(errorInfoVo, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Object processValidationError(MethodArgumentNotValidException ex) {
-		return fail(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+	public ResponseEntity<?> processValidationError(MethodArgumentNotValidException ex) {
+		return jsonFail(HttpStatus.BAD_REQUEST,ex.getMessage());
 	}
 
 	/**
 	 * RuntimeException에 대한 처리.
 	 */
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> handleException(HttpServletRequest req, Exception ex) {
-		return error(ex.getMessage());
+	public ResponseEntity<?> handleException(HttpServletRequest req, Exception ex) {
+		return jsonFail(HttpStatus.BAD_REQUEST,ex.getMessage());
 	}
 
 

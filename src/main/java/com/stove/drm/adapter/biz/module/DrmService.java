@@ -1,5 +1,9 @@
 package com.stove.drm.adapter.biz.module;
 
+import SCSL.SLBsUtil;
+import SCSL.SLDsFile;
+import com.stove.drm.adapter.biz.exception.DRMException;
+import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
 import com.stove.drm.adapter.core.config.DrmProp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
-import SCSL.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,18 +46,6 @@ public class DrmService {
      * @return
      */
     public boolean checkExt(String fileName) {
-//        try {
-//            String drmExt = load().getProperty(prop.getFileExt());
-//            for (String s : drmExt.split(";")) {
-//                if (s.equals(ext.toLowerCase())) {
-//                    return true;
-//                }
-//            }
-//        } catch (IOException e) {
-//            return true;
-//        }
-//        return false;
-        
         SLDsFile sFile = new SLDsFile();
         sFile.SettingPathForProperty(prop.getSoftcampProperties());
         int ret = sFile.DSIsSupportFile(fileName);
@@ -75,7 +66,7 @@ public class DrmService {
             return false;
     }
  
-    public byte[] encrypt(Path originFile, String targetFileName) throws Exception {
+    public byte[] encrypt(Path originFile, String targetFileName) throws DRMException {
 
         String srcFile = originFile.toAbsolutePath().toString();    
         String dstFile = originFile.getParent().toAbsolutePath() + "/" + targetFileName;    
@@ -92,11 +83,19 @@ public class DrmService {
                 dstFile,
                 1);
         log.debug("SLDsEncFileDAC :" + retVal);
+        //정상이 아니면 에러발생.
+        if(retVal!=0){
+            throw new DRMException(retVal);
+        }
         checkResult(retVal);
-        return Files.readAllBytes(Paths.get(dstFile));  // * 암호화 바이너리 반환 
+        try {
+            return Files.readAllBytes(Paths.get(dstFile));  // * 암호화 바이너리 반환
+        } catch (IOException e) {
+            throw new DRMException(DrmErrorEnum.FILE_IO.value());
+        }
     }
 
-    public byte[] decrypt(Path encFile, String targetFileName) throws IOException {
+    public byte[] decrypt(Path encFile, String targetFileName) throws DRMException {
         
         String srcFile = encFile.toAbsolutePath().toString(); //암호화 파일 
         String dstFile = encFile.getParent().toAbsolutePath() + "/" + targetFileName; //복호화 파일 
@@ -110,15 +109,22 @@ public class DrmService {
                 srcFile,
                 dstFile);
         log.debug("CreateDecryptFileDAC :" + retVal);
-        return Files.readAllBytes(Paths.get(dstFile));
+        //정상이 아니면 에러발생.
+        if(retVal!=0){
+            throw new DRMException(retVal);
+        }
+        try {
+            return Files.readAllBytes(Paths.get(dstFile));
+        } catch (IOException e) {
+            throw new DRMException(DrmErrorEnum.FILE_IO.value());
+        }
     }
     
-    private boolean checkResult(int retVal) throws Exception {
+    private boolean checkResult(int retVal) throws DRMException {
         if(retVal==0){
             return true;
         }else {
-            throw new Exception("에러코드");
+            throw new DRMException(retVal);
         }
-        // 에러코드 처리 try-catch
     }
 }
