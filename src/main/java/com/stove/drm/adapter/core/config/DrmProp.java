@@ -1,15 +1,18 @@
 package com.stove.drm.adapter.core.config;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 @ConfigurationProperties(prefix = "drm")
 @Getter
 @Setter
 public class DrmProp {
+    private Jwt jwt = new Jwt();
+
     private String softcampProperties;
     /**
      * 생성자 정보에 연동시스템 이름이 들어감.
@@ -35,4 +38,10 @@ public class DrmProp {
      */
     private String fileExt;
     private String doorayFilePath;
+
+    @Data
+    public class Jwt{
+        private String secret;
+        private String issuer;
+    }
 }

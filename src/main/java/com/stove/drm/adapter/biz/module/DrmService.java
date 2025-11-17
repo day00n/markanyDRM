@@ -40,6 +40,15 @@ public class DrmService {
         }
     }
 
+    private String getPropPath(){
+        Path path = Path.of(prop.getSoftcampProperties());
+        return path.toAbsolutePath().toString();
+    }
+    private String getKeyPath(){
+        Path path = Path.of(prop.getKeyfilePath());
+        return path.toAbsolutePath().toString();
+    }
+
     /**
      * 암호화 대상 확장자 확인.
      * @param fileName
@@ -47,7 +56,7 @@ public class DrmService {
      */
     public boolean checkExt(String fileName) {
         SLDsFile sFile = new SLDsFile();
-        sFile.SettingPathForProperty(prop.getSoftcampProperties());
+        sFile.SettingPathForProperty(getPropPath());
         int ret = sFile.DSIsSupportFile(fileName);
         if(ret==0){
             return true;
@@ -72,7 +81,7 @@ public class DrmService {
         String dstFile = originFile.getParent().toAbsolutePath() + "/" + targetFileName;    
 
         SLDsFile sFile = new SLDsFile();
-        sFile.SettingPathForProperty(prop.getSoftcampProperties());
+        sFile.SettingPathForProperty(getPropPath());
 
         sFile.SLDsInitDAC();
         sFile.SLDsAddUserDAC(prop.getDefaultDomain(), prop.getDefaultAuthBits(), 0, 0, 0);
@@ -102,9 +111,9 @@ public class DrmService {
 
         SLDsFile sFile = new SLDsFile();
 
-        sFile.SettingPathForProperty(prop.getSoftcampProperties());
+        sFile.SettingPathForProperty(getPropPath());
 
-        int retVal = sFile.CreateDecryptFileDAC (prop.getKeyfilePath(),
+        int retVal = sFile.CreateDecryptFileDAC (getKeyPath(),
                 prop.getDefaultDomain(),
                 srcFile,
                 dstFile);

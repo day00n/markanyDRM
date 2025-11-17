@@ -25,6 +25,8 @@ dependencies {
     // Swagger UI + OpenAPI
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0" // 2.x 최신 권장
     implementation "commons-io:commons-io:2.15.0"
+    implementation "com.nimbusds:nimbus-jose-jwt:8.4"
+
     // softcamp jar 포함
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

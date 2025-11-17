@@ -52,7 +52,7 @@ public class FileManagerService {
      */
     public void clearTmpDir(Path path){
         try {
-            FileUtils.deleteDirectory(path.toFile());
+            FileUtils.deleteDirectory(path.getParent().toFile());
         } catch (IOException e) {
             log.error(e.getMessage());
         }

@@ -2,6 +2,13 @@
 application:
         title: StoveDRMAdapter
         version: 1.0
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  profiles:
+    default: local
 server:
     port: 8040
 
@@ -12,12 +19,6 @@ springdoc:
     path: /docs
   packages-to-scan: com.stove.drm.adapter.biz.controller
   paths-to-match: /api/v1/**
-
----
-spring:
-  config:
-    activate:
-      on-profile: local
 drm:
   softcampProperties: "classpath:softcamp_local_test/softcamp.properties"
   keyfilePath: "classpath:softcamp_local_test/keyDAC_SVR0.sc"
@@ -26,6 +27,26 @@ drm:
   defaultAuthBits: "111001100"
   groupId: "System"
   doorayFilePath: "file:${user.dir}/dooray/{seq}/"   # 상대경로 로컬 생성
+  jwt:
+    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
+    issuer: "spay"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+drm:
+  softcampProperties: "${user.dir}/src/main/resources/softcamp_local_test/softcamp.properties"
+  keyfilePath: "${user.dir}/src/main/resources/softcamp_local_test/keyDAC_SVR0.sc"
+  fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
+  defaultDomain: "SECURITYDOMAIN"
+  defaultAuthBits: "111001100"
+  groupId: "System"
+  doorayFilePath: "${user.dir}/dooray/{seq}/"   # 상대경로 로컬 생성
+  jwt:
+    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
+    issuer: "spay"
 
 ---
 spring:
@@ -39,7 +60,10 @@ drm:
   defaultDomain: "SECURITYDOMAIN"
   defaultAuthBits: "111001100"
   groupId: "System"
-  doorayFilePath: "file:/home/dooray/app/adapter/{seq}/"
+  doorayFilePath: "/home/dooray/app/adapter/{seq}/"
+  jwt:
+    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
+    issuer: "spay"
 
 ---
 spring:
@@ -53,4 +77,7 @@ drm:
   defaultDomain: "SECURITYDOMAIN"
   defaultAuthBits: "111001100"
   groupId: "System"
-  doorayFilePath: "file:/home/dooray/app/adapter/{seq}/"
+  doorayFilePath: "/home/dooray/app/adapter/{seq}/"
+  jwt:
+    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
+    issuer: "spay"
