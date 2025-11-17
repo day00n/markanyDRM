@@ -61,6 +61,5 @@ public class DrmAdapterService {
         }finally {
             fileManagerService.clearTmpDir(srcPath);
         }
-
     }
 }
