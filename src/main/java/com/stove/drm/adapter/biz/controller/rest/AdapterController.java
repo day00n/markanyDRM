@@ -161,13 +161,15 @@ public class AdapterController extends BaseRestController {
                 // 원문 그대로 반환 + 헤더 부가
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_decrypted.genMap());
             }else{
-                int c;
-                // 케이스문 1로 작성 2
-                //case1 복호화 실패시, 원문 및 추가헤더 제공
-                return fileFailWithHeader(HttpStatus.BAD_REQUEST, inputBytes, originalName, DoorayHeader.undecryptable.genMap()); 
-                
-                //case2 복호화 실패시, 원문 없이 추가헤더 제공 
-                //return fileFailWithHeader(HttpStatus.BAD_REQUEST, null, null, DoorayHeader.failed_to_decrypt.genMap());
+                int errorCase = 1; // 케이스 확인 후 수정 
+                switch (errorCase) {
+                    case 1:     // 복호화 실패 → 원문 + 헤더 제공
+                        return fileFailWithHeader(HttpStatus.BAD_REQUEST, inputBytes, originalName, DoorayHeader.undecryptable.genMap());
+
+                    case 2:     // 복호화 실패 → 원문 없이 헤더만 제공
+                        return fileFailWithHeader(HttpStatus.BAD_REQUEST, null, null, DoorayHeader.failed_to_decrypt.genMap());
+                }
+                return fileFailWithHeader(HttpStatus.BAD_REQUEST, null, null, DoorayHeader.failed_to_decrypt.genMap());
             }
         }
     }
@@ -225,11 +227,7 @@ public class AdapterController extends BaseRestController {
             return jsonOk(rst);
 
         } catch (IOException e) {
-            return fileFail(HttpStatus.FORBIDDEN, null, e.getMessage());
+            return fileFail(HttpStatus.BAD_REQUEST, null, e.getMessage());
         }
     }
 }
-
-//ㅇㅖ외처리시 사용되는 에러 헤더값 확인 필요 
-//서비스 링커에서 암복호화 에러 발생시 에러 코드 확인 --> 현재 Bad Request 사용 
-// 복호화 실패시 case 1,2 확인 필요 
