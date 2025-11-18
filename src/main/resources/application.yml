@@ -19,17 +19,6 @@ springdoc:
     path: /docs
   packages-to-scan: com.stove.drm.adapter.biz.controller
   paths-to-match: /api/v1/**
-drm:
-  softcampProperties: "classpath:softcamp_local_test/softcamp.properties"
-  keyfilePath: "classpath:softcamp_local_test/keyDAC_SVR0.sc"
-  fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
-  defaultDomain: "SECURITYDOMAIN"
-  defaultAuthBits: "111001100"
-  groupId: "System"
-  doorayFilePath: "file:${user.dir}/dooray/{seq}/"   # 상대경로 로컬 생성
-  jwt:
-    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
-    issuer: "spay"
 
 ---
 spring:
@@ -37,6 +26,7 @@ spring:
     activate:
       on-profile: local
 drm:
+  testFile: "${user.dir}/src/main/resources/softcamp_local_test/testFiles/"
   softcampProperties: "${user.dir}/src/main/resources/softcamp_local_test/softcamp.properties"
   keyfilePath: "${user.dir}/src/main/resources/softcamp_local_test/keyDAC_SVR0.sc"
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
@@ -54,6 +44,7 @@ spring:
     activate:
       on-profile: dev
 drm:
+  testFile: "/home/dooray/app/adapter/testFiles/"
   softcampProperties: "/home/dooray/ServiceLinker_File/02_Module/02_ServiceLinker/softcamp.properties"
   keyfilePath: "/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc"
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )
@@ -71,6 +62,7 @@ spring:
     activate:
       on-profile: prod
 drm:
+  testFile: "/home/dooray/app/adapter/testFiles/"
   softcampProperties: "/home/dooray/ServiceLinker_File/02_Module/02_ServiceLinker/softcamp.properties"
   keyfilePath: "/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc"
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )

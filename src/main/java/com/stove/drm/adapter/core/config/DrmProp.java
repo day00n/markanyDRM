@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class DrmProp {
     private Jwt jwt = new Jwt();
 
+    private String testFile;
     private String softcampProperties;
     /**
      * 생성자 정보에 연동시스템 이름이 들어감.
