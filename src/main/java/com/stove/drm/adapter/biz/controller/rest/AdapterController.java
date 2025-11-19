@@ -62,14 +62,14 @@ public class AdapterController extends BaseRestController {
             byte[] rst = drmAdapterService.encrypt(originalName, inputBytes);
             return fileOk(rst, originalName);
         } catch (IOException e) {
-            return fileFail(HttpStatus.BAD_REQUEST, null, e.getMessage());
+            return fileFail(HttpStatus.UNPROCESSABLE_ENTITY, null, e.getMessage());
         } catch (DRMException drmException) {
             if(drmException.getDrmErrorVo().getValue() == DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value()){
                 //이미 암호화된 파일인 경우, 원문을 제공하며 추가 헤더를 제공합니다.
                 // 원문 그대로 반환 + 헤더 부가
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_encrypted.genMap());
             }else {
-                return fileFailWithHeader(HttpStatus.BAD_REQUEST, inputBytes,originalName, DoorayHeader.failed_to_encrypt.genMap());
+                return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes,originalName, DoorayHeader.failed_to_encrypt.genMap());
             }
         }
     }
@@ -154,23 +154,14 @@ public class AdapterController extends BaseRestController {
             byte[] rst = drmAdapterService.decrypt(originalName, inputBytes);
             return fileOk(rst, originalName);
         } catch (IOException e) {
-            return fileFail(HttpStatus.BAD_REQUEST, null, e.getMessage());
+            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.undecryptable.genMap());
         } catch (DRMException drmException) {
             if(drmException.getDrmErrorVo().getValue() == DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value()){
                 //이미 복호화된 파일인 경우, 원문을 제공하며 추가 헤더를 제공합니다.
                 // 원문 그대로 반환 + 헤더 부가
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_decrypted.genMap());
-            }else{
-                int errorCase = 1; // 케이스 확인 후 수정 
-                switch (errorCase) {
-                    case 1:     // 복호화 실패 → 원문 + 헤더 제공
-                        return fileFailWithHeader(HttpStatus.BAD_REQUEST, inputBytes, originalName, DoorayHeader.undecryptable.genMap());
-
-                    case 2:     // 복호화 실패 → 원문 없이 헤더만 제공
-                        return fileFailWithHeader(HttpStatus.BAD_REQUEST, null, null, DoorayHeader.failed_to_decrypt.genMap());
-                }
-                return fileFailWithHeader(HttpStatus.BAD_REQUEST, null, null, DoorayHeader.failed_to_decrypt.genMap());
-            }
+            }else
+                return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.undecryptable.genMap());
         }
     }
     
@@ -197,7 +188,6 @@ public class AdapterController extends BaseRestController {
         rst.setLabel(request.getDrmLabel());
         return jsonOk(rst);
     }
-    
     
     @Operation(
             summary  = "Dooray SaaS 서버가 고객사 DRM 서버에 문서의 암호화 여부를 조회",

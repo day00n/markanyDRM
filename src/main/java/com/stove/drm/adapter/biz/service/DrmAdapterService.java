@@ -32,7 +32,7 @@ public class DrmAdapterService {
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
          //01. 암호화대상 여부확인
          boolean val = drmService.checkExt(fileName);
-         if (!val) return null;
+         if (!val) return inputBytes   ; // 원본 반환 필요 
          
          //02. 임시파일 생성
          Path srcPath = fileManagerService.createFile(fileName, inputBytes);
