@@ -35,9 +35,9 @@ public class JWTGenerator {
             JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .issuer(drmProp.getJwt().getIssuer()) //dooray.issuer 값 "SSYR" 두레이에서 제공.
-                    .claim("userId", authenticated.getUserId())     //사번
-                    .claim("session", authenticated.getSessionId()) //session id
+                    .issuer(drmProp.getJwt().getIssuer()) //dooray.issuer 값 "spay" 두레이에서 제공.
+                    .claim("userId", authenticated.getUserId())
+                    .claim("session", authenticated.getSessionId())
                     .claim("userCode", authenticated.getUserCode())
                     .claim("name", authenticated.getName())
                     .claim("dept", authenticated.getDept())

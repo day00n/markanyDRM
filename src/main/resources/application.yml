@@ -1,4 +1,4 @@
-#spring.application.name=StoveDRMAdapter
+#spring.application.name=StoveDRMAdapter  # dooray-drm.spay.sginfra.net
 application:
         title: StoveDRMAdapter
         version: 1.0

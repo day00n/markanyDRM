@@ -3,7 +3,6 @@ package com.stove.drm.adapter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stove.drm.adapter.biz.controller.vo.DoorayHeader;
 import com.stove.drm.adapter.biz.module.DrmService;
 import com.stove.drm.adapter.biz.module.JwtService;
 import com.stove.drm.adapter.core.config.DrmProp;
@@ -19,16 +18,14 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import static org.assertj.core.api.Assertions.*;
-
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc

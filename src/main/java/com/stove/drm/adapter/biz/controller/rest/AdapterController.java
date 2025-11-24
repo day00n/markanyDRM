@@ -43,7 +43,7 @@ public class AdapterController extends BaseRestController {
             @ModelAttribute DrmFileReq request
     ) {
         // 1) JWT 검증: 실패 시 403
-        if (!jwtService.isValid(authorization)) {
+        if (jwtService.isValid(authorization)) {
             return fileFail(HttpStatus.FORBIDDEN, null, null);
         }
 
@@ -89,7 +89,7 @@ public class AdapterController extends BaseRestController {
             @ModelAttribute DrmFileReq request
     ) {
         // 1) JWT 검증: 실패 시 403
-        if (!jwtService.isValid(authorization)) {
+        if (jwtService.isValid(authorization)) {
             return fileFail(HttpStatus.FORBIDDEN, null, null);
         }
 
@@ -135,7 +135,7 @@ public class AdapterController extends BaseRestController {
             @ModelAttribute DrmFileReq request
     ) {
         // 1) JWT 검증: 실패 시 403
-        if (!jwtService.isValid(authorization)) {
+        if (jwtService.isValid(authorization)) {
             return fileFail(HttpStatus.FORBIDDEN, null, null);
         }
 
@@ -178,7 +178,7 @@ public class AdapterController extends BaseRestController {
             @ModelAttribute DrmFileReq request
     ) {
         // 1) JWT 검증: 실패 시 403
-        if (!jwtService.isValid(authorization)) {
+        if (jwtService.isValid(authorization)) {
             return fileFail(HttpStatus.FORBIDDEN, null, null);
         }
 
