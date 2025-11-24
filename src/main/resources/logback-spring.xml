@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{20} : %msg %n</Pattern>
+		</encoder>
+		<file>./logs/application.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>./logs/%d{yyyyMM}/application.log.%d{dd}.%i.log</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{20} : %msg %n</Pattern>
+		</layout>
+	</appender>
+
+	<!--
+    jdbc.sqlonly    : Logs only SQL
+    jdbc.sqltiming  : Logs the SQL, post-execution, including timing execution statistics
+    jdbc.audit      : Logs ALL JDBC calls except for ResultSets
+    jdbc.resultset  : all calls to ResultSet objects are logged
+    jdbc.connection : Logs connection open and close events
+    -->
+	<springProfile name="local">
+		<logger name="org.springframework.web" level="INFO">
+			<appender-ref ref="CONSOLE"/>
+		</logger>
+		<logger name="HikariDataSource" level="DEBUG"/>
+		<logger name="com.stove.drm.adapter" level="DEBUG" additivity="false">
+			<appender-ref ref="CONSOLE"/>
+		</logger>
+		<root level="INFO">
+			<appender-ref ref="CONSOLE"/>
+		</root>
+	</springProfile>
+
+
+	<springProfile name="dev">
+		<logger name="org.springframework.web" level="INFO">
+			<appender-ref ref="FILE"/>
+		</logger>
+		<logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
+			<appender-ref ref="FILE"/>
+		</logger>
+		<logger name="com.stove.drm.adapter" level="DEBUG" additivity="false">
+			<appender-ref ref="FILE"/>
+		</logger>
+		<root level="INFO">
+			<appender-ref ref="FILE"/>
+		</root>
+	</springProfile>
+
+	<springProfile name="prod">
+		<logger name="org.springframework" level="INFO">
+			<appender-ref ref="FILE"/>
+		</logger>
+		<logger name="org.hibernate.type.descriptor.sql" level="INFO" additivity="false">
+			<appender-ref ref="FILE"/>
+		</logger>
+		<logger name="com.stove.drm.adapter" level="INFO" additivity="false">
+			<appender-ref ref="FILE"/>
+		</logger>
+
+		<root level="INFO">
+			<appender-ref ref="FILE"/>
+		</root>
+	</springProfile>
+
+</configuration>

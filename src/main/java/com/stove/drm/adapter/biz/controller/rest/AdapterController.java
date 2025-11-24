@@ -7,6 +7,8 @@ import com.stove.drm.adapter.biz.controller.vo.res.IsEncryptedRes;
 import com.stove.drm.adapter.biz.controller.vo.res.QueryRightsRes;
 import com.stove.drm.adapter.biz.exception.DRMException;
 import com.stove.drm.adapter.biz.module.JwtService;
+import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
+import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
 import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
 import com.stove.drm.adapter.biz.service.DrmAdapterService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Tag(name = "암복호화 두레이 DRM 어댑터.")
 @RestController
@@ -25,8 +29,23 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AdapterController extends BaseRestController {
 
+    private final JWTGenerator jWTGenerator;   // Authorization Bearer 토큰 검증
     private final JwtService jwtService;   // Authorization Bearer 토큰 검증
     private final DrmAdapterService drmAdapterService;   // 암/복호화 어댑터 연동 (외부 DRM 서버 호출)
+
+    @Operation(
+            summary  = "JWT Token을 생성한다.",
+            description  = "유효시간은 10분."
+    )
+    @PostMapping(value = "/sampleGenJWT")
+    public ResponseEntity<?> sampleGenJWT(){
+        StoveUserVo stoveUserVo = new StoveUserVo();
+        stoveUserVo.setUserId("swagger user");
+        stoveUserVo.setName("swagger name");
+        Map<String, String> rst = new HashMap<>();
+        rst.put("JWT", jWTGenerator.toJwtToken(stoveUserVo).serialize());
+        return jsonOk(rst);
+    }
 
     @Operation(
             summary  = "DRM 암호화",
@@ -41,10 +60,10 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> encrypt(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) {
+    ) throws IOException {
         // 1) JWT 검증: 실패 시 403
-        if (jwtService.isValid(authorization)) {
-            return fileFail(HttpStatus.FORBIDDEN, null, null);
+        if (!jwtService.isValid(authorization)) {
+            return jsonFail(HttpStatus.FORBIDDEN,"");
         }
 
         // 2) 파일명가지고 오기.
@@ -87,10 +106,10 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> encryptWithDefaultLabel(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) {
+    ) throws IOException {
         // 1) JWT 검증: 실패 시 403
-        if (jwtService.isValid(authorization)) {
-            return fileFail(HttpStatus.FORBIDDEN, null, null);
+        if (!jwtService.isValid(authorization)) {
+            return jsonFail(HttpStatus.FORBIDDEN,"");
         }
 
         // 2) 파일명가지고 오기.
@@ -108,14 +127,14 @@ public class AdapterController extends BaseRestController {
             byte[] rst = drmAdapterService.encrypt(originalName, inputBytes);
             return fileOk(rst, originalName);
         } catch (IOException e) {
-            return fileFail(HttpStatus.BAD_REQUEST, null, e.getMessage());
+            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes,originalName, DoorayHeader.failed_to_decrypt.genMap());
         } catch (DRMException drmException) {
             if(drmException.getDrmErrorVo().getValue() == DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value()){
                 //이미 암호화된 파일인 경우, 원문을 제공하며 추가 헤더를 제공합니다.
                 // 원문 그대로 반환 + 헤더 부가
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_encrypted.genMap());
             }else {
-                return fileFailWithHeader(HttpStatus.BAD_REQUEST, inputBytes,originalName, DoorayHeader.failed_to_encrypt.genMap());
+                return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes,originalName, DoorayHeader.failed_to_decrypt.genMap());
             }
         }
     }
@@ -133,10 +152,10 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> decrypt(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) {
+    ) throws IOException {
         // 1) JWT 검증: 실패 시 403
-        if (jwtService.isValid(authorization)) {
-            return fileFail(HttpStatus.FORBIDDEN, null, null);
+        if (!jwtService.isValid(authorization)) {
+            return jsonFail(HttpStatus.FORBIDDEN,"");
         }
 
         // 2) 파일명가지고 오기.
@@ -176,10 +195,12 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> queryRights(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) {
-        // 1) JWT 검증: 실패 시 403
-        if (jwtService.isValid(authorization)) {
-            return fileFail(HttpStatus.FORBIDDEN, null, null);
+    ) throws IOException {
+
+
+        // 1) JWT 검증: 실패 시 403sdfg
+        if (!jwtService.isValid(authorization)) {
+            return jsonFail(HttpStatus.FORBIDDEN,"");
         }
 
         QueryRightsRes rst = new QueryRightsRes();
@@ -217,7 +238,7 @@ public class AdapterController extends BaseRestController {
             return jsonOk(rst);
 
         } catch (IOException e) {
-            return fileFail(HttpStatus.BAD_REQUEST, null, e.getMessage());
+            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.undecryptable.genMap());
         }
     }
 }

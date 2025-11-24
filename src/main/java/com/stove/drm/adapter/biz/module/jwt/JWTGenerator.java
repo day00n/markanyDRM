@@ -32,6 +32,9 @@ public class JWTGenerator {
 
     public JWT toJwtToken(StoveUserVo authenticated) {
         try {
+
+            Calendar expiresAt = Calendar.getInstance();
+            expiresAt.add(Calendar.MINUTE, 10);
             JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
@@ -43,6 +46,7 @@ public class JWTGenerator {
                     .claim("dept", authenticated.getDept())
                     .claim("timestamp", Calendar.getInstance().getTimeInMillis())//호출시 매번 다른 키를 생성하기 위해 timestamp를 넣고 생성한다.
                     .issueTime(new Date())
+                    .expirationTime(expiresAt.getTime())
                     .build();
 
             JWSSigner signer = new MACSigner(drmProp.getJwt().getSecret());

@@ -30,6 +30,7 @@ public class FileManagerService {
         try {
             Files.createDirectories(Path.of(doorayFilePath));
         } catch (IOException e) {
+            log.error("[Fail Generate DIR] {} - {}",doorayFilePath,e.getMessage());
             return null;
         }
         return path;
@@ -42,6 +43,7 @@ public class FileManagerService {
         try {
             Files.write(filePath, content);
         } catch (IOException e) {
+            log.error("[Fail Create File] {} - {}",fileName,e.getMessage());
             return null;
         }
         return filePath;
@@ -54,7 +56,7 @@ public class FileManagerService {
         try {
             FileUtils.deleteDirectory(path.getParent().toFile());
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error("[Fail CclearTmpDir] {} - {}",path.getParent(),e.getMessage());
         }
     }
 
