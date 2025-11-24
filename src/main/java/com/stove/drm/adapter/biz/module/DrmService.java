@@ -66,6 +66,11 @@ public class DrmService {
 
     public boolean isEncrypted(Path path) {
         SLBsUtil sUtil = new SLBsUtil();
+        /*
+        1 : 암호화 파일
+        0 : 일반 파일
+        -1 : Exception 발생 시
+         */
         int encrypted = sUtil.isEncryptFile(path.toString());
         
         if (encrypted == 1)  {
@@ -90,17 +95,19 @@ public class DrmService {
 
         sFile.SLDsInitDAC();
         sFile.SLDsAddUserDAC(prop.getDefaultDomain(), prop.getDefaultAuthBits(), 0, 0, 0);
-
+/*
+0 : 성공
+이외의 값 : 실패
+ */
         int retVal = sFile.SLDsEncFileDACV2(prop.getKeyfilePath(),
                 prop.getGroupId(),
                 srcFile,
                 dstFile,
                 1);
-        log.debug("SLDsEncFileDAC :" + retVal);
         //정상이 아니면 에러발생.
         if(retVal!=0){
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);
-            log.info("[FAIL][ENCRYPT][FILE IO] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
+            log.info("[FAIL][ENCRYPT][SOFTCAMP] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
             throw new DRMException(retVal);
         }
         checkResult(retVal);
@@ -130,7 +137,7 @@ public class DrmService {
         //정상이 아니면 에러발생.
         if(retVal!=0){
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);
-            log.info("[FAIL][ENCRYPT][FILE IO] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
+            log.info("[FAIL][ENCRYPT][SOFTCAMP] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
             throw new DRMException(retVal);
         }
         try {
@@ -147,7 +154,7 @@ public class DrmService {
             return true;
         }else {
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);
-            log.info("[FAIL][ENCRYPT][FILE IO] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
+            log.info("[FAIL][ENCRYPT][SOFTCAMP] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
             throw new DRMException(retVal);
         }
     }
