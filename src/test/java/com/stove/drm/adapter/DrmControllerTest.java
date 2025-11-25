@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stove.drm.adapter.biz.module.DrmService;
 import com.stove.drm.adapter.biz.module.JwtService;
+import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
+import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
 import com.stove.drm.adapter.core.config.DrmProp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +46,10 @@ class DrmControllerTest {
     @Autowired
     DrmProp drmProp;
 
+
+    @Autowired
+    JWTGenerator jwtGenerator;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -74,7 +80,7 @@ class DrmControllerTest {
 //        when(jwtService.isValid(null)).thenReturn(false); // Authorization 헤더 미지급 상태
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer "+JWT);
+        headers.add("Authorization", "Bearer "+ genJWT());
         MvcResult result = mockMvc.perform(
                 multipart(url)
                         .file(file)
@@ -387,5 +393,11 @@ class DrmControllerTest {
                 .isEqualTo(" failed-to-decrypt");
         System.out.println("HEADER = " + authHeader);
 
+    }
+
+    private String genJWT(){
+        StoveUserVo stoveUserVo = new StoveUserVo();
+        stoveUserVo.setUserId("test");
+        return jwtGenerator.toJwtToken(stoveUserVo).serialize();
     }
 }
