@@ -38,9 +38,9 @@ class DrmControllerTest {
     MockMvc mockMvc;
 
 
-    @MockBean
+    @Autowired
     DrmService drmService; // 실제 빈을 mock으로 교체
-    @MockBean
+    @Autowired
     JwtService jwtService;
 
     @Autowired
