@@ -101,7 +101,7 @@ class DrmControllerTest {
     @DisplayName("JWT 무효 → 403 Forbidden")
     void encrypt_forbidden_when_invalid_jwt() throws Exception {
 
-        MvcResult result = genMvcResult(ORIGIN_FILE,"/api/v1/drm/encrypt","aslkjflkadjf");
+        MvcResult result = genMvcResult(ORIGIN_FILE,"/api/v1/drm/encrypt","eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzcGF5IiwibmFtZSI6InN3YWdnZXIgbmFtZSIsImV4cCI6MTc2NDA1NjY5MCwidXNlcklkIjoic3dhZ2dlciB1c2VyIiwiaWF0IjoxNzY0MDU2MDkwLCJ0aW1lc3RhbXAiOjE3NjQwNTYwOTA3MTZ9.9cU8ElrQqK7EGrruydaJoo1QE2lCWHRPu-l2xe8JsT8");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -148,7 +148,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("빈 파일 암호화 요청 → 422 failed-to-encrypt")
     void encrypt_failed() throws Exception {
-        MvcResult result = genMvcResult(ORIGIN_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(EMPTY_FILE, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
