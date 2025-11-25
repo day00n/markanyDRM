@@ -32,17 +32,21 @@ public class JWTGenerator {
 
     public JWT toJwtToken(StoveUserVo authenticated) {
         try {
+
+            Calendar expiresAt = Calendar.getInstance();
+            expiresAt.add(Calendar.MINUTE, 10);
             JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .issuer(drmProp.getJwt().getIssuer()) //dooray.issuer 값 "SSYR" 두레이에서 제공.
-                    .claim("userId", authenticated.getUserId())     //사번
-                    .claim("session", authenticated.getSessionId()) //session id
+                    .issuer(drmProp.getJwt().getIssuer()) //dooray.issuer 값 "spay" 두레이에서 제공.
+                    .claim("userId", authenticated.getUserId())
+                    .claim("session", authenticated.getSessionId())
                     .claim("userCode", authenticated.getUserCode())
                     .claim("name", authenticated.getName())
                     .claim("dept", authenticated.getDept())
                     .claim("timestamp", Calendar.getInstance().getTimeInMillis())//호출시 매번 다른 키를 생성하기 위해 timestamp를 넣고 생성한다.
                     .issueTime(new Date())
+                    .expirationTime(expiresAt.getTime())
                     .build();
 
             JWSSigner signer = new MACSigner(drmProp.getJwt().getSecret());

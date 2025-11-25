@@ -5,6 +5,7 @@ package com.stove.drm.adapter.biz.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,6 +22,7 @@ import java.util.Map;
  *
  */
 @RestController
+@Slf4j
 public class BaseRestController {
 
 
@@ -101,7 +104,13 @@ public class BaseRestController {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> processValidationError(MethodArgumentNotValidException ex) {
-		return jsonFail(HttpStatus.BAD_REQUEST,ex.getMessage());
+		log.error("[BaseController]{}",ex.getMessage());
+		Map<String, String> map = new HashMap<>();
+		map.put("msg", ex.getMessage());
+
+		Map<String, String> header = new HashMap<>();
+		header.put("Dooray-Drm-Result", "failed-to-decrypt");
+		return jsonFailWithHeader(HttpStatus.INTERNAL_SERVER_ERROR,map,header);
 	}
 
 	/**
@@ -109,7 +118,13 @@ public class BaseRestController {
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleException(HttpServletRequest req, Exception ex) {
-		return jsonFail(HttpStatus.BAD_REQUEST,ex.getMessage());
+		log.error("[BaseController]{}",ex.getMessage());
+		Map<String, String> map = new HashMap<>();
+		map.put("msg", ex.getMessage());
+
+		Map<String, String> header = new HashMap<>();
+		header.put("Dooray-Drm-Result", "failed-to-decrypt");
+		return jsonFailWithHeader(HttpStatus.INTERNAL_SERVER_ERROR,map,header);
 	}
 
 
