@@ -4,8 +4,11 @@
 package com.stove.drm.adapter.biz.controller;
 
 
+import ch.qos.logback.core.util.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,15 +28,17 @@ import java.util.Map;
 @Slf4j
 public class BaseRestController {
 
-
-
-	//헤더 만들기
-
-
-	
 	private HttpHeaders generateFileHeader(byte[] file, String fileName){
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		//파일명이 없을 경우 빈값일 경우 NULL로 처리.
+		String baseName = FilenameUtils.getBaseName(fileName);
+		String extensionName = FilenameUtils.getExtension(fileName);
+
+		if (StringUtils.isEmpty(baseName)) {
+			baseName="null";
+		}
+		fileName = baseName + "." + extensionName;
 		ContentDisposition contentDisposition = ContentDisposition.attachment().filename(fileName, StandardCharsets.UTF_8).build();
 		headers.setContentDisposition(contentDisposition);
 		headers.setContentLength(file.length);
