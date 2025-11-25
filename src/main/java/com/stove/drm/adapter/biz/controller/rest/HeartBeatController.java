@@ -33,11 +33,11 @@ public class HeartBeatController extends BaseRestController {
     private final DrmAdapterService drmAdapterService;   // 암/복호화 어댑터 연동 (외부 DRM 서버 호출)
 
     @Operation(
-            summary  = "JWT Token을 생성한다.",
-            description  = "유효시간은 10분."
+            summary  = "heartBeat.",
+            description  = "heartBeat"
     )
-    @PostMapping(value = "/")
-    public ResponseEntity<?> sampleGenJWT(){
+    @GetMapping(value = "/")
+    public ResponseEntity<?> heartBeat(){
         Map<String, String> rst = new HashMap<>();
         rst.put("msg", "OK");
         return jsonOk(rst);

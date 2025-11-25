@@ -4,15 +4,20 @@
 package com.stove.drm.adapter.biz.controller;
 
 
+import ch.qos.logback.core.util.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,15 +30,17 @@ import java.util.Map;
 @Slf4j
 public class BaseRestController {
 
-
-
-	//헤더 만들기
-
-
-	
 	private HttpHeaders generateFileHeader(byte[] file, String fileName){
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		//파일명이 없을 경우 빈값일 경우 NULL로 처리.
+		String baseName = FilenameUtils.getBaseName(fileName);
+		String extensionName = FilenameUtils.getExtension(fileName);
+
+		if (StringUtils.isEmpty(baseName)) {
+			baseName="null";
+		}
+		fileName = baseName + "." + extensionName;
 		ContentDisposition contentDisposition = ContentDisposition.attachment().filename(fileName, StandardCharsets.UTF_8).build();
 		headers.setContentDisposition(contentDisposition);
 		headers.setContentLength(file.length);
@@ -99,7 +106,16 @@ public class BaseRestController {
 		return new ResponseEntity<>(object, headers, status);
 	}
 
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ResponseEntity<?> handleMaxSizeException(MaxUploadSizeExceededException ex) {
 
+		Map<String, Object> body = new HashMap<>();
+		body.put("timestamp", LocalDateTime.now().toString());
+		body.put("error", "FILE_SIZE_EXCEEDED");
+		body.put("message", "업로드 가능한 파일 용량을 초과했습니다.");
+//		HttpStatus.PAYLOAD_TOO_LARGE
+		return jsonFail(HttpStatus.INTERNAL_SERVER_ERROR,body);
+	}
 
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
