@@ -282,7 +282,7 @@ class DrmControllerTest {
 
         // --- Status ---
         int status = result.getResponse().getStatus();
-        assertThat(status).as("상태 : 파일명 특수문자")
+        assertThat(status).as("상태")
                 .isEqualTo(422);
 
         // --- Header ---
@@ -308,7 +308,7 @@ class DrmControllerTest {
 
         // --- Status ---
         int status = result.getResponse().getStatus();
-        assertThat(status).as("정상")
+        assertThat(status).as("상태")
                 .isEqualTo(200);
 
         // --- Header ---
@@ -333,7 +333,7 @@ class DrmControllerTest {
         
         // --- Status ---
         int status = result.getResponse().getStatus();
-        assertThat(status).as("상태 : 이미 복호화 된 평문파일")
+        assertThat(status).as("상태")
                 .isEqualTo(200);
 
         // --- Header ---
@@ -357,7 +357,7 @@ class DrmControllerTest {
         
         // --- Status ---
         int status = result.getResponse().getStatus();
-        assertThat(status).as("상태 : 지원하지 않는 확장자 → 복호화 불가")
+        assertThat(status).as("상태")
                 .isEqualTo(422);
 
         // --- Header ---
@@ -381,7 +381,7 @@ class DrmControllerTest {
 
         // --- Status ---
         int status = result.getResponse().getStatus();
-        assertThat(status).as("상태 : 일시적 내부서버 에러")
+        assertThat(status).as("상태")
                 .isEqualTo(500);
 
         // --- Header ---
