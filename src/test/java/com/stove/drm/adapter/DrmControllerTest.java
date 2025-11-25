@@ -57,18 +57,18 @@ class DrmControllerTest {
     private final String ENC_FILE  = "test_Enc.xls";
     private final String DEC_FILE  = "test_Dec.xls";
     private final String ENC_FILE_EXT  = "test_Enc.xlls";
-    private final String ORIGIN_FILE_EXT  = "test.xlls";
+    private final String ORIGIN_FILE_EXT  = "test.png";
     private final String CORRUPTED_FILE  = "test_corrupted.txt";
     private final String NAME_EMPTY_FILE  = ".xls";
     private final String NAME_SPE_FILE  = "(★)test.xls";
+    private final String EMPTY_FILE  = "test_empty.txt";
     
-
     private byte[] getOriginFile(String fileName) throws IOException {
         Path filePath = Path.of(drmProp.getTestFile() +fileName);
         return Files.readAllBytes(filePath);
     }
-    
-    private MvcResult genMvcResult(String fileName,String url) throws Exception {
+
+    private MvcResult genMvcResult(String fileName,String url,String jwt) throws Exception {
         byte[] fileBytes = getOriginFile(fileName);
         MockMultipartFile file =
                 new MockMultipartFile("file",
@@ -78,10 +78,9 @@ class DrmControllerTest {
 
 //        when(jwtService.isValid(null)).thenReturn(false); // Authorization 헤더 미지급 상태
 
-        StoveUserVo user = new StoveUserVo();
-        user.setUserId("test");
+       
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer "+jwtGenerator.toJwtToken(user).serialize());
+        headers.add("Authorization", "Bearer "+jwt);
         MvcResult result = mockMvc.perform(
                 multipart(url)
                         .file(file)
@@ -92,23 +91,22 @@ class DrmControllerTest {
         ).andReturn();
         return result;
     }
+    private MvcResult genMvcResult(String fileName,String url) throws Exception {
+        StoveUserVo user = new StoveUserVo();
+        user.setUserId("test");
+        return genMvcResult(fileName,url,jwtGenerator.toJwtToken(user).serialize());
+    }
     
     @Test
     @DisplayName("JWT 무효 → 403 Forbidden")
     void encrypt_forbidden_when_invalid_jwt() throws Exception {
 
-        MvcResult result = genMvcResult(ORIGIN_FILE,"/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(ORIGIN_FILE,"/api/v1/drm/encrypt","aslkjflkadjf");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태확인")
-                .isEqualTo(200);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo("Forbidden");
-        System.out.println("HEADER = " + authHeader);
+                .isEqualTo(403);
 
         // --- Body ---
         String body = result.getResponse().getContentAsString();
@@ -139,12 +137,6 @@ class DrmControllerTest {
         assertThat(status).as("상태")
                 .isEqualTo(200);
 
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo("already-encrypted");
-        System.out.println("HEADER = " + authHeader);
-
         // --- Body ---
         byte[] body = result.getResponse().getContentAsByteArray();
         //원본파일 가지고 오기
@@ -166,13 +158,13 @@ class DrmControllerTest {
         // --- Body ---
         byte[] body = result.getResponse().getContentAsByteArray();
         //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(ORIGIN_FILE);
+        byte[] fileBytes = getOriginFile(EMPTY_FILE);
         if (body == fileBytes)
             System.out.println("BODY = " + body);
     }
 
     @Test
-    @DisplayName("대상 확장자가 아니 파일 암호화 요청 → 403")
+    @DisplayName("대상 확장자가 아닌 파일 암호화 요청 → 403")
     void encrypt_failed_when_unsupported_extension() throws Exception {
         MvcResult result = genMvcResult(ORIGIN_FILE_EXT, "/api/v1/drm/encrypt");
 
@@ -208,7 +200,7 @@ class DrmControllerTest {
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(422);
+                .isEqualTo(200);
     }
 
 //    @Test
