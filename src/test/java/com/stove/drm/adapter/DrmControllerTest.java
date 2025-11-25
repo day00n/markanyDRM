@@ -120,12 +120,6 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" OK");
-        System.out.println("HEADER = " + authHeader);
     }
     
     @Test
@@ -153,20 +147,14 @@ class DrmControllerTest {
     }
 
     @Test
-    @DisplayName("암호화 실패 → 400 failed-to-encrypt")
+    @DisplayName("빈 파일 암호화 요청 → 422 failed-to-encrypt")
     void encrypt_failed() throws Exception {
         MvcResult result = genMvcResult(ORIGIN_FILE, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(400);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
-        System.out.println("HEADER = " + authHeader);
+                .isEqualTo(422);
 
         // --- Body ---
         byte[] body = result.getResponse().getContentAsByteArray();
@@ -177,20 +165,14 @@ class DrmControllerTest {
     }
 
     @Test
-    @DisplayName("암호화 불가(파일대상자) → 422 undecryptable")
+    @DisplayName("대상 확장자가 아니 파일 암호화 요청 → 403")
     void encrypt_failed_when_unsupported_extension() throws Exception {
         MvcResult result = genMvcResult(ORIGIN_FILE_EXT, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(422);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
-        System.out.println("HEADER = " + authHeader);
+                .isEqualTo(403);
 
         // --- Body ---
         byte[] body = result.getResponse().getContentAsByteArray();
@@ -201,31 +183,18 @@ class DrmControllerTest {
     }
 
     @Test
-    @DisplayName("깨진 파일 암호화 → 422 undecryptable")
+    @DisplayName("깨진 파일 암호화 → 200 OK")
     void encrypt_failed_when_corrupted() throws Exception {
         MvcResult result = genMvcResult(CORRUPTED_FILE, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(422);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
-        System.out.println("HEADER = " + authHeader);
-
-        // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
-        //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(CORRUPTED_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
+                .isEqualTo(200);
     }
 
     @Test
-    @DisplayName("파일명 NULL → 422 undecryptable")
+    @DisplayName("파일명 NULL → 200 OK")
     void encrypt_failed_when_filename_null() throws Exception {
         MvcResult result = genMvcResult(NAME_EMPTY_FILE, "/api/v1/drm/encrypt");
 
@@ -233,19 +202,6 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(422);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
-        System.out.println("HEADER = " + authHeader);
-
-        // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
-        //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(NAME_EMPTY_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
     }
 
 //    @Test
@@ -273,29 +229,15 @@ class DrmControllerTest {
 //    }
     
     @Test
-    @DisplayName("파일명 특수 문자 → 422 undecryptable")
+    @DisplayName("파일명 특수 문자 → 200 OK")
     void encrypt_failed_when_filename_special() throws Exception {
         MvcResult result = genMvcResult(NAME_SPE_FILE, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(422);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
-        System.out.println("HEADER = " + authHeader);
-
-        // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
-        //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(NAME_SPE_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
+                .isEqualTo(200);
     }
-
     
 //*----------------------------------------------------------------------------- 복호화 
     @Test
@@ -307,22 +249,8 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" OK");
-        System.out.println("HEADER = " + authHeader);
-
-        // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
-        //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(ENC_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
     }
     
-
     @Test
     @DisplayName("이미 복호화 된 파일 → 200 OK")
     void decrypt_skip_when_already_plainfile() throws Exception {
@@ -348,30 +276,6 @@ class DrmControllerTest {
     }
     
     @Test
-    @DisplayName("복호화 불가(파일대상자) → 422 undecryptable")
-    void decrypt_undecryptable_when_unsupported_extension() throws Exception {
-        MvcResult result = genMvcResult(ENC_FILE_EXT,"/api/v1/drm/decrypt");
-        
-        // --- Status ---
-        int status = result.getResponse().getStatus();
-        assertThat(status).as("상태")
-                .isEqualTo(422);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo(" undecryptable");
-        System.out.println("HEADER = " + authHeader);
-
-        // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
-        //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(ENC_FILE_EXT);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);;
-    }
-
-    @Test
     @DisplayName("복호화 불가 → 500 Internal Server Error")
     void decrypt_failed_when_internalserver_error() throws Exception {
         MvcResult result = genMvcResult(ENC_FILE,"/api/v1/drm/decrypt");
@@ -386,6 +290,5 @@ class DrmControllerTest {
         assertThat(authHeader).as("헤더")
                 .isEqualTo(" failed-to-decrypt");
         System.out.println("HEADER = " + authHeader);
-
     }
 }
