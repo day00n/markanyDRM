@@ -40,6 +40,10 @@ drm:
 
 ---
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
   config:
     activate:
       on-profile: dev
@@ -58,6 +62,10 @@ drm:
 
 ---
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10GB
+      max-request-size: 10GB
   config:
     activate:
       on-profile: prod
