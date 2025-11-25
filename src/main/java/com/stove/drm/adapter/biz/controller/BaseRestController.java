@@ -14,8 +14,10 @@ import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,7 +106,16 @@ public class BaseRestController {
 		return new ResponseEntity<>(object, headers, status);
 	}
 
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ResponseEntity<?> handleMaxSizeException(MaxUploadSizeExceededException ex) {
 
+		Map<String, Object> body = new HashMap<>();
+		body.put("timestamp", LocalDateTime.now().toString());
+		body.put("error", "FILE_SIZE_EXCEEDED");
+		body.put("message", "업로드 가능한 파일 용량을 초과했습니다.");
+//		HttpStatus.PAYLOAD_TOO_LARGE
+		return jsonFail(HttpStatus.INTERNAL_SERVER_ERROR,body);
+	}
 
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
