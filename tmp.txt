@@ -2,7 +2,7 @@
 
 # ===== 설정 =====
 APP_DIR="/home/dooray/app/adapter/was"             # jar 위치 디렉토리
-JAR_NAME="myservice.jar"             # 배포 대상 jar
+JAR_NAME="StoveDRMAdapter-0.0.1-SNAPSHOT.jar"             # 배포 대상 jar
 NEW_JAR="/home/dooray/app/adapter/git/stove-drm-adapter/build/libs/StoveDRMAdapter-0.0.1-SNAPSHOT.jar"      # 새 jar 위치
 BACKUP_DIR="$APP_DIR/bak"            # 백업 폴더
 DATE=$(date +%y%m%d%H%M%S)          # yymmddhhmiss
