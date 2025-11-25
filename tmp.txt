@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# ===== 설정 =====
+APP_DIR="/home/dooray/app/adapter/was"             # jar 위치 디렉토리
+JAR_NAME="myservice.jar"             # 배포 대상 jar
+NEW_JAR="/home/dooray/app/adapter/git/stove-drm-adapter/build/libs/StoveDRMAdapter-0.0.1-SNAPSHOT.jar"      # 새 jar 위치
+BACKUP_DIR="$APP_DIR/bak"            # 백업 폴더
+DATE=$(date +%y%m%d%H%M%S)          # yymmddhhmiss
+
+# ===== 경로 설정 =====
+OLD_JAR="$APP_DIR/$JAR_NAME"
+BACKUP_JAR="$BACKUP_DIR/$JAR_NAME.$DATE.bak"
+
+# ===== 백업 디렉토리 생성 =====
+mkdir -p $BACKUP_DIR
+
+echo "▶ 배포 시작: $(date)"
+echo "▶ 기존 JAR: $OLD_JAR"
+echo "▶ 새 JAR: $NEW_JAR"
+
+# ===== 기존 jar 백업 =====
+if [ -f "$OLD_JAR" ]; then
+    echo "▶ 기존 JAR 백업 시작..."
+    mv "$OLD_JAR" "$BACKUP_JAR"
+
+    if [ $? -ne 0 ]; then
+        echo "❌ 백업 실패"
+        exit 1
+    fi
+
+    echo "✅ 백업 완료 -> $BACKUP_JAR"
+else
+    echo "⚠ 기존 JAR 없음. 백업 없이 진행"
+fi
+
+# ===== 신규 jar 배포 =====
+echo "▶ 새 JAR 배포 중..."
+cp "$NEW_JAR" "$OLD_JAR"
+
+if [ $? -ne 0 ]; then
+    echo "❌ 배포 실패"
+    exit 1
+fi
+
+echo "✅ 배포 완료 : $OLD_JAR"
+echo "▶ 배포 종료: $(date)"
