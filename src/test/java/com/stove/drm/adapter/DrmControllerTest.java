@@ -38,9 +38,10 @@ class DrmControllerTest {
     MockMvc mockMvc;
 
 
-    @MockBean
+    @Autowired
     DrmService drmService; // 실제 빈을 mock으로 교체
-    @MockBean
+
+    @Autowired
     JwtService jwtService;
 
     @Autowired
@@ -171,7 +172,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
+                .isEqualTo("failed-to-encrypt");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -195,7 +196,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
+                .isEqualTo("failed-to-encrypt");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -219,7 +220,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
+                .isEqualTo("failed-to-encrypt");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -243,7 +244,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
+                .isEqualTo("failed-to-encrypt");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -291,7 +292,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-encrypt");
+                .isEqualTo("failed-to-encrypt");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -342,7 +343,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" already-decrypted");
+                .isEqualTo("already-decrypted");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -366,7 +367,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" undecryptable");
+                .isEqualTo("undecryptable");
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
@@ -390,7 +391,7 @@ class DrmControllerTest {
         // --- Header ---
         String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
         assertThat(authHeader).as("헤더")
-                .isEqualTo(" failed-to-decrypt");
+                .isEqualTo("failed-to-decrypt");
         System.out.println("HEADER = " + authHeader);
 
     }
