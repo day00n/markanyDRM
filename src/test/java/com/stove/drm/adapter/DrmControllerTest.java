@@ -125,6 +125,14 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
+
+        // --- Body ---
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+        //원본파일 가지고 오기
+        byte[] sourceFileByte = getOriginFile(ORIGIN_FILE);
+        //파일 비교 → 암호화된 파일로 원본과 불일치
+        assertThat(resultFileByte).as("파일비교")
+                .isNotEqualTo(sourceFileByte);
     }
     
     @Test
@@ -138,11 +146,12 @@ class DrmControllerTest {
                 .isEqualTo(200);
 
         // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
         //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(ORIGIN_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
+        byte[] sourceFileByte = getOriginFile(ORIGIN_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isEqualTo(sourceFileByte);
     }
 
     @Test
@@ -155,12 +164,13 @@ class DrmControllerTest {
         assertThat(status).as("상태")
                 .isEqualTo(422);
 
-        // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
-        //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(EMPTY_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
+//        // --- Body ---
+//        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+//        //원본파일 가지고 오기
+//        byte[] sourceFileByte = getOriginFile(EMPTY_FILE);
+//
+//        assertThat(resultFileByte).as("파일비교")
+//                .isEqualTo(sourceFileByte);
     }
 
     @Test
@@ -174,11 +184,15 @@ class DrmControllerTest {
                 .isEqualTo(200);
 
         // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
         //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(ORIGIN_FILE_EXT);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
+        byte[] sourceFileByte = getOriginFile(ORIGIN_FILE_EXT);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isEqualTo(sourceFileByte);
+//
+//        assertThat(resultFileByte).as("파일비교")
+//                .isNotEqualTo(resultFileByte);
     }
 
     @Test
@@ -190,6 +204,13 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
+        // --- Body ---
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+        //원본파일 가지고 오기
+        byte[] sourceFileByte = getOriginFile(CORRUPTED_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isNotEqualTo(sourceFileByte);
     }
 
     @Test
@@ -201,6 +222,13 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
+        // --- Body ---
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+        //원본파일 가지고 오기
+        byte[] sourceFileByte = getOriginFile(NAME_EMPTY_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isNotEqualTo(sourceFileByte);
     }
 
 //    @Test
@@ -236,6 +264,13 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
+        // --- Body ---
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+        //원본파일 가지고 오기
+        byte[] sourceFileByte = getOriginFile(NAME_SPE_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isNotEqualTo(sourceFileByte);
     }
     
 //*----------------------------------------------------------------------------- 복호화 
@@ -248,6 +283,13 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
                 .isEqualTo(200);
+        // --- Body ---
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+        //원본파일 가지고 오기
+        byte[] sourceFileByte = getOriginFile(ENC_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isNotEqualTo(sourceFileByte);
     }
     
     @Test
@@ -267,11 +309,12 @@ class DrmControllerTest {
         System.out.println("HEADER = " + authHeader);
 
         // --- Body ---
-        byte[] body = result.getResponse().getContentAsByteArray();
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
         //원본파일 가지고 오기
-        byte[] fileBytes = getOriginFile(DEC_FILE);
-        if (body == fileBytes)
-            System.out.println("BODY = " + body);
+        byte[] sourceFileByte = getOriginFile(DEC_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isEqualTo(sourceFileByte);
     }
     
 //    @Test
