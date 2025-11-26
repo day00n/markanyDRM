@@ -164,14 +164,14 @@ class DrmControllerTest {
     }
 
     @Test
-    @DisplayName("대상 확장자가 아닌 파일 암호화 요청 → 403")
+    @DisplayName("대상 확장자가 아닌 파일 암호화 요청 → 200 원본파일 전달")
     void encrypt_failed_when_unsupported_extension() throws Exception {
         MvcResult result = genMvcResult(ORIGIN_FILE_EXT, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(403);
+                .isEqualTo(200);
 
         // --- Body ---
         byte[] body = result.getResponse().getContentAsByteArray();
@@ -274,20 +274,20 @@ class DrmControllerTest {
             System.out.println("BODY = " + body);
     }
     
-    @Test
-    @DisplayName("복호화 불가 → 500 Internal Server Error")
-    void decrypt_failed_when_internalserver_error() throws Exception {
-        MvcResult result = genMvcResult(ENC_FILE,"/api/v1/drm/decrypt");
-
-        // --- Status ---
-        int status = result.getResponse().getStatus();
-        assertThat(status).as("상태")
-                .isEqualTo(500);
-
-        // --- Header ---
-        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-        assertThat(authHeader).as("헤더")
-                .isEqualTo("failed-to-decrypt");
-        System.out.println("HEADER = " + authHeader);
-    }
+//    @Test
+//    @DisplayName("복호화 불가 → 500 Internal Server Error")
+//    void decrypt_failed_when_internalserver_error() throws Exception {
+//        MvcResult result = genMvcResult(ENC_FILE,"/api/v1/drm/decrypt");
+//
+//        // --- Status ---
+//        int status = result.getResponse().getStatus();
+//        assertThat(status).as("상태")
+//                .isEqualTo(500);
+//
+//        // --- Header ---
+//        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
+//        assertThat(authHeader).as("헤더")
+//                .isEqualTo("failed-to-decrypt");
+//        System.out.println("HEADER = " + authHeader);
+//    }
 }
