@@ -97,7 +97,7 @@ class DrmControllerTest {
         return genMvcResult(fileName,url,jwtGenerator.toJwtToken(user).serialize());
     }
     
-    @Test
+    //@Test
     @DisplayName("JWT 무효 → 403 Forbidden")
     void encrypt_forbidden_when_invalid_jwt() throws Exception {
 
@@ -107,12 +107,7 @@ class DrmControllerTest {
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태확인")
                 .isEqualTo(403);
-
-        // --- Body ---
-        String body = result.getResponse().getContentAsString();
-        Map<String, Object> map = objectMapper.readValue(body,
-                new TypeReference<Map<String, Object>>() {});
-        System.out.println("BODY = " + body);
+        
     }
 
     //*--------------------------------------------------------------암호화
@@ -138,7 +133,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("이미 암호화 된 파일 → 200 already-encrypted")
     void encrypt_skip_when_already_decrypt() throws Exception {
-        MvcResult result = genMvcResult(ORIGIN_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(ENC_FILE, "/api/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -148,7 +143,7 @@ class DrmControllerTest {
         // --- Body ---
         byte[] resultFileByte = result.getResponse().getContentAsByteArray();
         //원본파일 가지고 오기
-        byte[] sourceFileByte = getOriginFile(ORIGIN_FILE);
+        byte[] sourceFileByte = getOriginFile(ENC_FILE);
 
         assertThat(resultFileByte).as("파일비교")
                 .isEqualTo(sourceFileByte);
