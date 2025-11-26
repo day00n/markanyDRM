@@ -56,12 +56,12 @@ class DrmControllerTest {
     private final String ORIGIN_FILE  = "test.xls";
     private final String ENC_FILE  = "test_Enc.xls";
     private final String DEC_FILE  = "test_Dec.xls";
-    private final String ENC_FILE_EXT  = "test_Enc.xlls";
     private final String ORIGIN_FILE_EXT  = "test.png";
     private final String CORRUPTED_FILE  = "test_corrupted.txt";
     private final String NAME_EMPTY_FILE  = ".xls";
     private final String NAME_SPE_FILE  = "(★)test.xls";
     private final String EMPTY_FILE  = "test_empty.txt";
+    private final String LARGE_SIZE_FILE  = "test_size.txt";
     
     private byte[] getOriginFile(String fileName) throws IOException {
         Path filePath = Path.of(drmProp.getTestFile() +fileName);
@@ -226,29 +226,16 @@ class DrmControllerTest {
                 .isNotEqualTo(sourceFileByte);
     }
 
-//    @Test
-//    @DisplayName("파일 크기 초과 → 400 Bad Request")
-//    void encrypt_failed_when_filename_size() throws Exception {
-//        MvcResult result = genMvcResult(NAME_SPE_FILE, "/api/v1/drm/encrypt");
-//
-//        // --- Status ---
-//        int status = result.getResponse().getStatus();
-//        assertThat(status).as("상태 : 파일 크기 초과")
-//                .isEqualTo(422);
-//
-//        // --- Header ---
-//        String authHeader = result.getResponse().getHeader("Dooray-Drm-Result");
-//        assertThat(authHeader).as("헤더")
-//                .isEqualTo(" failed-to-encrypt");
-//        System.out.println("HEADER = " + authHeader);
-//
-//        // --- Body ---
-//        byte[] body = result.getResponse().getContentAsByteArray();
-//        //원본파일 가지고 오기
-//        byte[] fileBytes = getOriginFile(NAME_SPE_FILE);
-//        if (body == fileBytes)
-//            System.out.println("BODY = " + body);
-//    }
+    @Test
+    @DisplayName("파일 크기 초과 → 413 Bad Request")
+    void encrypt_failed_when_filename_size() throws Exception {
+        MvcResult result = genMvcResult(LARGE_SIZE_FILE, "/api/v1/drm/encrypt");
+
+        // --- Status ---
+        int status = result.getResponse().getStatus();
+        assertThat(status).as("상태 : 파일 크기 초과")
+                .isEqualTo(413);
+    }
     
     @Test
     @DisplayName("파일명 특수 문자 → 200 OK")
