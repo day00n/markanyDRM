@@ -215,7 +215,7 @@ public class AdapterController extends BaseRestController {
             description  = "Dooray SaaS 서버가 고객사 DRM 서버에 문서의 암호화 여부를 조회"
     )
     @PostMapping(
-            value = "/is-encrypt",
+            value = "/is-encrypted",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<?> isEncrypt(
