@@ -14,7 +14,7 @@ springdoc:
   swagger-ui:
     path: /docs
   packages-to-scan: com.stove.drm.adapter.biz.controller
-  paths-to-match: /api/v1/**
+  paths-to-match: /v1/**
 
 ---
 spring:
