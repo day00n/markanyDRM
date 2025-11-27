@@ -9,12 +9,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -106,17 +108,25 @@ public class BaseRestController {
 		return new ResponseEntity<>(object, headers, status);
 	}
 
-	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	public ResponseEntity<?> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+	@ExceptionHandler({MaxUploadSizeExceededException.class, MultipartException.class})
+	public ResponseEntity<?> handleMultipartException(Exception ex) {
+
+		String message = "업로드 가능한 파일 용량을 초과했습니다.";
+
+		// 톰캣 SizeLimitExceededException 래핑 케이스
+		if (ex.getCause() instanceof SizeLimitExceededException) {
+			message = "업로드 가능한 용량을 초과했습니다.";
+		}
 
 		Map<String, Object> body = new HashMap<>();
-		body.put("timestamp", LocalDateTime.now().toString());
 		body.put("error", "FILE_SIZE_EXCEEDED");
-		body.put("message", "업로드 가능한 파일 용량을 초과했습니다.");
-//		HttpStatus.PAYLOAD_TOO_LARGE
-		return jsonFail(HttpStatus.INTERNAL_SERVER_ERROR,body);
-	}
+		body.put("message", message);
 
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+//      PAYLOAD_TOO_LARGE
+		return new ResponseEntity<>(body, headers, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> processValidationError(MethodArgumentNotValidException ex) {
