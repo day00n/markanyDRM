@@ -25,7 +25,7 @@ import java.util.Map;
 
 @Tag(name = "암복호화 두레이 DRM 어댑터.")
 @RestController
-@RequestMapping("/api/v1/drm")
+@RequestMapping("/v1/drm")
 @RequiredArgsConstructor
 public class AdapterController extends BaseRestController {
 
