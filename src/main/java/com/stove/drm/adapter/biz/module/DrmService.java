@@ -75,9 +75,10 @@ public class DrmService {
         
         if (encrypted == 1)  {
             // 암호화 파일의 경우 return 1
+            log.info("[sFile.isEncrypted][Encrypted][암호화안됨] Result ::: {}",encrypted);
             return true;
         } else{
-            log.info("[sFile.isEncrypted][NOT Encrypted] Result ::: {}",encrypted);
+            log.info("[sFile.isEncrypted][NOT Encrypted][암호화됨]  Result ::: {}",encrypted);
             // 일반 파일의 경우  return 0
             return false;
         }
@@ -105,6 +106,7 @@ public class DrmService {
                 dstFile,
                 1);
         //정상이 아니면 에러발생.
+        log.debug("[encrypt][암호화 결과] :" + retVal);
         if(retVal!=0){
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);
             log.info("[FAIL][ENCRYPT][SOFTCAMP] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
@@ -133,7 +135,7 @@ public class DrmService {
                 prop.getDefaultDomain(),
                 srcFile,
                 dstFile);
-        log.debug("CreateDecryptFileDAC :" + retVal);
+        log.debug("[decrypt][복호화 결과] :" + retVal);
         //정상이 아니면 에러발생.
         if(retVal!=0){
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);

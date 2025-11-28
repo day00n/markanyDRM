@@ -14,6 +14,7 @@ import com.stove.drm.adapter.biz.service.DrmAdapterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/v1/drm")
 @RequiredArgsConstructor
+@Slf4j
 public class AdapterController extends BaseRestController {
 
     private final JWTGenerator jWTGenerator;   // Authorization Bearer 토큰 검증
@@ -202,7 +204,7 @@ public class AdapterController extends BaseRestController {
         if (!jwtService.isValid(authorization)) {
             return jsonFail(HttpStatus.FORBIDDEN,"");
         }
-
+        log.info("[query-rights][복호화 권한조회]");
         QueryRightsRes rst = new QueryRightsRes();
         rst.setWritable("true");
         rst.setReadable("true");
@@ -229,12 +231,14 @@ public class AdapterController extends BaseRestController {
         byte[] inputBytes = null;
         IsEncryptedRes rst = new IsEncryptedRes();
         try {
+            log.info("[암호화여부 조회]");
             inputBytes = request.getFile().getBytes();
             if(drmAdapterService.isEncrypted(originalName, inputBytes)){
                 rst.setEncrypted("true");
             }else{
                 rst.setEncrypted("false");
             }
+            log.info("[암호화여부 조회] {}",rst.getEncrypted());
             return jsonOk(rst);
 
         } catch (IOException e) {
