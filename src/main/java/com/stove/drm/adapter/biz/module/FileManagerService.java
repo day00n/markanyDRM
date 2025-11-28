@@ -38,15 +38,15 @@ public class FileManagerService {
 
     /** 해당 날짜 경로 아래 파일 생성 */
     public Path createFile(String fileName, byte[] content) {
-        Path dir = makeTmpDir();
-        Path filePath = dir.resolve(fileName);
         try {
+            Path dir = makeTmpDir();
+            Path filePath = dir.resolve(fileName);
             Files.write(filePath, content);
+            return filePath;
         } catch (IOException e) {
             log.error("[Fail Create File] {} - {}",fileName,e.getMessage());
             return null;
         }
-        return filePath;
     }
 
     /**

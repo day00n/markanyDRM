@@ -37,6 +37,10 @@ public class BaseRestController {
 	private HttpHeaders generateFileHeader(byte[] file, String fileName){
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		if (file == null) {
+			log.error("[ERROR][FILE IS NULL][FILE NAME] ::: {}",fileName);
+			return headers;
+		}
 		//파일명이 없을 경우 빈값일 경우 NULL로 처리.
 		String baseName = FilenameUtils.getBaseName(fileName);
 		String extensionName = FilenameUtils.getExtension(fileName);

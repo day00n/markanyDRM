@@ -120,15 +120,15 @@ public class AdapterController extends BaseRestController {
             return jsonFail(HttpStatus.FORBIDDEN,"");
         }
         log.info("[요청][/encrypt-with-default-label][DRM 암호화 default label]");
-
-        // 2) 파일명가지고 오기.
-        String originalName = request.getFile().getOriginalFilename();
-        // 원본파일 바이너리 데이터 배열
+        String originalName = "";
         byte[] inputBytes = null;
         try {
+            // 2) 파일명가지고 오기.
+            originalName = request.getFile().getOriginalFilename();
+            // 원본파일 바이너리 데이터 배열
             inputBytes = request.getFile().getBytes();
             // 3) 이미 암호화 파일 여부 판정
-            if (drmAdapterService.isEncrypted(originalName, inputBytes)) {  //true 반환 시 원문, false 반환 시 암호화 
+            if (drmAdapterService.isEncrypted(originalName, inputBytes)) {  //true 반환 시 원문, false 반환 시 암호화
                 // 원문 그대로 반환 + 헤더 부가 (already_encrypted)
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_encrypted.genMap());
             }
@@ -137,17 +137,20 @@ public class AdapterController extends BaseRestController {
             log.info("[완료][/encrypt-with-default-label][DRM 암호화 default label]");
             return fileOk(rst, originalName);
         } catch (IOException e) {
-            log.error("[에러][/encrypt-with-default-label][DRM 암호화 default label] :::: {}",e.getMessage());
-            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes,originalName, DoorayHeader.failed_to_decrypt.genMap());
+            log.error("[에러][/encrypt-with-default-label][DRM 암호화 default label] :::: {}", e.getMessage());
+            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.failed_to_encrypt.genMap());
         } catch (DRMException drmException) {
-            log.error("[에러][/encrypt-with-default-label][DRM 암호화 default label] :::: {}",drmException.getDrmErrorVo().getDesc());
-            if(drmException.getDrmErrorVo().getValue() == DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value()){
+            log.error("[에러][/encrypt-with-default-label][DRM 암호화 default label] :::: {}", drmException.getDrmErrorVo().getDesc());
+            if (drmException.getDrmErrorVo().getValue() == DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value()) {
                 //이미 암호화된 파일인 경우, 원문을 제공하며 추가 헤더를 제공합니다.
                 // 원문 그대로 반환 + 헤더 부가
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_encrypted.genMap());
-            }else {
-                return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes,originalName, DoorayHeader.failed_to_decrypt.genMap());
+            } else {
+                return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.failed_to_encrypt.genMap());
             }
+        } catch (Exception e) {
+            log.error("[에러][/encrypt-with-default-label][DRM 암호화 default label] :::: {}", e.getMessage());
+            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.failed_to_encrypt.genMap());
         }
     }
     
