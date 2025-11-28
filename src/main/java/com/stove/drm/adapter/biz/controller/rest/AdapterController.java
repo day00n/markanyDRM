@@ -64,7 +64,7 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> encrypt(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) throws IOException {
+    )  {
         // 1) JWT 검증: 실패 시 403
         if (!jwtService.isValid(authorization)) {
             return jsonFail(HttpStatus.FORBIDDEN,"");
@@ -77,6 +77,7 @@ public class AdapterController extends BaseRestController {
         byte[] inputBytes = null;
         try {
             inputBytes = request.getFile().getBytes();
+            log.info("[파일확인][/encrypt][FILE NAME :: {} ][FILE SIZE ::: {}]",originalName,inputBytes.length);
             // 3) 이미 암호화 파일 여부 판정
             if (drmAdapterService.isEncrypted(originalName, inputBytes)) {  //true 반환 시 원문, false 반환 시 암호화 
                 // 원문 그대로 반환 + 헤더 부가 (already_encrypted)
@@ -114,7 +115,7 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> encryptWithDefaultLabel(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) throws IOException {
+    ) {
         // 1) JWT 검증: 실패 시 403
         if (!jwtService.isValid(authorization)) {
             return jsonFail(HttpStatus.FORBIDDEN,"");
@@ -127,6 +128,7 @@ public class AdapterController extends BaseRestController {
             originalName = request.getFile().getOriginalFilename();
             // 원본파일 바이너리 데이터 배열
             inputBytes = request.getFile().getBytes();
+            log.info("[파일확인][/encrypt-with-default-label][FILE NAME :: {} ][FILE SIZE ::: {}]",originalName,inputBytes.length);
             // 3) 이미 암호화 파일 여부 판정
             if (drmAdapterService.isEncrypted(originalName, inputBytes)) {  //true 반환 시 원문, false 반환 시 암호화
                 // 원문 그대로 반환 + 헤더 부가 (already_encrypted)
@@ -148,9 +150,6 @@ public class AdapterController extends BaseRestController {
             } else {
                 return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.failed_to_encrypt.genMap());
             }
-        } catch (Exception e) {
-            log.error("[에러][/encrypt-with-default-label][DRM 암호화 default label] :::: {}", e.getMessage());
-            return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.failed_to_encrypt.genMap());
         }
     }
     
@@ -167,7 +166,7 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> decrypt(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) throws IOException {
+    )  {
         // 1) JWT 검증: 실패 시 403
         if (!jwtService.isValid(authorization)) {
             return jsonFail(HttpStatus.FORBIDDEN,"");
@@ -181,6 +180,7 @@ public class AdapterController extends BaseRestController {
         byte[] inputBytes = null;
         try {
             inputBytes = request.getFile().getBytes();
+            log.info("[파일확인][/decrypt][FILE NAME :: {} ][FILE SIZE ::: {}]",originalName,inputBytes.length);
             // 3) 암호화 파일 여부 판정
             if (!drmAdapterService.isEncrypted(originalName, inputBytes)) { //false 반환 시 원본, true 반환 시 복호화 
                 // 원문 그대로 반환 + 헤더 부가 (already_encrypted)
@@ -215,7 +215,7 @@ public class AdapterController extends BaseRestController {
     public ResponseEntity<?> queryRights(
             @RequestHeader(name = "Authorization", required = false) String authorization,  //Authorization: Bearer {jwt}
             @ModelAttribute DrmFileReq request
-    ) throws IOException {
+    )  {
 
 
         // 1) JWT 검증: 실패 시 403sdfg
@@ -252,6 +252,7 @@ public class AdapterController extends BaseRestController {
         IsEncryptedRes rst = new IsEncryptedRes();
         try {
             inputBytes = request.getFile().getBytes();
+            log.info("[파일확인][/is-encrypted][FILE NAME :: {} ][FILE SIZE ::: {}]",originalName,inputBytes.length);
             if(drmAdapterService.isEncrypted(originalName, inputBytes)){
                 rst.setEncrypted("true");
             }else{
