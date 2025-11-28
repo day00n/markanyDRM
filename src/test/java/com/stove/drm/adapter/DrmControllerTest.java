@@ -101,7 +101,7 @@ class DrmControllerTest {
     @DisplayName("JWT 무효 → 403 Forbidden")
     void encrypt_forbidden_when_invalid_jwt() throws Exception {
 
-        MvcResult result = genMvcResult(ORIGIN_FILE,"/api/v1/drm/encrypt","eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzcGF5IiwibmFtZSI6InN3YWdnZXIgbmFtZSIsImV4cCI6MTc2NDA1NjY5MCwidXNlcklkIjoic3dhZ2dlciB1c2VyIiwiaWF0IjoxNzY0MDU2MDkwLCJ0aW1lc3RhbXAiOjE3NjQwNTYwOTA3MTZ9.9cU8ElrQqK7EGrruydaJoo1QE2lCWHRPu-l2xe8JsT8");
+        MvcResult result = genMvcResult(ORIGIN_FILE,"/v1/drm/encrypt","eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzcGF5IiwibmFtZSI6InN3YWdnZXIgbmFtZSIsImV4cCI6MTc2NDA1NjY5MCwidXNlcklkIjoic3dhZ2dlciB1c2VyIiwiaWF0IjoxNzY0MDU2MDkwLCJ0aW1lc3RhbXAiOjE3NjQwNTYwOTA3MTZ9.9cU8ElrQqK7EGrruydaJoo1QE2lCWHRPu-l2xe8JsT8");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -114,7 +114,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("정상 암호화 → 200 OK")
     void encrypt_successful() throws Exception {
-        MvcResult result = genMvcResult(ORIGIN_FILE,"/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(ORIGIN_FILE,"/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -133,7 +133,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("이미 암호화 된 파일 → 200 already-encrypted")
     void encrypt_skip_when_already_decrypt() throws Exception {
-        MvcResult result = genMvcResult(ENC_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(ENC_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -152,7 +152,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("빈 파일 암호화 요청 → 422 failed-to-encrypt")
     void encrypt_failed() throws Exception {
-        MvcResult result = genMvcResult(EMPTY_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(EMPTY_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -171,7 +171,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("대상 확장자가 아닌 파일 암호화 요청 → 200 원본파일 전달")
     void encrypt_failed_when_unsupported_extension() throws Exception {
-        MvcResult result = genMvcResult(ORIGIN_FILE_EXT, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(ORIGIN_FILE_EXT, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -193,7 +193,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("깨진 파일 암호화 → 200 OK")
     void encrypt_failed_when_corrupted() throws Exception {
-        MvcResult result = genMvcResult(CORRUPTED_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(CORRUPTED_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -211,7 +211,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("파일명 NULL → 200 OK")
     void encrypt_failed_when_filename_null() throws Exception {
-        MvcResult result = genMvcResult(NAME_EMPTY_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(NAME_EMPTY_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -229,7 +229,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("파일 크기 초과 → 413 Bad Request")
     void encrypt_failed_when_filename_size() throws Exception {
-        MvcResult result = genMvcResult(LARGE_SIZE_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(LARGE_SIZE_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -240,7 +240,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("파일명 특수 문자 → 200 OK")
     void encrypt_failed_when_filename_special() throws Exception {
-        MvcResult result = genMvcResult(NAME_SPE_FILE, "/api/v1/drm/encrypt");
+        MvcResult result = genMvcResult(NAME_SPE_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -259,7 +259,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("정상 복호화 → 200 OK")
     void decrypt_successful() throws Exception {
-        MvcResult result = genMvcResult(ENC_FILE,"/api/v1/drm/decrypt");
+        MvcResult result = genMvcResult(ENC_FILE,"/v1/drm/decrypt");
 
         // --- Status ---
         int status = result.getResponse().getStatus();
@@ -277,7 +277,7 @@ class DrmControllerTest {
     @Test
     @DisplayName("이미 복호화 된 파일 → 200 OK")
     void decrypt_skip_when_already_plainfile() throws Exception {
-        MvcResult result = genMvcResult(DEC_FILE,"/api/v1/drm/decrypt");
+        MvcResult result = genMvcResult(DEC_FILE,"/v1/drm/decrypt");
         
         // --- Status ---
         int status = result.getResponse().getStatus();
