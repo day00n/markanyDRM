@@ -5,6 +5,8 @@ package com.stove.drm.adapter.biz.controller;
 
 
 import ch.qos.logback.core.util.StringUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -89,7 +91,13 @@ public class BaseRestController {
 				headers.add(k,v);
 			});
 		}
-
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(object);
+			log.info("[BODY] ::: {}",json);
+		} catch (JsonProcessingException e) {
+			return new ResponseEntity<>(object, headers, HttpStatus.OK);
+		}
 		return new ResponseEntity<>(object, headers, HttpStatus.OK);
 	}
 

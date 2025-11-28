@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class DrmFileReq {
-    @Schema(description = "DRM 라벨 정보", example = "label-123", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @Schema(description = "DRM 라벨 정보", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String drmLabel;
 
     @Schema(description = "암/복호화 대상 파일", type = "string", format = "binary", requiredMode = Schema.RequiredMode.REQUIRED)
