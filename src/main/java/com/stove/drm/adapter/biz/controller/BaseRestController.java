@@ -91,13 +91,6 @@ public class BaseRestController {
 				headers.add(k,v);
 			});
 		}
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(object);
-			log.info("[BODY] ::: {}",json);
-		} catch (JsonProcessingException e) {
-			return new ResponseEntity<>(object, headers, HttpStatus.OK);
-		}
 		return new ResponseEntity<>(object, headers, HttpStatus.OK);
 	}
 
