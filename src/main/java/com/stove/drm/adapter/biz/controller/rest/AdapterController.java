@@ -225,13 +225,13 @@ public class AdapterController extends BaseRestController {
             @ModelAttribute DrmFileReq request
     ) {
 
+        log.info("[암호화여부 조회]");
         // 파일명 가지고 오기
         String originalName = request.getFile().getOriginalFilename();
         // 원본파일 바이너리 데이터 배열
         byte[] inputBytes = null;
         IsEncryptedRes rst = new IsEncryptedRes();
         try {
-            log.info("[암호화여부 조회]");
             inputBytes = request.getFile().getBytes();
             if(drmAdapterService.isEncrypted(originalName, inputBytes)){
                 rst.setEncrypted("true");
@@ -242,6 +242,7 @@ public class AdapterController extends BaseRestController {
             return jsonOk(rst);
 
         } catch (IOException e) {
+            log.error("[암호화여부확인] :::: {}",e.getMessage());
             return fileFailWithHeader(HttpStatus.UNPROCESSABLE_ENTITY, inputBytes, originalName, DoorayHeader.undecryptable.genMap());
         }
     }

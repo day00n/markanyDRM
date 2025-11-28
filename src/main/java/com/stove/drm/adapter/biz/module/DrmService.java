@@ -75,10 +75,10 @@ public class DrmService {
         
         if (encrypted == 1)  {
             // 암호화 파일의 경우 return 1
-            log.info("[sFile.isEncrypted][Encrypted][암호화안됨] Result ::: {}",encrypted);
+            log.info("[sFile.isEncrypted][Encrypted][암호화파일] Result ::: {}",encrypted);
             return true;
         } else{
-            log.info("[sFile.isEncrypted][NOT Encrypted][암호화됨]  Result ::: {}",encrypted);
+            log.info("[sFile.isEncrypted][NOT Encrypted][일반파일]  Result ::: {}",encrypted);
             // 일반 파일의 경우  return 0
             return false;
         }
