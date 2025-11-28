@@ -130,8 +130,9 @@ public class AdapterController extends BaseRestController {
             inputBytes = request.getFile().getBytes();
             log.info("[파일확인][/encrypt-with-default-label][FILE NAME :: {} ][FILE SIZE ::: {}]",originalName,inputBytes.length);
             // 3) 이미 암호화 파일 여부 판정
-            if (drmAdapterService.isEncrypted(originalName, inputBytes)) {  //true 반환 시 원문, false 반환 시 암호화
+            if (drmAdapterService.isEncrypted(originalName, inputBytes)) {  //true 암호화 파일, false 반환 시 일반파일
                 // 원문 그대로 반환 + 헤더 부가 (already_encrypted)
+                log.info("[완료][/encrypt-with-default-label][이미암호화됨.]");
                 return fileOkWithHeader(inputBytes, originalName, DoorayHeader.already_encrypted.genMap());
             }
             // 4) 암호화 수행
