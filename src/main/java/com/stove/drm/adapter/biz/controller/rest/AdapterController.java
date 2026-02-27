@@ -8,7 +8,7 @@ import com.stove.drm.adapter.biz.controller.vo.req.DrmFileReq;
 import com.stove.drm.adapter.biz.controller.vo.res.IsEncryptedRes;
 import com.stove.drm.adapter.biz.controller.vo.res.QueryRightsRes;
 import com.stove.drm.adapter.biz.exception.DRMException;
-import com.stove.drm.adapter.biz.module.JwtService;
+import com.stove.drm.adapter.biz.module.jwt.JwtService;
 import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
 import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
 import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;

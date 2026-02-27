@@ -1,7 +1,6 @@
-package com.stove.drm.adapter.biz.module;
+package com.stove.drm.adapter.biz.module.jwt;
 
 import com.stove.drm.adapter.biz.exception.DRMJwtException;
-import com.stove.drm.adapter.biz.module.jwt.JWTParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

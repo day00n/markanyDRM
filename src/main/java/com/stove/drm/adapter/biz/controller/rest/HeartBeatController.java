@@ -1,25 +1,15 @@
 package com.stove.drm.adapter.biz.controller.rest;
 
 import com.stove.drm.adapter.biz.controller.BaseRestController;
-import com.stove.drm.adapter.biz.controller.vo.DoorayHeader;
-import com.stove.drm.adapter.biz.controller.vo.req.DrmFileReq;
-import com.stove.drm.adapter.biz.controller.vo.res.IsEncryptedRes;
-import com.stove.drm.adapter.biz.controller.vo.res.QueryRightsRes;
-import com.stove.drm.adapter.biz.exception.DRMException;
-import com.stove.drm.adapter.biz.module.JwtService;
+import com.stove.drm.adapter.biz.module.jwt.JwtService;
 import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
-import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
-import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
 import com.stove.drm.adapter.biz.service.DrmAdapterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

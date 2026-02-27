@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.module;
+package com.stove.drm.adapter.biz.module.drm.softcamp;
 
 import SCSL.SLBsUtil;
 import SCSL.SLDsFile;
@@ -8,21 +8,18 @@ import com.stove.drm.adapter.biz.module.vo.DrmErrorVo;
 import com.stove.drm.adapter.core.config.DrmProp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Properties;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DrmService {
+public class SoftcampDrmService {
 
     private final DrmProp prop;
     private final ResourceLoader resourceLoader;

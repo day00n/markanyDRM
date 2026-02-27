@@ -1,10 +1,9 @@
 package com.stove.drm.adapter;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stove.drm.adapter.biz.module.DrmService;
-import com.stove.drm.adapter.biz.module.JwtService;
+import com.stove.drm.adapter.biz.module.jwt.JwtService;
 import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
 import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
 import com.stove.drm.adapter.core.config.DrmProp;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -24,7 +22,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;

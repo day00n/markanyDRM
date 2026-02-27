@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.module;
+package com.stove.drm.adapter.biz.module.drm.softcamp;
 
 import com.stove.drm.adapter.biz.util.UUIDGen;
 import com.stove.drm.adapter.core.config.DrmProp;

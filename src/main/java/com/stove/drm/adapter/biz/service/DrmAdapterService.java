@@ -2,15 +2,12 @@ package com.stove.drm.adapter.biz.service;
 
 import com.stove.drm.adapter.biz.exception.DRMException;
 import com.stove.drm.adapter.biz.module.DrmService;
-import com.stove.drm.adapter.biz.module.FileManagerService;
+import com.stove.drm.adapter.biz.module.drm.softcamp.FileManagerService;
 import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.rmi.server.ExportException;
 
 @Service
 @RequiredArgsConstructor
