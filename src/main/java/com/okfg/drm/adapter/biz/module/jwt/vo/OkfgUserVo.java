@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.module.jwt.vo;
+package com.okfg.drm.adapter.biz.module.jwt.vo;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;

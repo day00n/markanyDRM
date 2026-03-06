@@ -1,7 +1,7 @@
-package com.stove.drm.adapter.biz.module.drm.softcamp;
+package com.okfg.drm.adapter.biz.module.drm.softcamp;
 
-import com.stove.drm.adapter.biz.util.UUIDGen;
-import com.stove.drm.adapter.core.config.DrmProp;
+import com.okfg.drm.adapter.biz.util.UUIDGen;
+import com.okfg.drm.adapter.core.config.DrmProp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -37,7 +37,7 @@ public class FileManagerService {
     }
 
     /** 해당 날짜 경로 아래 파일 생성 */
-    public Path createFile(String fileName, byte[] content) {
+    public static Path createFile(String fileName, byte[] content) {
         try {
             Path dir = makeTmpDir();
             Path filePath = dir.resolve(fileName);
