@@ -1,18 +1,18 @@
-package com.stove.drm.adapter.biz.controller.rest;
+package com.okfg.drm.adapter.biz.controller.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stove.drm.adapter.biz.controller.BaseRestController;
-import com.stove.drm.adapter.biz.controller.vo.DoorayHeader;
-import com.stove.drm.adapter.biz.controller.vo.req.DrmFileReq;
-import com.stove.drm.adapter.biz.controller.vo.res.IsEncryptedRes;
-import com.stove.drm.adapter.biz.controller.vo.res.QueryRightsRes;
-import com.stove.drm.adapter.biz.exception.DRMException;
-import com.stove.drm.adapter.biz.module.jwt.JwtService;
-import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
-import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
-import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
-import com.stove.drm.adapter.biz.service.DrmAdapterService;
+import com.okfg.drm.adapter.biz.controller.BaseRestController;
+import com.okfg.drm.adapter.biz.controller.vo.DoorayHeader;
+import com.okfg.drm.adapter.biz.controller.vo.req.DrmFileReq;
+import com.okfg.drm.adapter.biz.controller.vo.res.IsEncryptedRes;
+import com.okfg.drm.adapter.biz.controller.vo.res.QueryRightsRes;
+import com.okfg.drm.adapter.biz.exception.DRMException;
+import com.okfg.drm.adapter.biz.module.jwt.JwtService;
+import com.okfg.drm.adapter.biz.module.jwt.JWTGenerator;
+import com.okfg.drm.adapter.biz.module.jwt.vo.OkfgUserVo;
+import com.okfg.drm.adapter.biz.module.vo.DrmErrorEnum;
+import com.okfg.drm.adapter.biz.service.DrmAdapterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -43,11 +43,11 @@ public class AdapterController extends BaseRestController {
     )
     @PostMapping(value = "/sampleGenJWT")
     public ResponseEntity<?> sampleGenJWT(){
-        StoveUserVo stoveUserVo = new StoveUserVo();
-        stoveUserVo.setUserId("swagger user");
-        stoveUserVo.setName("swagger name");
+        OkfgUserVo okfgUserVo = new OkfgUserVo();
+        okfgUserVo.setUserId("swagger user");
+        okfgUserVo.setName("swagger name");
         Map<String, String> rst = new HashMap<>();
-        rst.put("JWT", jWTGenerator.toJwtToken(stoveUserVo).serialize());
+        rst.put("JWT", jWTGenerator.toJwtToken(okfgUserVo).serialize());
         return jsonOk(rst);
     }
 

@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.core.config;
+package com.okfg.drm.adapter.core.config;
 
 import lombok.Data;
 import lombok.Getter;
@@ -15,6 +15,7 @@ public class DrmProp {
 
     private String testFile;
     private String softcampProperties;
+    private String markanyProperties;
     /**
      * 생성자 정보에 연동시스템 이름이 들어감.
      * EX) SECURITYDOMAIN

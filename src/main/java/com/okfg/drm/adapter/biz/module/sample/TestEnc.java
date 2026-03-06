@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.module.sample;
+package com.okfg.drm.adapter.biz.module.sample;
 
 import SCSL.*;
 

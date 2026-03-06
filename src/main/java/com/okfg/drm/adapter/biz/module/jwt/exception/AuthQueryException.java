@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.module.jwt.exception;
+package com.okfg.drm.adapter.biz.module.jwt.exception;
 
 /**
  * @author myeongju.jung

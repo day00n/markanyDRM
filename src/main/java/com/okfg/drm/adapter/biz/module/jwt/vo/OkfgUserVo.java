@@ -7,20 +7,20 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import lombok.Data;
 
 @Data
-public class StoveUserVo {
+public class OkfgUserVo {
     private String userId;
     private String sessionId;
     private String userCode;
     private String name;
     private String dept;
 
-    public StoveUserVo convert(JWTClaimsSet claims) {
+    public OkfgUserVo convert(JWTClaimsSet claims) {
         ObjectMapper mapper = new ObjectMapper();
         String json = claims.toJSONObject().toJSONString();
         try {
-            return mapper.readValue(json, StoveUserVo.class);
+            return mapper.readValue(json, OkfgUserVo.class);
         } catch (JsonProcessingException e) {
-            return new StoveUserVo();
+            return new OkfgUserVo();
         }
     }
 

@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.controller.vo;
+package com.okfg.drm.adapter.biz.controller.vo;
 
 import java.util.HashMap;
 import java.util.Map;

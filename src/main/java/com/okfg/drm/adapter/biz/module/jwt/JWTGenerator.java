@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.module.jwt;
+package com.okfg.drm.adapter.biz.module.jwt;
 
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -7,8 +7,8 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
-import com.stove.drm.adapter.core.config.DrmProp;
+import com.okfg.drm.adapter.biz.module.jwt.vo.OkfgUserVo;
+import com.okfg.drm.adapter.core.config.DrmProp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class JWTGenerator {
 
     private final DrmProp drmProp;
 
-    public JWT toJwtToken(StoveUserVo authenticated) {
+    public JWT toJwtToken(OkfgUserVo authenticated) {
         try {
 
             Calendar expiresAt = Calendar.getInstance();

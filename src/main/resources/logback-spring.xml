@@ -31,7 +31,7 @@
 			<appender-ref ref="CONSOLE"/>
 		</logger>
 		<logger name="HikariDataSource" level="DEBUG"/>
-		<logger name="com.stove.drm.adapter" level="DEBUG" additivity="false">
+		<logger name="com.okfg.drm.adapter" level="DEBUG" additivity="false">
 			<appender-ref ref="CONSOLE"/>
 		</logger>
 		<root level="INFO">
@@ -47,7 +47,7 @@
 		<logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
 			<appender-ref ref="FILE"/>
 		</logger>
-		<logger name="com.stove.drm.adapter" level="DEBUG" additivity="false">
+		<logger name="com.okfg.drm.adapter" level="DEBUG" additivity="false">
 			<appender-ref ref="FILE"/>
 		</logger>
 		<root level="INFO">
@@ -62,7 +62,7 @@
 		<logger name="org.hibernate.type.descriptor.sql" level="INFO" additivity="false">
 			<appender-ref ref="FILE"/>
 		</logger>
-		<logger name="com.stove.drm.adapter" level="INFO" additivity="false">
+		<logger name="com.okfg.drm.adapter" level="INFO" additivity="false">
 			<appender-ref ref="FILE"/>
 		</logger>
 

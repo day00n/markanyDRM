@@ -37,7 +37,7 @@ public class FileManagerService {
     }
 
     /** 해당 날짜 경로 아래 파일 생성 */
-    public static Path createFile(String fileName, byte[] content) {
+    public Path createFile(String fileName, byte[] content) {
         try {
             Path dir = makeTmpDir();
             Path filePath = dir.resolve(fileName);

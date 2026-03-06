@@ -1,93 +1,123 @@
-package com.stove.drm.adapter.biz.module.vo;
+package com.okfg.drm.adapter.biz.module.vo;
 
 import lombok.Getter;
 
 @Getter
 public enum DrmErrorEnum {
 
-    // -------------------------------
-    // 1. 기본 오류 (RETVAL / ERROR 계열)
-    // -------------------------------
+    /* =========================
+     * SUCCESS
+     * ========================= */
+    SUCCESS(0, "처리 성공"),
+    SUCCESS_ALT(00000, "처리 성공"),
 
+
+    /* =========================
+     * NETWORK / 통신 오류
+     * ========================= */
+    SERVER_CONNECTION_ERROR(10001, "서버 접속 에러 (네트워크 문제 또는 데몬 중지 상태 또는 서버 정보 IP/PORT 변경)"),
+
+    SOCKET_WRITE_ERROR(60002, "socket 쓰기 에러"),
+    SOCKET_ERROR_1(60003, "socket 에러"),
+    SOCKET_READ_ERROR(60004, "socket 읽기 에러"),
+    SOCKET_ERROR_2(60005, "socket 에러"),
+    PACKET_ERROR(60006, "packet 에러"),
+
+
+    /* =========================
+     * PARAMETER / 입력값 오류
+     * ========================= */
+    ARGUMENT_ERROR(60007, "아규먼트 에러"),
+    SETDATA_INVALID_TAGNUM(60014, "setdata()에서 유효하지 않는 tagnum"),
+    GETDATA_INVALID_TAGNUM(60015, "getdata()에서 유효하지 않는 tagnum"),
+
+    INVALID_STRING_DATA(60016, "String 데이터가 유효하지 않음"),
+    INVALID_SIZE_STRING_DATA(60017, "크기 문자열 데이터가 유효하지 않음"),
+    DUMMY_DATA_ERROR(60018, "dummy 데이터 오류"),
+
+    USER_ID_ERROR(60046, "user id 오류"),
+    COMPANY_ID_ERROR(60047, "company id 오류"),
+    ENTERPRISE_ID_ERROR(60048, "enterprise id 오류"),
+    INVALID_USER_ID_IN_DECRYPT_PARAM(61001, "복호화 연동 파라미터 중 유효하지 않는 user id"),
+
+
+    /* =========================
+     * IO / STREAM 오류
+     * ========================= */
+    INPUT_STREAM_ERROR(60008, "inputstream 에러"),
+    INPUT_STREAM_AVAILABLE_SIZE_ERROR(60009, "inputstream 사용가능한 크기 에러"),
+    OUTPUT_STREAM_ERROR(60010, "outputstream 에러"),
+    INPUT_STREAM_SIZE_ERROR(60039, "inputstream 크기 오류"),
+    STREAM_ERROR(60049, "inputstream or outputstream 오류"),
+    BYTE_BUFFER_SIZE_ERROR(60050, "byte buffer 크기 오류"),
+
+
+    /* =========================
+     * CONFIG / DAT 파일 오류
+     * ========================= */
+    SERVER_INFO_DAT_FILE_ERROR(60011, "서버 정보 dat파일 오류"),
+    SERVER_INFO_DAT_CREATED_BY_ERROR(60012, "서버 정보 dat파일 created by 오류"),
+
+
+    /* =========================
+     * DRM TYPE / 정책 오류
+     * ========================= */
+    DRM_TYPE_ERROR(60013, "drm 기능 type 오류"),
+    DRM_STATUS_SEND(60030, "drm 상태 전송"),
+    DRM_PROPERTY_GET_ERROR(60040, "drm 속성 가져오기 오류"),
+    DRM_PROPERTY_GET_EXCEPTION(60041, "drm 속성 가져오기 예외처리"),
+    DRM_BLUE3_ENCRYPTED_FILE(60042, "DRM Blue3 암호화 파일 (암호화 파일을 암호화 시도한 경우)"),
+    DRM_CIPHER_30_ENCRYPTED_FILE(60043, "DRM cipher 3.0 암호화 파일"),
+    PLAIN_FILE_ON_DECRYPT_REQUEST(60045, "평문 파일 복호화 상태 (복호화 요청 시 입력된 파일이 평문 파일)"),
+    NO_DECRYPT_PERMISSION(61002, "복호화 권한이 없어 복호화 중지"),
+
+
+    /* =========================
+     * DRM HEADER / 파일 구조 오류
+     * ========================= */
+    BLUE_SIGNATURE_READ_ERROR(60019, "DRM 암호화 파일 Blue Signature 읽기 오류"),
+
+    BASE_HEADER_SIZE_ERROR(60020, "base header 크기 오류"),
+    BASE_HEADER_ERROR(60021, "base header 오류"),
+    ENCRYPTED_BASE_HEADER_ERROR(60022, "암호화된 base header 오류"),
+
+    CONTENTS_HEADER_ERROR(60023, "contents header 오류"),
+    ENCRYPTED_CONTENTS_HEADER_ERROR(60024, "암호화된 contents header 오류"),
+
+    FILE_SIZE_PADDING_ERROR(60025, "파일크기와 패딩크기 오류"),
+    ENCRYPTED_FILE_ERROR(60026, "암호화 파일 오류"),
+    INVALID_FILE_PADDING_SIZE(60036, "유효하지 않은 파일 패딩크기 오류"),
+    FILE_SIZE_PROCESS_ERROR(60037, "파일 크기 처리 오류"),
+    DECRYPTION_ERROR(60038, "복호화 오류"),
+
+
+    /* =========================
+     * DRM TRANSFER / 전송 오류
+     * ========================= */
+    SIGNATURE_SEND_ERROR(60027, "시그너처 전송 오류"),
+    ENCRYPTED_BASE_HEADER_SIZE_SEND_ERROR(60028, "암호화된 base header 크기 전송 오류"),
+    BASE_HEADER_SIZE_SEND_ERROR(60029, "base header 크기 전송 오류"),
+    BASE_HEADER_SIZE_EXCEPTION(60031, "base header 크기 예외처리"),
+    BASE_HEADER_SEND_ERROR(60032, "base header 전송 오류"),
+
+    CONTENTS_HEADER_SIZE_SEND_ERROR(60033, "contents header 크기 전송 오류"),
+    CONTENTS_HEADER_SIZE_EXCEPTION(60034, "contents header 크기 예외 처리"),
+    CONTENTS_HEADER_SEND_ERROR(60035, "contents header 전송 오류"),
+
+
+    /* =========================
+     * STATUS / 기타 상태 코드
+     * ========================= */
+    FILE_COPY_STATUS(60044, "파일 복사 상태"),
+
+
+    /* =========================
+     * UNKNOWN
+     * ========================= */
     UNDEFINED(999999, "정의안된 코드[%s]"),
-    FILE_IO(999998, "정의안된 코드[%s]"),
+    FILE_IO(999998, "정의안된 코드[%s]");
 
-    RETVAL_FAIL(1, "키 정보 오류일 경우"),
-    ERROR_FAIL_CODE(-1, "파라미터가 NULL일 경우"),
-    ERROR_MEM_ALLOCATE(-11, "메모리 할당 에러"),
-    ERROR_MEM_ACCESS(-12, "메모리 접근 에러"),
-    ERROR_SECU_ALG(-21, "암호화 알고리즘 에러"),
-    ERROR_SECU_KEY(-22, "암호화 키 관련 에러"),
-    ERROR_GET_ACL(-26, "ACL을 얻어오지 못함"),
-    ERROR_RIGHT_ACL(-27, "올바른 ACL이 아님"),
-    ERROR_FILE_EXIST(-31, "원본 파일이 존재하지 않음"),
-    ERROR_FILE_CREATE(-32, "파일 생성 에러"),
-    ERROR_FILE_ACCESS(-33, "파일 접근 에러"),
-    ERROR_FILE_NOT_ENCRYPTED(-36, "원본 파일이 암호화 파일이 아님"),
-    ERROR_FILE_DAMAGED(-41, "파일 손상됨"),
-    NO_SCDSFILE_ACCESS(-51, "SCDS 파일 접근 불가"),
-    ERROR_EXCEPTION(-61, "EXCEPTION 에러"),
-    ERROR_FILESIZE_ZERO(-62, "원본 파일 사이즈 0"),
-    ERROR_EXT_IMPOSSIBLE(-71, "지원하지 않는 확장자"),
-    ERROR_USER_NOT_FOUND(-72, "입력 유저 ID를 찾을 수 없음"),
-    ERROR_LOG_FAIL(-73, "로그 생성 실패"),
-    ERROR_INDEXINFO(-75, "Index 검색 중 관련 에러"),
-    ERROR_NOT_DEFINE_INDEXINFO(-76, "정의되지 않은 Index 사용"),
-    RETVAL_BYPASS(-81, "BYPASS 모드"),
-    ERROR_STREAM_SIZE_ZERO(-91, "스트림 사이즈 0"),
-    STREAM_NOT_ENCRYPTED(-92, "스트림이 암호화 파일이 아님"),
 
-    // -------------------------------
-    // 2. ServiceLinker 에러 (1000번대)
-    // -------------------------------
-
-    NO_SOURCE_FILE_EXISTS(1000, "원본 파일이 없음"),
-    SOURCE_FILESIZE_ZERO(1001, "원본 파일 크기가 0"),
-    UNKNOWN_TYPE_OF_FILE(1002, "암호화 파일 방식 알 수 없음"),
-    ENCFILE_SIZE_FAIL(1003, "암호화 파일 크기 오류"),
-    ENCFILE_IS_NOT_DAC(1004, "암호화 파일이 DAC이 아님"),
-    ENCFILE_IS_NOT_MAC(1005, "암호화 파일이 MAC이 아님"),
-    ENCFILE_IS_NOT_GRADE(1006, "암호화 파일이 GRADE가 아님"),
-    ERROR_ENCFILE_HASH_VALUE(1010, "암호화파일 Hash Value 불일치"),
-    NO_MATCH_HEADER_KEY(1020, "헤더 복호화 실패"),
-
-    // -------------------------------
-    // 3. 파라미터 에러 (2000번대)
-    // -------------------------------
-
-    NULL_PARAMETER(2000, "파라미터가 NULL"),
-    INVALID_PARAMETER(2001, "파라미터가 유효하지 않음"),
-    SAME_FILEPATH(2002, "원본/대상 파일 경로가 동일함"),
-
-    // -------------------------------
-    // 4. 키 파일 관련 에러 (3000번대)
-    // -------------------------------
-
-    NO_KEYFILE_EXISTS(3000, "키 파일 없음"),
-    NO_SEARCH_IDs_KEY(3001, "키 파일에 사용자 ID가 없음"),
-    MAKE_DOCUMENT_KEY_FAIL(3002, "문서 암호화키 생성 실패"),
-    NOT_FOUND_KEYFILE(3003, "서버 ID에 해당하는 키 파일 없음"),
-    DIFFERENT_TYPE_OF_KEYFILE(3010, "키 파일 타입 다름"),
-    KEYFILE_IS_NOT_DAC(3011, "키 파일이 DAC이 아님"),
-    KEYFILE_IS_NOT_MAC(3012, "키 파일이 MAC이 아님"),
-    KEYFILE_IS_NOT_GRADE(3013, "키 파일이 GRADE가 아님"),
-    UNKNOWN_TYPE_OF_KEYFILE(3014, "키 파일 타입 알 수 없음"),
-    KEYFILE_PARSING_FAIL(3020, "키 파일 파싱 실패"),
-    KEYFILE_HEADER_INFO_FAIL(3021, "키 파일 헤더 정보 오류"),
-    KEYFILE_SIZE_FAIL(3022, "키 파일 크기 오류"),
-    NOT_AUTHENTICATION_KEYFILE(3030, "인증되지 않은 키 파일"),
-    KEYFILE_DECRYPT_FAIL(3040, "키 파일 복호화 실패"),
-    NOT_SUPPORT_ALGORITHM(3050, "알고리즘에 필요한 키 정보 없음"),
-
-    // -------------------------------
-    // 5. 암·복호화 에러 (4000번대)
-    // -------------------------------
-
-    DECRYPT_FAIL(4001, "복호화 실패"),
-    NO_SUCH_ALGORITHM(4010, "암호화 알고리즘을 찾을 수 없음"),
-    INVALID_KEY(4020, "지정된 키로 초기화 불가"),
-    INVALID_ARGUMENT(4030, "부적절한 인자"),
-    ERROR_ALGORITHM(4040, "블록/패딩 암복호화 오류");
 
     private final int value;
     private final String description;
@@ -122,6 +152,4 @@ public enum DrmErrorEnum {
         }
         return new DrmErrorVo(drmErrorEnum);
     }
-
-
 }

@@ -1,13 +1,13 @@
-package com.stove.drm.adapter.biz.module.jwt;
+package com.okfg.drm.adapter.biz.module.jwt;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import com.stove.drm.adapter.biz.exception.DRMJwtException;
-import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
-import com.stove.drm.adapter.core.config.DrmProp;
+import com.okfg.drm.adapter.biz.exception.DRMJwtException;
+import com.okfg.drm.adapter.biz.module.jwt.vo.OkfgUserVo;
+import com.okfg.drm.adapter.core.config.DrmProp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +30,8 @@ public class JWTParser {
 
     private final DrmProp drmProp;
 
-    public StoveUserVo getUserFromJWT(String tokenString) throws DRMJwtException {
-        return new StoveUserVo().convert(parseJwt(tokenString));
+    public OkfgUserVo getUserFromJWT(String tokenString) throws DRMJwtException {
+        return new OkfgUserVo().convert(parseJwt(tokenString));
     }
 
     public JWTClaimsSet parseJwt(String tokenString) throws DRMJwtException {

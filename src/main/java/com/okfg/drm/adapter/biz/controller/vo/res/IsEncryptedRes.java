@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.controller.vo.res;
+package com.okfg.drm.adapter.biz.controller.vo.res;
 
 import lombok.Data;
 

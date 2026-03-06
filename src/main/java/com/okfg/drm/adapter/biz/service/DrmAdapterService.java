@@ -1,9 +1,11 @@
-package com.stove.drm.adapter.biz.service;
+package com.okfg.drm.adapter.biz.service;
 
-import com.stove.drm.adapter.biz.exception.DRMException;
-import com.stove.drm.adapter.biz.module.DrmService;
-import com.stove.drm.adapter.biz.module.drm.softcamp.FileManagerService;
-import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
+import com.okfg.drm.adapter.biz.exception.DRMException;
+import com.okfg.drm.adapter.biz.module.drm.markany.MarkanyDrmService;
+import com.okfg.drm.adapter.biz.module.drm.softcamp.FileManagerService;
+//import com.okfg.drm.adapter.biz.module.drm.softcamp.SoftcampDrmService;
+import com.okfg.drm.adapter.biz.module.drm.markany.MarkanyDrmService;
+import com.okfg.drm.adapter.biz.module.vo.DrmErrorEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,50 +15,17 @@ import java.nio.file.Path;
 @RequiredArgsConstructor
 public class DrmAdapterService {
 
-    private final DrmService drmService;
-    private final FileManagerService fileManagerService;
+    private final MarkanyDrmService markAnyDrmService;
 
     public boolean isEncrypted(String fileName, byte[] inputBytes) {
-        //01. 임시파일 생성
-        Path path = fileManagerService.createFile(fileName,inputBytes);
-        //02. 암호화 여부 확인
-        boolean rst = drmService.isEncrypted(path);            
-        //03. 임시파일 삭제
-        fileManagerService.clearTmpDir(path);
-        return rst; 
+        return markAnyDrmService.isEncrypted(fileName, inputBytes);
     }
     
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
-         //01. 암호화대상 여부확인
-         boolean val = drmService.checkExt(fileName);
-         if (!val) return inputBytes   ; // 원본 반환 필요 
-         
-         //02. 임시파일 생성
-         Path srcPath = fileManagerService.createFile(fileName, inputBytes);
-         
-         //03. 암호화 진행
-        try {
-            return drmService.encrypt(srcPath, fileName+"_Enc");
-        } finally {
-            fileManagerService.clearTmpDir(srcPath);
-        }
+         return markAnyDrmService.encrypt(fileName, inputBytes);
     } 
     
     public byte[] decrypt(String fileName, byte[] inputBytes) throws DRMException{
-        //01. 임시파일 생성  
-        Path srcPath = fileManagerService.createFile(fileName,inputBytes);
-        
-        //02. 암호화 여부 확인 
-        boolean rst =  drmService.isEncrypted(srcPath);
-        if (!rst) {
-            throw new DRMException(DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value());
-        }
-        
-        //03. 복호화 요청
-        try {
-            return drmService.decrypt(srcPath, "decrypt");
-        }finally {
-            fileManagerService.clearTmpDir(srcPath);
-        }
+        return markAnyDrmService.decrypt(fileName, inputBytes);
     }
 }

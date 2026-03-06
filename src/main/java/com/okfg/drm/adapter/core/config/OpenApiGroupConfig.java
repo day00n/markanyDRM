@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.core.config;
+package com.okfg.drm.adapter.core.config;
 
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;

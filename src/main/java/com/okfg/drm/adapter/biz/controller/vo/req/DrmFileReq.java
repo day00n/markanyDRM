@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.controller.vo.req;
+package com.okfg.drm.adapter.biz.controller.vo.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

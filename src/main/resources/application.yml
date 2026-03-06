@@ -1,6 +1,6 @@
-#spring.application.name=StoveDRMAdapter  # dooray-drm.spay.sginfra.net
+#spring.application.name=OkfgDRMAdapter  # dooray-drm.spay.sginfra.net
 application:
-        title: StoveDRMAdapter
+        title: OkfgDRMAdapter
         version: 1.0
 spring:
   profiles:
@@ -13,7 +13,7 @@ springdoc:
   api-docs.path: /api-docs
   swagger-ui:
     path: /docs
-  packages-to-scan: com.stove.drm.adapter.biz.controller
+  packages-to-scan: com.okfg.drm.adapter.biz.controller
   paths-to-match: /v1/**
 
 ---

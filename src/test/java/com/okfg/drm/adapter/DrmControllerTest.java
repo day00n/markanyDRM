@@ -1,12 +1,12 @@
-package com.stove.drm.adapter;
+package com.okfg.drm.adapter;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stove.drm.adapter.biz.module.DrmService;
-import com.stove.drm.adapter.biz.module.jwt.JwtService;
-import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
-import com.stove.drm.adapter.biz.module.jwt.vo.StoveUserVo;
-import com.stove.drm.adapter.core.config.DrmProp;
+import com.okfg.drm.adapter.biz.module.drm.markany.MarkanyDrmService;
+import com.okfg.drm.adapter.biz.module.jwt.JwtService;
+import com.okfg.drm.adapter.biz.module.jwt.JWTGenerator;
+import com.okfg.drm.adapter.biz.module.jwt.vo.OkfgUserVo;
+import com.okfg.drm.adapter.core.config.DrmProp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ class DrmControllerTest {
 
 
     @Autowired
-    DrmService drmService; // 실제 빈을 mock으로 교체
+    MarkanyDrmService drmService; // 실제 빈을 mock으로 교체
     @Autowired
     JwtService jwtService;
 
@@ -89,7 +89,7 @@ class DrmControllerTest {
         return result;
     }
     private MvcResult genMvcResult(String fileName,String url) throws Exception {
-        StoveUserVo user = new StoveUserVo();
+        OkfgUserVo user = new OkfgUserVo();
         user.setUserId("test");
         return genMvcResult(fileName,url,jwtGenerator.toJwtToken(user).serialize());
     }

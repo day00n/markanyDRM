@@ -1,9 +1,9 @@
-package com.stove.drm.adapter.biz.controller.rest;
+package com.okfg.drm.adapter.biz.controller.rest;
 
-import com.stove.drm.adapter.biz.controller.BaseRestController;
-import com.stove.drm.adapter.biz.module.jwt.JwtService;
-import com.stove.drm.adapter.biz.module.jwt.JWTGenerator;
-import com.stove.drm.adapter.biz.service.DrmAdapterService;
+import com.okfg.drm.adapter.biz.controller.BaseRestController;
+import com.okfg.drm.adapter.biz.module.jwt.JwtService;
+import com.okfg.drm.adapter.biz.module.jwt.JWTGenerator;
+import com.okfg.drm.adapter.biz.service.DrmAdapterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

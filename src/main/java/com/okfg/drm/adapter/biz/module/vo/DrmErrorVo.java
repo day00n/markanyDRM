@@ -1,11 +1,9 @@
-package com.stove.drm.adapter.biz.module.vo;
+package com.okfg.drm.adapter.biz.module.vo;
 
 import lombok.Data;
 
 @Data
 public class DrmErrorVo {
-
-
 
     public String code;
     public int value;

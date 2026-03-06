@@ -1,8 +1,8 @@
-package com.stove.drm.adapter.biz.exception;
+package com.okfg.drm.adapter.biz.exception;
 
-import com.stove.drm.adapter.biz.exception.base.BaseException;
-import com.stove.drm.adapter.biz.module.vo.DrmErrorEnum;
-import com.stove.drm.adapter.biz.module.vo.DrmErrorVo;
+import com.okfg.drm.adapter.biz.exception.base.BaseException;
+import com.okfg.drm.adapter.biz.module.vo.DrmErrorEnum;
+import com.okfg.drm.adapter.biz.module.vo.DrmErrorVo;
 import lombok.Getter;
 import lombok.Setter;
 

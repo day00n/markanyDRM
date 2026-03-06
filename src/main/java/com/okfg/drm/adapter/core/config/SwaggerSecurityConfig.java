@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.core.config;
+package com.okfg.drm.adapter.core.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Components;
@@ -16,7 +16,7 @@ public class SwaggerSecurityConfig {
         String schemeName = "bearerAuth";
 
         return new OpenAPI()
-                .info(new Info().title("StovePay DRM Adapter API").version("v1"))
+                .info(new Info().title("OKFG DRM Adapter API").version("v1"))
                 .addSecurityItem(new SecurityRequirement().addList(schemeName))
                 .components(new Components()
                         .addSecuritySchemes(schemeName,

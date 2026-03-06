@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.util;
+package com.okfg.drm.adapter.biz.util;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;

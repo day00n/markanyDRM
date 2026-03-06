@@ -1,4 +1,4 @@
-package com.stove.drm.adapter.biz.exception.base;
+package com.okfg.drm.adapter.biz.exception.base;
 
 public class BaseException extends Exception{
     String code;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.stove.drm.adapter.biz.controller;
+package com.okfg.drm.adapter.biz.controller;
 
 
 import ch.qos.logback.core.util.StringUtil;
