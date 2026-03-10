@@ -26,7 +26,7 @@ spring:
     activate:
       on-profile: local
 drm:
-  testFile: "${user.dir}/src/main/resources/softcamp_local_test/testFiles/"
+  testFile: "${user.dir}/src/main/resources/markany_local_test/testFiles/"
   softcampProperties: "${user.dir}/src/main/resources/softcamp_local_test/softcamp.properties"
   keyfilePath: "${user.dir}/src/main/resources/softcamp_local_test/keyDAC_SVR0.sc"
   fileExt: "FileExt"   # 지원 확장자 ( 구분자는 ';', 소문자를 사용 )

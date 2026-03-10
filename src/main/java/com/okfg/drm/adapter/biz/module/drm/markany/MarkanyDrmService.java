@@ -25,12 +25,12 @@ public class MarkanyDrmService {
     private final MaFileManagerService fileManagerService;
 
     /**
-     * 소프트 캠프 프로퍼티 호출.
+     * 마크애니 프로퍼티 호출.
      * @return
      * @throws IOException
      */
     private String getPropPath(){
-        Path path = Path.of(prop.getSoftcampProperties());
+        Path path = Path.of(prop.getMarkanyProperties());
         log.info("[PROP PATH] ::: {}",path.toAbsolutePath().toString());
         return path.toAbsolutePath().toString();
     }
@@ -46,48 +46,52 @@ public class MarkanyDrmService {
      */
     public boolean checkExt(String fileName) {
         log.info("[CHECK EXT] {}",fileName);
-        Madn clMadn = new Madn();
-        //SLDsFile sFile = new SLDsFile();
-
-        sFile.SettingPathForProperty(getPropPath());
+        MaFileChk clMaFileChk = new MaFileChk("MarkAny.dat");
+        String strRetCode="";
+        //sFile.SettingPathForProperty(getPropPath());
         /*
         1 : 지원되는 확장자
         0 : 지원되지 않는 확장자
          */
-        int ret = sFile.DSIsSupportFile(fileName);
-        if(ret==1){
+        //int ret = sFile.DSIsSupportFile(fileName);
+        if(!strRetCode.equals("")){
             return true;
         }
-        log.info("[대상아님][sFile.DSIsSupportFile] Result ::: {}",ret); //🔴확장자 확인 필요
+        log.info("[대상아님][ sFile.DSIsSupportFile] Result ::: {}",clMaFileChk.strGetErrorMessage(strRetCode)); //🔴확장자 확인 필요
         return false;
         
     }
 
     public boolean isEncrypted(String fileName, byte[] inputBytes) {
         Path path = null;
+        String strRetCode = "";
         try {
             //01. 임시파일 생성
             path = fileManagerService.createFile(fileName, inputBytes);
             BufferedInputStream inFile = new BufferedInputStream(new FileInputStream(path.toFile()));
 
             //02. 암호화 여부 확인
-            Madn clMadn = new Madn("/MarkAnyServerInfo.dat"); // 🔴 파일 경로 수정 v파일 확인
-            /*
-            0 : 암호화 파일
-            -6 : 일반 파일
-            -1, -5 : Exception 발생 시
-            */
-            int encrypted = clMadn.lGetEncryptFileSize(inFile);
-            // lGetEncryptFileSize 함수 내 iCheckEncFile 존재
-            // lGetEncryptFileSize에서 암호화 된 파일의 경우 별도 암호화 진행 X, 바로 파일크기값 리턴
-            if (encrypted == 0)  {
-                // 암호화 파일의 경우 return 0
-                log.info("[Madn.isEncrypted][Encrypted][암호화파일] Result ::: {}",encrypted);
-                return true;
-            } else{
-                log.info("[Madn.isEncrypted][NOT Encrypted][일반파일]  Result ::: {}",encrypted);
-                // 일반 파일의 경우  return -6
-                return false;
+            MaFileChk clMaFileChk = new MaFileChk("MarkAny.dat"); //🔴 /home/onboarding/SAFER45/java
+
+            Long lFileLen = path.toFile().length();
+            Long OutFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
+
+            if(OutFileLength > 0){
+                strRetCode = clMaFileChk.strMaFileChk();
+                /*
+                60042 : 암호화 파일을 암호화 시도한 경우 (암호화 파일) //🔴암호화 파일 == 00000? 확인
+                60045 : 복호화 파일을 복호화 시도한 경우 (일반 파일)
+                이외 : Exception 발생 시
+                */
+                if(strRetCode.equals("60042")){
+                    log.info("[Madn.isEncrypted][Encrypted][암호화파일] Result ::: {}",strRetCode);
+                    return true;
+                } else if (strRetCode.equals("60045")) {
+                    log.info("[Madn.isEncrypted][NOT Encrypted][일반파일]  Result ::: {}",strRetCode);
+                    return false;
+                }
+            }else{
+                log.debug("[FILECHECK] [ErrorCode] : {} [ErrorMessage] : {}", strRetCode, clMaFileChk.strGetErrorMessage((strRetCode)));
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -97,6 +101,7 @@ public class MarkanyDrmService {
                 fileManagerService.clearTmpDir(path);
             }
         }
+        throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][ErrorCode] :" + strRetCode);
     }
 
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
@@ -124,7 +129,7 @@ public class MarkanyDrmService {
             //03. 암호화 진행
             retVal = clMadn.strMadn(outFile);
             int strRetCode = Integer.parseInt(retVal); //타입변환
-            log.debug("[encrypt][암호화 결과] :" + strRetCode);
+            log.debug("[ENCRYPT][암호화 결과] : {}", strRetCode);
 
             if (strRetCode==0) {
                 DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(strRetCode);
@@ -162,7 +167,7 @@ public class MarkanyDrmService {
         try (BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
              BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath))) {
             long lFileLen = Files.size(srcPath);  //복호화 대상파일 크기
-            long OutFileLength = clMadec.lGetDecryptFileSize(srcPath.toFile().toString(),lFileLen,inFile); //🔴(파일명, lFileLen,inFile)
+            long OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFile); //🔴(파일명, lFileLen,inFile)
 
             if(OutFileLength<=0){
                 retVal=clMadec.strGetErrorCode();
@@ -172,7 +177,7 @@ public class MarkanyDrmService {
             //03. 복호화 진행
             retVal=clMadec.strMadec(outFile);
             int strRetCode = Integer.parseInt(retVal);
-            log.debug("[decrypt][복호화 결과] :" + retVal);
+            log.debug("[DECRYPT][복호화 결과] :{}", retVal);
             //정상이 아니면 에러발생
             if(strRetCode==0){
                 DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(strRetCode);
