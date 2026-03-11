@@ -1,0 +1,246 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+
+import MarkAny.MaSaferJava.Madn;
+
+public class streamDn{
+	public static void main( String[ ] args ) throws UnsupportedEncodingException{
+		if( args.length != 2 )
+		{
+			System.out.println("usage: java streamDn eid cid");
+			return;
+		}
+
+		String  strCompanyId = new String( args[1] );
+		String  strEnterpriseID = new String( args[0] );
+
+		Madn clMadn = null; // 클래스 생성 준비
+		BufferedInputStream in = null;
+		BufferedOutputStream out = null;
+		String strRetCode = "";
+		long OutFileLength = 0;
+
+		// Sample Parameter
+		File FileSample = new File( "./test.docx" ); // 암호화 대상 평문 파일
+		File FileOut = new File( "./test_enc.docx" ); // 암호화 결과로 생성할 파일
+
+		if( FileSample.length( ) == 0 )
+		{
+			System.out.println( "ERR 파일크기 에러입니다." );
+			return;
+		}
+
+		try
+		{
+			in = new BufferedInputStream( new FileInputStream( FileSample ) );
+			out = new BufferedOutputStream( new FileOutputStream( FileOut ) );
+		}
+		catch( Exception e )
+		{
+			System.out.println( "스트림 객체 생성 에러입니다." );
+			return;
+		}
+
+		// create instance
+		// 암호화 클래스 생성
+		try
+		{
+			clMadn = new Madn( "MarkAnyDrmInfo.dat" ); // 연동 시 절대경로로 변경
+		}
+		catch( Exception e )
+		{
+			System.out.println( "마크애니 암호화 클래스 생성 에러입니다." );
+			System.out.println( "MarkAnyDrmInfo.dat 파일의 경로와 권한을 확인 해 주세요." );
+			return;
+		}
+
+		// Sample Parameter
+		int		piAclFlag = 0; 
+		String	pstrDocLevel = new String( "0" );
+		String	pstrUserId = new String( "test_id" );
+		String	pstrFileName = new String( "testFile.xls" );
+		String	pstrOwnerId = new String( "pstrOwnerId" );
+		String	pstrGroupId =  new String( "pstrGroupId" );
+		String	pstrPositionId =  new String( "pstrPositionId" );
+		String	pstrGrade =  new String( "pstrGrade" );
+		String	pstrFileId = new String( "20100804165120000abcedfasdf20100804165120000abcedfasdf20100804165120000abcedfasdf20100804165120000abcedfasdf20100804165120000abcedfasdf_endofstring" );
+		int		piCanSave = 0;
+		int		piCanEdit = 0;
+		int		piBlockCopy = 0;
+		int		piOpenCount = -99;
+		int		piPrintCount = -99;
+		int		piValidPeriod = -99;
+		int		piSaveLog = 1;
+		int		piPrintLog = 1;
+		int		piOpenLog = 1;
+		int		piVisualPrint = 1;
+		int		piImageSafer = 1;
+		int		piRealTimeAcl = 0;
+		String	pstrDocumentTitle = new String( "" );
+		String	pstrCompanyName = new String( "MarkAny" );
+		String	pstrGroupName = new String( "pstrGroupName" );
+		String	pstrPositionName = new String( "pstrPositionName" );
+		String	pstrUserName = new String( "drm001" );
+		String	pstrUserIp = new String( "127.0.0.1" );
+		String	pstrServerOrigin = new String( "대한민국" );
+		int		piExchangePolicy = 1;
+		int		piDrmFlag = 0;
+		int		iBlockSize = 0;	
+		String	strMachineKey = new String( "" );
+
+		String	strFileVersion = new String( "" );
+		//String	strMultiUserID = new String( "userid;userid2;length_test;" );
+		String	strMultiUserID = new String( "userid;userid2;length_test;userid_markany1234567890;userid_markany1234567890;userid_markany1234567890;userid_markany1234567890;userid_markany1234567890;long_userid_test;" );
+		String	strMultiUserName = new String( "strSecurityLevelName;multiusername1;multiusername2;multiusername3;multiusername4;multiusername5;multiusername6;multiusername7;multiusername8;multiusername9;multiusername10;" );
+		String	strEnterpriseName = new String( "" );
+		//String	strDeptID = new String( "deptid" );
+		String	strDeptID = new String( "deptid;deptid1;deptid2;deptid3;deptid4;deptid5;deptid6;deptid7;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;end_of_string" );
+		//String	strDeptName = new String( "deptname" );
+		String	strDeptName = new String( "deptname;deptname1;deptname2;deptname3;deptname4;deptname5;deptname6;deptname7;1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111;end_of_string" );
+		String	strPositionLevel = new String( "" );
+		String	strSecurityLevel = new String( "1" );
+		String	strSecurityLevelName = new String( "" );
+		String	strPgCode = new String( "" );
+		String	strCipherBlockSize = new String( "16" );
+		String	strCreatorID = new String( "" );
+		String	strCreatorName = new String( "" );
+		String	strOnlineContorl = new String( "0" );
+		String	strOfflinePolicy = new String( "" );
+		String	strValidPeriodType = new String( "" );
+		String	strUsableAlways = new String( "0" );
+		String	strPriPubKey = new String( "" );
+		String	strCreatorCompanyId = new String( "mark1" );
+		String	strCreatorDeptId = new String( "mark2" );
+		String	strCreatorGroupId = new String( "mark3" );
+		String	strCreatorPositionId = new String( "mark4" );
+		String	strFileSize = new String( "4567" );
+		String	strHeaderUpdateTime = new String( "" );
+		String	strReserved01 = new String( "reserved01" );
+		String	strReserved02 = new String( "reserved02" );
+		String	strReserved03 = new String( "reserved03" );
+		String	strReserved04 = new String( "reserved04" );
+		String	strReserved05 = new String( "reserved05" );
+
+		// 원본(암호화 대상 파일) 파일 크기를 가져옵니다.
+		long plFileSize = FileSample.length( );
+
+		// 암호화 및 파라미터 점검을 합니다.
+		try
+		{
+			OutFileLength = 
+				clMadn.lGetEncryptFileSize
+				(
+					piAclFlag, // ACL 참조 방식( 고정값 0 )
+					pstrDocLevel, // 암호화 문서 등급 ( 고정값 0 )
+					pstrUserId, // 사용자 ID
+					pstrFileName, // 파일 이름
+					plFileSize, // 암호화하려는 원본 파일 크기
+					pstrOwnerId, // 암호화 대상 파일 소유자
+					strCompanyId, // 회사코드 ID
+					pstrGroupId, // 그룹코드 ID
+					pstrPositionId, // 직위코드 ID
+					pstrGrade, // 등급
+					pstrFileId, // 파일 고유 ID
+					piCanSave, // 저장 권한 (가능 1, 불가 0)
+					piCanEdit, // 수정 권한 (가능 1, 불가 0)
+					piBlockCopy, // 블룩복사 권한 (가능 1, 불가 0)
+					piOpenCount,// 열람 가능 회수 (회수 또는 제한없음 -99)
+					piPrintCount, // 출력 가능 회수 (회수 또는 제한없음 -99)
+					piValidPeriod, // 문서 사용 가능 기간(기간 또는 제한없음 -99)
+					piSaveLog, // 저장 로그 (가능 1, 불가 0)
+					piPrintLog, // 출력 로그 (가능 1, 불가 0)
+					piOpenLog, // 열람 로그 (가능 1, 불가 0)
+					piVisualPrint, // 인쇄시 워터마크 적용(적용1, 미적용 0)
+					piImageSafer, // 캡쳐방지 적용(적용1, 미적용 0)
+					piRealTimeAcl, // 사용하지 않음
+					pstrDocumentTitle, // 문서 제목
+					pstrCompanyName, // 회사명
+					pstrGroupName, // 그룹명
+					pstrPositionName, // 직위명
+					pstrUserName, // 사용자 이름
+					pstrUserIp, // 사용자 PC IP
+					pstrServerOrigin, // 시스템명
+					piExchangePolicy, // 암호화 문서 정책 ( 고정값 1 )
+					piDrmFlag, // 암호화 여부( 고정값 0 )
+					iBlockSize, // 블럭크기 ( 고정값 0 )
+					strMachineKey, // 머신키
+
+					strFileVersion, // 암호화 파일 버전
+					strMultiUserID, // 다중 사용자 ID
+					strMultiUserName, // 다중 사용명
+					strEnterpriseID, // 회사 대표 ID
+					strEnterpriseName, // 회사 대표명
+					strDeptID, // 부서코드 ID
+					strDeptName, // 부서명
+					strPositionLevel, // 직위레벨
+					strSecurityLevel, // 보안레벨
+					strSecurityLevelName, // 보안레벨명
+					strPgCode, // 사용하지 않음
+					strCipherBlockSize, // 사이퍼블럭크기 ( 고정값 16 )
+					strCreatorID, // 생성자 ID
+					strCreatorName, // 생성자 이름
+					strOnlineContorl, // 고정값 0
+					strOfflinePolicy, // 고정값
+					strValidPeriodType, // 고정값
+					strUsableAlways, // 고정값 0
+					strPriPubKey, // 고정값
+					strCreatorCompanyId, // 생성자 회사코드 ID
+					strCreatorDeptId, // 생성자 부서코드 ID
+					strCreatorGroupId, // 생성자 그룹코드 ID
+					strCreatorPositionId, // 생성자 직위코드 ID
+					strFileSize, // 원본파일크기
+					strHeaderUpdateTime, //	헤더업데이트시간
+					strReserved01, // 지정 필드1
+					strReserved02, // 지정 필드2
+					strReserved03, // 지정 필드3
+					strReserved04, // 지정 필드4
+					strReserved05, // 지정 필드5
+					in
+				);
+		}
+		catch( Exception e )
+		{
+			System.out.println( "lGetEncryptFileSize 암호화 메소드 Exception Error. Exception = [" + e.toString( ) + "]" );
+			System.out.println( "NumberFormat, NullPointer Exception일 경우 MarkAnyDrmInfo.dat 파일의 경로와 권한을 확인 해 주세요." );
+			return;
+		}
+
+		// 암호화 준비를 합니다.
+		if( OutFileLength > 0 )
+		{
+			// 암호화 합니다.
+			strRetCode = clMadn.strMadn( out );
+		}
+		else // 암호화 시작전 에러가 발생했습니다.
+		{
+			System.out.println( "암호화 시작 전에 실패 하였습니다." );
+			strRetCode = clMadn.strGetErrorCode( );
+			System.out.println( "[ErrorCode] = [" + strRetCode + "]"
+					+ "[ErrorDescription] = ["
+					+ clMadn.strGetErrorMessage(strRetCode) + "]" );
+			return;
+		}
+
+		if( strRetCode.equals( "00000" ) )
+		{
+			// 암호화를 성공하였습니다.
+			System.out.println( "암호화에 성공 하였습니다." );
+			System.out.println( "RetCode = [" + strRetCode + "]" );
+		}
+		else
+		{
+			// 암호화에 실패했습니다.
+			System.out.println( "암호화에 실패 하였습니다." );
+			System.out.println( "[ErrorCode] = [" + strRetCode + "]"
+					+ "[ErrorDescription] = ["
+					+ clMadn.strGetErrorMessage(strRetCode) + "]" );
+		}
+		return;
+	}
+}

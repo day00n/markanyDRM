@@ -53,7 +53,6 @@ public class MarkanyDrmService {
         1 : 지원되는 확장자
         0 : 지원되지 않는 확장자
          */
-        //int ret = sFile.DSIsSupportFile(fileName);
         if(!strRetCode.equals("")){
             return true;
         }
