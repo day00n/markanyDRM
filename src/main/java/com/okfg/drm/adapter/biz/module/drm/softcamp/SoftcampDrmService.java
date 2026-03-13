@@ -64,35 +64,35 @@ public class SoftcampDrmService {
         
     }
 
-    public boolean isEncrypted(String fileName, byte[] inputBytes) {
-        Path path = null;
-        try {
-            //01. 임시파일생성
-            path = FileManagerService.createFile(fileName, inputBytes);
-            SLBsUtil sUtil = new SLBsUtil();
-            /*
-            1 : 암호화파일
-            0 : 일반파일
-           -1 : Exception 발생시
-             */
-            //02. 암호화 여부 확인
-            int encrypted = sUtil.isEncryptFile(path.toString());
-            if (encrypted == 1)  {
-                // 암호화 파일의 경우 return 1
-                log.info("[sFile.isEncrypted][Encrypted][암호화파일] Result ::: {}",encrypted);
-                return true;
-            } else{
-                log.info("[sFile.isEncrypted][NOT Encrypted][일반파일]  Result ::: {}",encrypted);
-                // 일반 파일의 경우  return 0
-                return false;
-            }
-        } finally {
-            //03. 임시파일 삭제
-            if (path != null){
-                fileManagerService.clearTmpDir(path);
-            }
-        }
-    }
+//    public boolean isEncrypted(String fileName, byte[] inputBytes) {
+//        Path path = null;
+//        try {
+//            //01. 임시파일생성
+//            path = FileManagerService.createFile(fileName, inputBytes);
+//            SLBsUtil sUtil = new SLBsUtil();
+//            /*
+//            1 : 암호화파일
+//            0 : 일반파일
+//           -1 : Exception 발생시
+//             */
+//            //02. 암호화 여부 확인
+//            int encrypted = sUtil.isEncryptFile(path.toString());
+//            if (encrypted == 1)  {
+//                // 암호화 파일의 경우 return 1
+//                log.info("[sFile.isEncrypted][Encrypted][암호화파일] Result ::: {}",encrypted);
+//                return true;
+//            } else{
+//                log.info("[sFile.isEncrypted][NOT Encrypted][일반파일]  Result ::: {}",encrypted);
+//                // 일반 파일의 경우  return 0
+//                return false;
+//            }
+//        } finally {
+//            //03. 임시파일 삭제
+//            if (path != null){
+//                fileManagerService.clearTmpDir(path);
+//            }
+//        }
+//    }
  
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
 
@@ -149,10 +149,10 @@ public class SoftcampDrmService {
         //01. 임시파일 생성
         Path srcPath = fileManagerService. createFile(fileName, inputBytes);
         //02. 암호화 여부 확인
-        boolean rst = isEncrypted(fileName, inputBytes);
-        if(!rst){
-            //throw new DRMException(DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value());
-        }
+//        boolean rst = isEncrypted(fileName, inputBytes);
+//        if(!rst){
+//            //throw new DRMException(DrmErrorEnum.ERROR_FILE_NOT_ENCRYPTED.value());
+//        }
 
         String srcFile = srcPath.toAbsolutePath().toString();   //암호화 파일
         String targetFileName = fileName + "_dec";

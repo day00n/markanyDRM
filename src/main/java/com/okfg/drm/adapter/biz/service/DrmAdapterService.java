@@ -2,7 +2,7 @@ package com.okfg.drm.adapter.biz.service;
 
 import com.okfg.drm.adapter.biz.exception.DRMException;
 import com.okfg.drm.adapter.biz.module.drm.markany.MarkanyDrmService;
-import com.okfg.drm.adapter.biz.module.drm.softcamp.FileManagerService;
+//import com.okfg.drm.adapter.biz.module.drm.softcamp.FileManagerService;
 //import com.okfg.drm.adapter.biz.module.drm.softcamp.SoftcampDrmService;
 import com.okfg.drm.adapter.biz.module.drm.markany.MarkanyDrmService;
 import com.okfg.drm.adapter.biz.module.vo.DrmErrorEnum;

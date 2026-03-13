@@ -7,8 +7,11 @@ import com.okfg.drm.adapter.biz.exception.DRMException;
 import com.okfg.drm.adapter.biz.module.vo.DrmErrorEnum;
 import com.okfg.drm.adapter.biz.module.vo.DrmErrorVo;
 import com.okfg.drm.adapter.core.config.DrmProp;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -53,6 +56,7 @@ public class MarkanyDrmService {
         1 : 지원되는 확장자
         0 : 지원되지 않는 확장자
          */
+        //int ret = sFile.DSIsSupportFile(fileName);
         if(!strRetCode.equals("")){
             return true;
         }
@@ -80,6 +84,7 @@ public class MarkanyDrmService {
                 /*
                 60042 : 암호화 파일을 암호화 시도한 경우 (암호화 파일) //🔴암호화 파일 == 00000? 확인
                 60045 : 복호화 파일을 복호화 시도한 경우 (일반 파일)
+
                 이외 : Exception 발생 시
                 */
                 if(strRetCode.equals("60042")){
@@ -119,8 +124,75 @@ public class MarkanyDrmService {
 
         try (BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
              BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath))) {
-            //long lFileLen = Files.size(srcPath);  //암호화 대상파일 크기
-            long OutFileLength = clMadn.lGetEncryptFileSize(srcPath.toFile(), inFile); //🔴인수값 65개 마지막값 암호화 스트림파일
+            long lFileLen = Files.size(srcPath);  //암호화 대상파일 크기
+            long OutFileLength = clMadn.lGetEncryptFileSize(
+                    prop.getPiAclFlag(),        // ACL 참조 방식( 고정값 0 )
+                    prop.getPstrDocLevel(),     // 암호화 문서 등급 ( 고정값 0 )
+                    prop.getPstrUserId(),       // 사용자 ID
+                    fileName,                   // 파일 이름
+                    lFileLen,                    // 암호화하려는 원본 파일 크기
+                    prop.getPstrOwnerId(),      // 암호화 대상 파일 소유자
+                    prop.getStrCompanyId(),     // 회사코드 ID    "RUSHNCASH-391E-ADB5-A056" ); //🟢
+                    prop.getGroupId(),          // 그룹코드 ID
+                    prop.getPstrPositionId(),   // 직위코드 ID
+                    prop.getPstrGrade(),        // 등급
+                    prop.getPstrFileId(),       // 파일 고유 ID
+                    prop.getPiCanSave(),        // 저장 권한 (가능 1, 불가 0)
+                    prop.getPiCanEdit(),        // 수정 권한 (가능 1, 불가 0)
+                    prop.getPiBlockCopy(),      // 블룩복사 권한 (가능 1, 불가 0)
+                    prop.getPiOpenCount(),      // 열람 가능 회수 (회수 또는 제한없음 -99)
+                    prop.getPiPrintCount(),     // 출력 가능 회수 (회수 또는 제한없음 -99)
+                    prop.getPiPrintCount(),     // 문서 사용 가능 기간(기간 또는 제한없음 -99)
+                    prop.getPiSaveLog(),        // 저장 로그 (가능 1, 불가 0)
+                    prop.getPiPrintLog(),       // 출력 로그 (가능 1, 불가 0)
+                    prop.getPiOpenLog(),        // 열람 로그 (가능 1, 불가 0)
+                    prop.getPiVisualPrint(),    // 인쇄시 워터마크 적용(적용1, 미적용 0)
+                    prop.getPiImageSafer(),     // 캡쳐방지 적용(적용1, 미적용 0)
+                    prop.getPiRealTimeAcl(),    // 사용하지 않음
+                    prop.getPstrDocumentTitle(),// 문서 제목
+                    prop.getPstrCompanyName(),  // 회사명
+                    prop.getPstrGroupName(),    // 그룹명
+                    prop.getPstrPositionName(), // 직위명
+                    prop.getPstrUserName(),     // 사용자 이름
+                    prop.getPstrUserIp(),       // 사용자 PC IP
+                    prop.getPstrServerOrigin(), // 시스템명
+                    prop.getPiExchangePolicy(), // 암호화 문서 정책 ( 고정값 1 )
+                    prop.getPiDrmFlag(),        // 암호화 여부( 고정값 0 )
+                    prop.getIBlockSize(),       // 블럭크기 ( 고정값 0 )
+                    prop.getStrMachineKey(),    // 머신키
+
+                    prop.getStrFileVersion(),   // 암호화 파일 버전
+                    prop.getStrMultiUserID(),   // 다중 사용자 ID
+                    prop.getStrMultiUserName(), // 다중 사용명
+                    prop.getStrEnterpriseID(),  // 회사 대표 ID
+                    prop.getStrEnterpriseName(),// 회사 대표명
+                    prop.getStrDeptID(),         // 부서코드 ID
+                    prop.getStrDeptName(),       // 부서명
+                    prop.getStrPositionLevel(), // 직위레벨
+                    prop.getStrSecurityLevel(), // 보안레벨
+                    prop.getStrSecurityLevelName(),// 보안레벨명
+                    prop.getStrPgCode(),        // 사용하지 않음
+                    prop.getStrCipherBlockSize(), // 사이퍼블럭크기 ( 고정값 16 )
+                    prop.getStrCreatorID(),     // 생성자 ID
+                    prop.getStrCreatorName(),   // 생성자 이름
+                    prop.getStrOnlineControl(), // 고정값 0
+                    prop.getStrOfflinePolicy(), // 고정값
+                    prop.getStrValidPeriodType(),// 고정값
+                    prop.getStrUsableAlways(),  // 고정값 0
+                    prop.getStrPriPubKey(),     // 고정값
+                    prop.getStrCreatorCompanyId(), // 생성자 회사코드 ID
+                    prop.getStrCreatorDeptId(), // 생성자 부서코드 ID
+                    prop.getStrCreatorGroupId(),// 생성자 그룹코드 ID
+                    prop.getStrCreatorPositionId(),// 생성자 직위코드 ID
+                    prop.getStrFileSize(),      // 원본파일크기
+                    prop.getStrHeaderUpdateTime(),//	헤더업데이트시간
+                    prop.getStrReserved01(),// 지정 필드1
+                    prop.getStrReserved02(),// 지정 필드2
+                    prop.getStrReserved03(),// 지정 필드3
+                    prop.getStrReserved04(),// 지정 필드4
+                    prop.getStrReserved05(),// 지정 필드5
+                    inFile //암호화 스트림파일
+            );//🔴인수값
             if (OutFileLength <= 0) {
                 retVal = clMadn.strGetErrorCode();
                 log.error("[ENCRYPT][ErrorCode] : {} [ErrorMessage] : {} ", retVal, clMadn.strGetErrorMessage(retVal));
@@ -160,7 +232,6 @@ public class MarkanyDrmService {
 
         //복호화 객체 생성
         Madec clMadec = new Madec("/MarkAnyServerInfo.dat"); //파일경로 수정 필요(프로퍼티)
-        //long lFileLen = Files.size(srcPath);  //복호화 대상파일 크기
         String retVal;
 
         try (BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
@@ -170,7 +241,6 @@ public class MarkanyDrmService {
 
             if(OutFileLength<=0){
                 retVal=clMadec.strGetErrorCode();
-                //retVal=clMadec.strGetErrorCode();
                 log.error("[DECRYPT][ErrorCode] : {} [ErrorMessage] : {} ", retVal, clMadec.strGetErrorMessage(retVal));
             }
             //03. 복호화 진행
@@ -195,12 +265,85 @@ public class MarkanyDrmService {
     }
 
     private boolean checkResult(int retVal) throws DRMException {
-        if(retVal==0){
+        if (retVal == 0) {
             return true;
-        }else {
+        } else {
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);
-            log.info("[FAIL][ENCRYPT][MARKANY] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
+            log.info("[FAIL][ENCRYPT][MARKANY] {} , {} , {} ", drmErrorVo.getCode(), drmErrorVo.getValue(), drmErrorVo.getDesc());
             throw new DRMException(retVal);
         }
     }
+
+/**
+    @Autowired
+    public long getEncryptFileSize(String fileName, long lfileLen, BufferedInputStream inFile) {
+        return clMadn.lGetEncryptFileSize(
+                prop.getPiAclFlag(),        // ACL 참조 방식( 고정값 0 )
+                prop.getPstrDocLevel(),     // 암호화 문서 등급 ( 고정값 0 )
+                prop.getPstrUserId(),       // 사용자 ID
+                fileName,                   // 파일 이름
+                lfileLen,                    // 암호화하려는 원본 파일 크기
+                prop.getPstrOwnerId(),      // 암호화 대상 파일 소유자
+                prop.setStrCompanyId("RUSHNCASH-391E-ADB5-A056"),     // 회사코드 ID    "RUSHNCASH-391E-ADB5-A056" ); //🟢
+                prop.getGroupId(),          // 그룹코드 ID
+                prop.getPstrPositionId(),   // 직위코드 ID
+                prop.getPstrGrade(),        // 등급
+                prop.getPstrFileId(),       // 파일 고유 ID
+                prop.getPiCanSave(),        // 저장 권한 (가능 1, 불가 0)
+                prop.getPiCanEdit(),        // 수정 권한 (가능 1, 불가 0)
+                prop.getPiBlockCopy(),      // 블룩복사 권한 (가능 1, 불가 0)
+                prop.getPiOpenCount(),      // 열람 가능 회수 (회수 또는 제한없음 -99)
+                prop.getPiPrintCount(),     // 출력 가능 회수 (회수 또는 제한없음 -99)
+                prop.getPiPrintCount(),     // 문서 사용 가능 기간(기간 또는 제한없음 -99)
+                prop.getPiSaveLog(),        // 저장 로그 (가능 1, 불가 0)
+                prop.getPiPrintLog(),       // 출력 로그 (가능 1, 불가 0)
+                prop.getPiOpenLog(),        // 열람 로그 (가능 1, 불가 0)
+                prop.getPiVisualPrint(),    // 인쇄시 워터마크 적용(적용1, 미적용 0)
+                prop.getPiImageSafer(),     // 캡쳐방지 적용(적용1, 미적용 0)
+                prop.getPiRealTimeAcl(),    // 사용하지 않음
+                prop.getPstrDocumentTitle(),// 문서 제목
+                prop.getPstrCompanyName(),  // 회사명
+                prop.getPstrGroupName(),    // 그룹명
+                prop.getPstrPositionName(), // 직위명
+                prop.getPstrUserName(),     // 사용자 이름
+                prop.getPstrUserIp(),       // 사용자 PC IP
+                prop.getPstrServerOrigin(), // 시스템명
+                prop.getPiExchangePolicy(), // 암호화 문서 정책 ( 고정값 1 )
+                prop.getPiDrmFlag(),        // 암호화 여부( 고정값 0 )
+                prop.getIBlockSize(),       // 블럭크기 ( 고정값 0 )
+                prop.getStrMachineKey(),    // 머신키
+
+                prop.getStrFileVersion(),   // 암호화 파일 버전
+                prop.getStrMultiUserID(),   // 다중 사용자 ID
+                prop.getStrMultiUserName(), // 다중 사용명
+                prop.setStrEnterpriseID("RUSHNCASHG-B0A4-894C-2638"),  // 회사 대표 ID
+                prop.getStrEnterpriseName(),// 회사 대표명
+                prop.getStrDeptID(),         // 부서코드 ID
+                prop.getStrDeptName(),       // 부서명
+                prop.getStrPositionLevel(), // 직위레벨
+                prop.getStrSecurityLevel(), // 보안레벨
+                prop.getStrSecurityLevelName(),// 보안레벨명
+                prop.getStrPgCode(),        // 사용하지 않음
+                prop.getStrCipherBlockSize(), // 사이퍼블럭크기 ( 고정값 16 )
+                prop.getStrCreatorID(),     // 생성자 ID
+                prop.getStrCreatorName(),   // 생성자 이름
+                prop.getStrOnlineControl(), // 고정값 0
+                prop.getStrOfflinePolicy(), // 고정값
+                prop.getStrValidPeriodType(),// 고정값
+                prop.getStrUsableAlways(),  // 고정값 0
+                prop.getStrPriPubKey(),     // 고정값
+                prop.getStrCreatorCompanyId(), // 생성자 회사코드 ID
+                prop.getStrCreatorDeptId(), // 생성자 부서코드 ID
+                prop.getStrCreatorGroupId(),// 생성자 그룹코드 ID
+                prop.getStrCreatorPositionId(),// 생성자 직위코드 ID
+                prop.getStrFileSize(),      // 원본파일크기
+                prop.getStrHeaderUpdateTime(),//	헤더업데이트시간
+                prop.getStrReserved01(),// 지정 필드1
+                prop.getStrReserved02(),// 지정 필드2
+                prop.getStrReserved03(),// 지정 필드3
+                prop.getStrReserved04(),// 지정 필드4
+                prop.getStrReserved05(),// 지정 필드5
+                inFile //암호화 스트림파일
+        );
+    }*/
 }
