@@ -1,2 +1,2 @@
 # okfg-drm-adapter
-OK금융그룹 DRM 두레이 연동 어댑터
+스토브페이 DRM 두레이 연동 어댑터

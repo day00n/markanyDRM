@@ -37,7 +37,6 @@ drm:
   jwt:
     secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
     issuer: "spay"
-  markanydata : "/home/onboarding/SAFE45/java/MarkAnyDrmInfo.dat"
 
 ---
 spring:
@@ -61,7 +60,6 @@ drm:
     secret: "e6a5516a62b9d1fe3145ff530fd0a8b3"
     #    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
     issuer: "spay"
-  markanydata : "/home/onboarding/SAFE45/java/MarkAnyDrmInfo.dat"
 
 ---
 spring:
@@ -85,4 +83,3 @@ drm:
     secret: "e6a5516a62b9d1fe3145ff530fd0a8b3"
     #    secret: "9386d7c69da34674a8f9dce6332c78b4c9b328af85ee02999c24509f94d74b1e"
     issuer: "spay"
-  markanydata : "/home/onboarding/SAFE45/java/MarkAnyDrmInfo.dat"

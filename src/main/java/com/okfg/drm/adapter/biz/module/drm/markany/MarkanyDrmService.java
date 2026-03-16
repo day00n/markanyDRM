@@ -118,14 +118,14 @@ public class MarkanyDrmService {
         log.info("[ENCRYPT] : [SRC][{}] ::: [TARGET][{}]", srcPath.toAbsolutePath(), dstPath.toAbsolutePath());
 
         //암호화 객체 생성
-        Madn clMadn = new Madn(prop.getMarkanydata());
+        Madn clMadn = new Madn("/MarkAnyServerInfo.dat");//파일경로 수정 필요(프로퍼티)
         //long lFileLen = Files.size(srcPath);  //암호화 대상파일 크기
         String retVal;
 
         try (BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
              BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath))) {
             long lFileLen = Files.size(srcPath);  //암호화 대상파일 크기
-            long OutFileLength = clMadn.lGetEncryptFileSize(//🔴
+            long OutFileLength = clMadn.lGetEncryptFileSize(
                     prop.getPiAclFlag(),        // ACL 참조 방식( 고정값 0 )
                     prop.getPstrDocLevel(),     // 암호화 문서 등급 ( 고정값 0 )
                     prop.getPstrUserId(),       // 사용자 ID
@@ -231,7 +231,7 @@ public class MarkanyDrmService {
         }
 
         //복호화 객체 생성
-        Madec clMadec = new Madec(prop.getMarkanydata());
+        Madec clMadec = new Madec("/MarkAnyServerInfo.dat"); //파일경로 수정 필요(프로퍼티)
         String retVal;
 
         try (BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));

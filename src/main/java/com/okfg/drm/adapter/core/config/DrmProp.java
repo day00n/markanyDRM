@@ -47,8 +47,6 @@ public class DrmProp {
         private String issuer;
     }
 
-    private String markanydata;
-
     private int		piAclFlag = 0;
     private String	pstrDocLevel = "0";
     private String	pstrUserId = "test_id";
