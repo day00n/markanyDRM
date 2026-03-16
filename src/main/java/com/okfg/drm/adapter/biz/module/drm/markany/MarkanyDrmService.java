@@ -87,7 +87,7 @@ public class MarkanyDrmService {
 
                 이외 : Exception 발생 시
                 */
-                if(strRetCode.equals("60042")){
+                if(strRetCode.equals("00000")){
                     log.info("[Madn.isEncrypted][Encrypted][암호화파일] Result ::: {}",strRetCode);
                     return true;
                 } else if (strRetCode.equals("60045")) {
