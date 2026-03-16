@@ -40,6 +40,7 @@ public class DrmProp {
      */
     private String fileExt;
     private String doorayFilePath;
+    private String markanyFile;
 
     @Data
     public class Jwt{

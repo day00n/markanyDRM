@@ -49,7 +49,7 @@ public class MarkanyDrmService {
      */
     public boolean checkExt(String fileName) {
         log.info("[CHECK EXT] {}",fileName);
-        MaFileChk clMaFileChk = new MaFileChk("MarkAny.dat");
+        MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
         String strRetCode="";
         //sFile.SettingPathForProperty(getPropPath());
         /*
@@ -74,7 +74,7 @@ public class MarkanyDrmService {
             BufferedInputStream inFile = new BufferedInputStream(new FileInputStream(path.toFile()));
 
             //02. 암호화 여부 확인
-            MaFileChk clMaFileChk = new MaFileChk("MarkAny.dat"); //🔴 /home/onboarding/SAFER45/java
+            MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
 
             Long lFileLen = path.toFile().length();
             Long OutFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
@@ -118,7 +118,7 @@ public class MarkanyDrmService {
         log.info("[ENCRYPT] : [SRC][{}] ::: [TARGET][{}]", srcPath.toAbsolutePath(), dstPath.toAbsolutePath());
 
         //암호화 객체 생성
-        Madn clMadn = new Madn("/MarkAnyServerInfo.dat");//파일경로 수정 필요(프로퍼티)
+        Madn clMadn = new Madn(prop.getMarkanyFile());//파일경로 수정 필요(프로퍼티)
         //long lFileLen = Files.size(srcPath);  //암호화 대상파일 크기
         String retVal;
 
@@ -231,7 +231,7 @@ public class MarkanyDrmService {
         }
 
         //복호화 객체 생성
-        Madec clMadec = new Madec("/MarkAnyServerInfo.dat"); //파일경로 수정 필요(프로퍼티)
+        Madec clMadec = new Madec(prop.getMarkanyFile()); //파일경로 수정 필요(프로퍼티)
         String retVal;
 
         try (BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
