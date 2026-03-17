@@ -67,35 +67,47 @@ public class MarkanyDrmService {
 
     public boolean isEncrypted(String fileName, byte[] inputBytes) {
         Path path = null;
+        String out = null;
         String strRetCode = "";
         try {
             //01. 임시파일 생성
             path = fileManagerService.createFile(fileName, inputBytes);
             BufferedInputStream inFile = new BufferedInputStream(new FileInputStream(path.toFile()));
+            BufferedOutputStream outFile = new BufferedOutputStream(new FileOutputStream(out));
 
             //02. 암호화 여부 확인
             MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
-
+            Madn clMadn = new Madn(prop.getMarkanyFile());
+            Madec clMadec = new Madec(prop.getMarkanyFile());
             Long lFileLen = path.toFile().length();
             Long OutFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
 
-            if(OutFileLength > 0){
+            if(OutFileLength > 0) {
                 strRetCode = clMaFileChk.strMaFileChk();
                 /*
-                60042 : 암호화 파일을 암호화 시도한 경우 (암호화 파일) //🔴암호화 파일 == 00000? 확인
+                00000 : 파일 체크 성공 --
+                60042 : 암호화 파일을 암호화 시도한 경우 (암호화 파일)
                 60045 : 복호화 파일을 복호화 시도한 경우 (일반 파일)
-
                 이외 : Exception 발생 시
                 */
-                if(strRetCode.equals("00000")){
-                    log.info("[Madn.isEncrypted][Encrypted][암호화파일] Result ::: {}",strRetCode);
-                    return true;
-                } else if (strRetCode.equals("60045")) {
-                    log.info("[Madn.isEncrypted][NOT Encrypted][일반파일]  Result ::: {}",strRetCode);
-                    return false;
+                if (strRetCode.equals("00000")) {   //파일 체크 성공
+                    //대상 파일 암호화해서 60042 확인
+                    String retVal = clMadn.strMadn(outFile);
+                    int rst = Integer.parseInt(retVal); //타입변환
+                    if(rst == 60042){
+                        log.info("[isEncrypted][Encrypted][암호화파일] Result ::: {}", strRetCode);
+                        return true;
+                    }
+                    //대상 파일 복호화해서 60045 확인
+                    retVal = clMadec.strMadec(outFile);
+                    rst = Integer.parseInt(retVal); //타입변환
+                    if (rst == 60045){
+                        log.info("[isEncrypted][NOT Encrypted][일반파일]  Result ::: {}", strRetCode);
+                        return false;
+                    }
+                } else {
+                    log.debug("[FILECHECK] [ErrorCode] : {} [ErrorMessage] : {}", strRetCode, clMaFileChk.strGetErrorMessage((strRetCode)));
                 }
-            }else{
-                log.debug("[FILECHECK] [ErrorCode] : {} [ErrorMessage] : {}", strRetCode, clMaFileChk.strGetErrorMessage((strRetCode)));
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -227,7 +239,7 @@ public class MarkanyDrmService {
         //02. 암호화 여부 확인
         if(!isEncrypted(fileName, inputBytes)){
             //log.info("[DECRYPT] [SRC:{}] [DST:{}]",srcPath.toAbsolutePath(),dstPath.toAbsolutePath());
-            throw new DRMException(DrmErrorEnum.PLAIN_FILE_ON_DECRYPT_REQUEST.value());
+            throw new DRMException(DrmErrorEnum.PLAIN_FILE_ON_DECRYPT_REQUEST.value()); //일반파일의 경우 에러
         }
 
         //복호화 객체 생성
