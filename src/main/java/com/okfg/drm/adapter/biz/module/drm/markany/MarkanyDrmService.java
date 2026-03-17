@@ -84,6 +84,7 @@ public class MarkanyDrmService {
 
             if(OutFileLength > 0) {
                 strRetCode = clMaFileChk.strMaFileChk();
+                log.info("[isEncrypted][FileCheck][파일체크시작]");
                 /*
                 00000 : 파일 체크 성공 --
                 60042 : 암호화 파일을 암호화 시도한 경우 (암호화 파일)
@@ -91,6 +92,7 @@ public class MarkanyDrmService {
                 이외 : Exception 발생 시
                 */
                 if (strRetCode.equals("00000")) {   //파일 체크 성공
+                    log.info("[isEncrypted][FileCheck][파일체크성공] Result ::: {}", strRetCode);
                     //대상 파일 암호화해서 60042 확인
                     String retVal = clMadn.strMadn(outFile);
                     int rst = Integer.parseInt(retVal); //타입변환
