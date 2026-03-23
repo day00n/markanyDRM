@@ -64,16 +64,14 @@ public class MarkanyDrmService {
             BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
             BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath));
 
-            BufferedInputStream inFileDec = new BufferedInputStream(Files.newInputStream(srcPath));
-
             //02. 암호화 여부 확인
             MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
             Madn clMadn = new Madn(prop.getMarkanyFile()); //암호화 객체
-            Madec clMadec = new Madec(prop.getMarkanyFile()); //복호화 객체
 
             Long lFileLen = srcPath.toFile().length();
             Long srcFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
 
+            log.info("[파일확인]["+fileName+"]");
             if(srcFileLength > 0) {
                 strRetCode = clMaFileChk.strMaFileChk();
                 log.info("[isEncrypted][FileCheck][파일체크시작]");
