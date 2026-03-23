@@ -40,22 +40,17 @@ public class MarkanyDrmService {
      */
     public boolean checkExt(String fileName) {
         try {
-            log.info("[파일확장자체크-fileName]"+fileName);
             String tmp[]= fileName.split("\\.");
-            log.info(tmp.length+"");
             String ext = tmp[tmp.length-1];
             String drmExt = prop.getFileExt();
-            log.info("[파일확장자체크]"+drmExt);
             for (String s : drmExt.split(";")) {
                 if (s.equals(ext.toLowerCase())) {
                     return true;
                 }
             }
         }catch (Exception e) {
-            log.debug("1" + e.getMessage());
             return false;
         }
-        log.debug("2");
         return false;
     }
 
@@ -165,7 +160,7 @@ public class MarkanyDrmService {
             throw new DRMException(DrmErrorEnum.FILE_IO.value());
         } finally {
             //04. 임시파일 삭제
-//            fileManagerService.clearTmpDir(srcPath);
+            fileManagerService.clearTmpDir(srcPath);
         }
     }
 
