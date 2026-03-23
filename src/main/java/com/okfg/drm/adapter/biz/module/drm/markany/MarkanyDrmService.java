@@ -157,7 +157,7 @@ public class MarkanyDrmService {
             throw new DRMException(DrmErrorEnum.FILE_IO.value());
         } finally {
             //04. 임시파일 삭제
-            fileManagerService.clearTmpDir(srcPath);
+//            fileManagerService.clearTmpDir(srcPath);
         }
     }
 
