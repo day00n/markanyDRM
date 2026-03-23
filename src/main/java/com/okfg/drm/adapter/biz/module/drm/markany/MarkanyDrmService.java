@@ -106,7 +106,7 @@ public class MarkanyDrmService {
 //                    }
 
                 } else {
-                    log.debug("[FILECHECK][ErrorCode] : {} [ErrorMessage] : {}", strRetCode, clMaFileChk.strGetErrorMessage((strRetCode)));
+                    log.debug("[FILECHECK][ErrorCode] : {} [ErrorMessage] : {}", strRetCode, "");
                 }
             }
         } catch (FileNotFoundException e) {
