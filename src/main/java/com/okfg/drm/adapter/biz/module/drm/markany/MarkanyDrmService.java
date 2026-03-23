@@ -62,10 +62,12 @@ public class MarkanyDrmService {
             BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
             BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath));
 
+            BufferedInputStream inFileDec = new BufferedInputStream(Files.newInputStream(srcPath));
+
             //02. 암호화 여부 확인
             MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
-            Madn clMadn = new Madn(prop.getMarkanyFile());
-            Madec clMadec = new Madec(prop.getMarkanyFile());
+            Madn clMadn = new Madn(prop.getMarkanyFile()); //암호화 객체
+            Madec clMadec = new Madec(prop.getMarkanyFile()); //복호화 객체
             Long lFileLen = srcPath.toFile().length();
             Long OutFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
 
@@ -92,7 +94,7 @@ public class MarkanyDrmService {
                     }
                     log.info("[retVal] "+retVal);
                     //대상 파일을 복호화 진행 : 복호화 된 파일-원문파일인 경우 60045 확인
-                    OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFile);
+                    OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFileDec);
                     log.info("[대상 파일을 복호화 진행 lGetDecryptFileSize]==== "+OutFileLength);
                     retVal = clMadec.strMadec(outFile);
                     if (retVal.equals("60045")){
