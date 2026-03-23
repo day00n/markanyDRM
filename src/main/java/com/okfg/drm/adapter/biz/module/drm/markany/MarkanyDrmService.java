@@ -82,26 +82,32 @@ public class MarkanyDrmService {
                     log.info("[isEncrypted][FileCheck][파일체크성공] Result ::: {}", strRetCode);
                     //대상 파일을 암호화 진행 : 암호화 된 파일인경우 60042 확인
                     OutFileLength = initMarkany(srcPath, inFile, clMadn, prop);
+                    log.info("[대상 파일을 암호화 진행 initMarkany]==== "+OutFileLength);
+
                     String retVal = clMadn.strMadn(outFile);
+                    log.info("clMadn.strMadn(outFile)======");
                     if(retVal.equals("60042")){
                         log.info("[isEncrypted][Encrypted][암호화파일] Result ::: {}", strRetCode);
                         return true;
                     }
+                    log.info("[retVal] "+retVal);
                     //대상 파일을 복호화 진행 : 복호화 된 파일-원문파일인 경우 60045 확인
                     OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFile);
+                    log.info("[대상 파일을 복호화 진행 lGetDecryptFileSize]==== "+OutFileLength);
                     retVal = clMadec.strMadec(outFile);
                     if (retVal.equals("60045")){
                         log.info("[isEncrypted][NOT Encrypted][일반파일]  Result ::: {}", strRetCode);
                         return false;
                     }
+                    log.info("[retVal] "+retVal);
                 } else {
                     log.debug("[FILECHECK][ErrorCode] : {} [ErrorMessage] : {}", strRetCode, clMaFileChk.strGetErrorMessage((strRetCode)));
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][ErrorCode] :" + e.getMessage());
+            throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][FileNotFoundException] :" + e.getMessage());
         } catch (IOException e) {
-            throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][ErrorCode] :" + e.getMessage());
+            throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][IOException] :" + e.getMessage());
         } finally {
             //03. 임시파일 삭제
             if (srcPath != null){
