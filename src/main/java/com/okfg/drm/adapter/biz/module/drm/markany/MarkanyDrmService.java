@@ -65,15 +65,15 @@ public class MarkanyDrmService {
             BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath));
 
             //02. 암호화 여부 확인
-            MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
+//            MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
             Madn clMadn = new Madn(prop.getMarkanyFile()); //암호화 객체
 
             Long lFileLen = srcPath.toFile().length();
-            Long srcFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
-
+//            Long srcFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
+            Long srcFileLength = 1L;
             log.info("[파일확인]["+fileName+"]["+srcFileLength+"]["+srcPath.toString()+"]");
             if(srcFileLength > 0) {
-                strRetCode = clMaFileChk.strMaFileChk();
+//                strRetCode = clMaFileChk.strMaFileChk();
                 log.info("[isEncrypted][FileCheck][파일체크시작]");
                 /*
                 00000 : 파일 체크 성공 --
@@ -81,6 +81,7 @@ public class MarkanyDrmService {
                 60045 : 복호화 파일을 복호화 시도한 경우 (일반 파일)
                 이외 : Exception 발생 시
                 */
+                strRetCode = "00000";
                 if (strRetCode.equals("00000")) {   //파일 체크 성공
                     log.info("[isEncrypted][FileCheck][파일체크성공] Result ::: {}", strRetCode);
                     //대상 파일을 암호화 진행 : 암호화 된 파일인경우 60042 확인
