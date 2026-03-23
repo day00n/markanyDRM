@@ -40,7 +40,9 @@ public class MarkanyDrmService {
      */
     public boolean checkExt(String fileName) {
         try {
+            log.info("[파일확장자체크-fileName]"+fileName);
             String tmp[]= fileName.split(".");
+            log.info(tmp.length+"");
             String ext = tmp[tmp.length-1];
             String drmExt = prop.getFileExt();
             log.info("[파일확장자체크]"+drmExt);
