@@ -81,12 +81,14 @@ public class MarkanyDrmService {
                 if (strRetCode.equals("00000")) {   //파일 체크 성공
                     log.info("[isEncrypted][FileCheck][파일체크성공] Result ::: {}", strRetCode);
                     //대상 파일을 암호화 진행 : 암호화 된 파일인경우 60042 확인
+                    OutFileLength = initMarkany(srcPath, inFile, clMadn, prop);
                     String retVal = clMadn.strMadn(outFile);
                     if(retVal.equals("60042")){
                         log.info("[isEncrypted][Encrypted][암호화파일] Result ::: {}", strRetCode);
                         return true;
                     }
                     //대상 파일을 복호화 진행 : 복호화 된 파일-원문파일인 경우 60045 확인
+                    OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFile);
                     retVal = clMadec.strMadec(outFile);
                     if (retVal.equals("60045")){
                         log.info("[isEncrypted][NOT Encrypted][일반파일]  Result ::: {}", strRetCode);
