@@ -121,8 +121,9 @@ public class MarkanyDrmService {
 
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
         //01. 암호화 대상 여부 확인
+        log.info("[파일체크]:::"+fileName);
         if (!checkExt(fileName)) return inputBytes;
-
+        log.info("[암호화 진행]:::"+fileName);
         //02. 임시파일 생성
         Path srcPath = fileManagerService.createFile(fileName, inputBytes);//암호화 할 파일(원본파일)
         Path dstPath = srcPath.getParent().resolve(fileName + "_enc");
