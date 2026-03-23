@@ -50,8 +50,10 @@ public class MarkanyDrmService {
                 }
             }
         }catch (Exception e) {
+            log.debug("1" + e.getMessage());
             return false;
         }
+        log.debug("2");
         return false;
     }
 
