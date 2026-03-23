@@ -71,7 +71,7 @@ public class MarkanyDrmService {
             Long lFileLen = srcPath.toFile().length();
             Long srcFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
 
-            log.info("[파일확인]["+fileName+"]");
+            log.info("[파일확인]["+fileName+"]["+srcFileLength+"]["+srcPath.toString()+"]");
             if(srcFileLength > 0) {
                 strRetCode = clMaFileChk.strMaFileChk();
                 log.info("[isEncrypted][FileCheck][파일체크시작]");
@@ -115,7 +115,7 @@ public class MarkanyDrmService {
         } finally {
             //03. 임시파일 삭제
             if (srcPath != null){
-                fileManagerService.clearTmpDir(srcPath);
+//                fileManagerService.clearTmpDir(srcPath);
             }
         }
         throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][ErrorCode] :" + strRetCode);
