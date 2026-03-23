@@ -70,10 +70,11 @@ public class MarkanyDrmService {
             MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
             Madn clMadn = new Madn(prop.getMarkanyFile()); //암호화 객체
             Madec clMadec = new Madec(prop.getMarkanyFile()); //복호화 객체
-            Long lFileLen = srcPath.toFile().length();
-            Long OutFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
 
-            if(OutFileLength > 0) {
+            Long lFileLen = srcPath.toFile().length();
+            Long srcFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
+
+            if(srcFileLength > 0) {
                 strRetCode = clMaFileChk.strMaFileChk();
                 log.info("[isEncrypted][FileCheck][파일체크시작]");
                 /*
@@ -85,25 +86,26 @@ public class MarkanyDrmService {
                 if (strRetCode.equals("00000")) {   //파일 체크 성공
                     log.info("[isEncrypted][FileCheck][파일체크성공] Result ::: {}", strRetCode);
                     //대상 파일을 암호화 진행 : 암호화 된 파일인경우 60042 확인
-                    OutFileLength = initMarkany(srcPath, inFile, clMadn, prop);
-                    log.info("[대상 파일을 암호화 진행 initMarkany]==== "+OutFileLength);
+                    srcFileLength = initMarkany(srcPath, inFile, clMadn, prop);
+                    log.info("[대상 파일을 암호화 진행 initMarkany]==== "+srcFileLength);
 
                     String retVal = clMadn.strMadn(outFile);
-                    log.info("clMadn.strMadn(outFile)======");
-                    if(retVal.equals("60042")){
-                        log.info("[isEncrypted][Encrypted][암호화파일] Result ::: {}", strRetCode);
+
+                    long srcFileLen = Files.size(srcPath);
+                    long dstFileLen = Files.size(dstPath);
+                    log.info("srcFileLen size )======="+srcFileLen);
+                    log.info("dstFileLen size )======="+dstFileLen);
+
+                    if (srcFileLen == dstFileLen) {
+                        //암호화됨.
                         return true;
                     }
-                    log.info("[retVal] "+retVal);
-                    //대상 파일을 복호화 진행 : 복호화 된 파일-원문파일인 경우 60045 확인
-                    OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFileDec);
-                    log.info("[대상 파일을 복호화 진행 lGetDecryptFileSize]==== "+OutFileLength);
-                    retVal = clMadec.strMadec(outFile);
-                    if (retVal.equals("60045")){
-                        log.info("[isEncrypted][NOT Encrypted][일반파일]  Result ::: {}", strRetCode);
-                        return false;
-                    }
-                    log.info("[retVal] "+retVal);
+                    return false;
+//                    if(retVal.equals("60042")){
+//                        log.info("[isEncrypted][Encrypted][암호화파일] Result ::: {}", strRetCode);
+//                        return true;
+//                    }
+
                 } else {
                     log.debug("[FILECHECK][ErrorCode] : {} [ErrorMessage] : {}", strRetCode, clMaFileChk.strGetErrorMessage((strRetCode)));
                 }
@@ -160,7 +162,7 @@ public class MarkanyDrmService {
             throw new DRMException(DrmErrorEnum.FILE_IO.value());
         } finally {
             //04. 임시파일 삭제
-            fileManagerService.clearTmpDir(srcPath);
+//            fileManagerService.clearTmpDir(srcPath);
         }
     }
 
