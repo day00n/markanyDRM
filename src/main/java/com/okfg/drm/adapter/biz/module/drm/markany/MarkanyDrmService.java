@@ -223,7 +223,7 @@ public class MarkanyDrmService {
                 prop.getStrFileVersion(),   // 암호화 파일 버전
                 prop.getStrMultiUserID(),   // 다중 사용자 ID
                 prop.getStrMultiUserName(), // 다중 사용명
-                prop.getStrEnterpriseID(),  // 회사 대표 ID
+                prop.getStrEnterpriseID(),  // 회사 대표 ID "RUSHNCASHG-B0A4-894C-2638"; //🟢
                 prop.getStrEnterpriseName(),// 회사 대표명
                 prop.getStrDeptID(),         // 부서코드 ID
                 prop.getStrDeptName(),       // 부서명

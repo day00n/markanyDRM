@@ -27,10 +27,6 @@ spring:
       on-profile: local
 drm:
   testFile: "${user.dir}/src/main/resources/markany_local_test/testFiles/"
-  softcampProperties: "${user.dir}/src/main/resources/softcamp_local_test/softcamp.properties"
-  keyfilePath: "${user.dir}/src/main/resources/softcamp_local_test/keyDAC_SVR0.sc"
-  defaultDomain: "SECURITYDOMAIN"
-  defaultAuthBits: "111001100"
   groupId: "System"
   doorayFilePath: "${user.dir}/dooray/{seq}/"   # 상대경로 로컬 생성
   jwt:
@@ -50,10 +46,6 @@ spring:
       on-profile: dev
 drm:
   testFile: "/home/dooray/app/adapter/testFiles/"
-  softcampProperties: "/home/dooray/ServiceLinker_File/02_Module/02_ServiceLinker/softcamp.properties"
-  keyfilePath: "/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc"
-  defaultDomain: "SECURITYDOMAIN"
-  defaultAuthBits: "111001100"
   groupId: "System"
   doorayFilePath: "/home/dooray/app/adapter/{seq}/"
   jwt:
@@ -74,10 +66,6 @@ spring:
       on-profile: prod
 drm:
   testFile: "/home/dooray/app/adapter/testFiles/"
-  softcampProperties: "/home/dooray/ServiceLinker_File/02_Module/02_ServiceLinker/softcamp.properties"
-  keyfilePath: "/home/dooray/ServiceLinker_File/04_KeyFile/keyDAC_SVR0.sc"
-  defaultDomain: "SECURITYDOMAIN"
-  defaultAuthBits: "111001100"
   groupId: "System"
   doorayFilePath: "/home/dooray/app/adapter/{seq}/"
   jwt:

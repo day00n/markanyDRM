@@ -16,16 +16,10 @@ public class DrmProp {
     private String testFile;
     private String softcampProperties;
     private String markanyProperties;
-    /**
-     * 생성자 정보에 연동시스템 이름이 들어감.
-     * EX) SECURITYDOMAIN
-     */
-    private String defaultDomain;
 
     /**
      * 복호화를 위한 키파일.
      */
-    private String keyfilePath;
     private String groupId;
     /**
      * 키구분(1:그룹 , 0:개인),읽기 권한,수정 권한,복호화 권한,외부전송권한,프린트권한,마킹유무,자동파기,권한변경
