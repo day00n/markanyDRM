@@ -65,51 +65,26 @@ public class MarkanyDrmService {
             BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath));
 
             //02. 암호화 여부 확인
-            //암호화를 해보고 원문이랑 암호화 파일이랑 다르면 true, 같으면 false
-//            MaFileChk clMaFileChk = new MaFileChk(prop.getMarkanyFile());
             Madn clMadn = new Madn(prop.getMarkanyFile()); //암호화 객체
             Long srcFileLength = initMarkany(srcPath, inFile, clMadn, prop);
 
-//            Long lFileLen = srcPath.toFile().length();
-//            Long srcFileLength = clMaFileChk.lGetFileChkFileSize(fileName, lFileLen, inFile);
-//            Long srcFileLength = 1L;
             log.info("[파일확인]["+fileName+"]["+srcFileLength+"]["+srcPath.toString()+"]");
             if(srcFileLength > 0) {
-//                strRetCode = clMaFileChk.strMaFileChk();
-//                log.info("[isEncrypted][FileCheck][파일체크시작]");
-                /*
-                00000 : 파일 체크 성공 --
-                60042 : 암호화 파일을 암호화 시도한 경우 (암호화 파일)
-                60045 : 복호화 파일을 복호화 시도한 경우 (일반 파일)
-                이외 : Exception 발생 시
-                */
-//                strRetCode = "00000";
-//                if (strRetCode.equals("00000")) {   //파일 체크 성공
-//                    log.info("[isEncrypted][FileCheck][파일체크성공] Result ::: {}", strRetCode);
-                    //대상 파일을 암호화 진행 : 암호화 된 파일인경우 60042 확인
-                    //srcFileLength = initMarkany(srcPath, inFile, clMadn, prop);
-                    log.info("[대상 파일을 암호화 진행 initMarkany]==== "+srcFileLength);
+                log.info("[대상 파일을 암호화 진행 initMarkany]==== "+srcFileLength);
 
-                    clMadn.strMadn(outFile);
+                strRetCode = clMadn.strMadn(outFile);
 
-                    long srcFileLen = Files.size(srcPath);
-                    long dstFileLen = Files.size(dstPath);
-                    log.info("srcFileLen size )======="+srcFileLen);
-                    log.info("dstFileLen size )======="+dstFileLen);
+                long srcFileLen = Files.size(srcPath);
+                long dstFileLen = Files.size(dstPath);
+                log.info("srcFileLen size ======= "+srcFileLen);
+                log.info("dstFileLen size ======= "+dstFileLen);
 
-                    if (srcFileLen == dstFileLen) {
-                        //암호화됨.
-                        return true;
-                    }
-                    return false;
-//                    if(retVal.equals("60042")){
-//                        log.info("[isEncrypted][Encrypted][암호화파일] Result ::: {}", strRetCode);
-//                        return true;
-//                    }
-
-//                } else {
-//                    log.debug("[FILECHECK][ErrorCode] : {} [ErrorMessage] : {}", strRetCode, "");
-//                }
+                if (srcFileLen == dstFileLen) {
+                    //원문 파일 크기 == 암호화 파일 크기 -> 암호화가 안된 것 : 원문이 암호화파일
+                    return true;
+                }
+                //같지 않으면 암호화가 된 것 : 원문이 일반파일
+                return false;
             }
         } catch (FileNotFoundException e) {
             throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][FileNotFoundException] :" + e.getMessage());
@@ -118,10 +93,10 @@ public class MarkanyDrmService {
         } finally {
             //03. 임시파일 삭제
             if (srcPath != null){
-//                fileManagerService.clearTmpDir(srcPath);
+                fileManagerService.clearTmpDir(srcPath);
             }
         }
-        throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][ErrorCode] :" + strRetCode);
+        throw new IllegalStateException("[FILECHECK][암호화 여부 확인실패][ErrorCode] :" + strRetCode );
     }
 
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
@@ -163,7 +138,7 @@ public class MarkanyDrmService {
             throw new DRMException(DrmErrorEnum.FILE_IO.value());
         } finally {
             //04. 임시파일 삭제
-//            fileManagerService.clearTmpDir(srcPath);
+            fileManagerService.clearTmpDir(srcPath);
         }
     }
 
