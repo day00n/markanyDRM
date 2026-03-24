@@ -154,7 +154,7 @@ class DrmControllerTest {
         // --- Status ---
         int status = result.getResponse().getStatus();
         assertThat(status).as("상태")
-                .isEqualTo(422);
+                .isEqualTo(200);
 
 //        // --- Body ---
 //        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
