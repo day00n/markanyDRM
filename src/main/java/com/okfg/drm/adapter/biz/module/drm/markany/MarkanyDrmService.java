@@ -31,13 +31,7 @@ public class MarkanyDrmService {
 
     private final DrmProp prop;
     private final MaFileManagerService fileManagerService;
-    private final ResourceLoader resourceLoader;
 
-    /**
-     * 암호화 대상 확장자 확인.
-     * @param fileName
-     * @return
-     */
     public boolean checkExt(String fileName) {
         try {
             String tmp[]= fileName.split("\\.");
@@ -101,9 +95,8 @@ public class MarkanyDrmService {
 
     public byte[] encrypt(String fileName, byte[] inputBytes) throws DRMException {
         //01. 암호화 대상 여부 확인
-        log.info("[파일체크]:::"+fileName);
         if (!checkExt(fileName)) return inputBytes;
-        log.info("[암호화 진행]:::"+fileName);
+
         //02. 임시파일 생성
         Path srcPath = fileManagerService.createFile(fileName, inputBytes);//암호화 할 파일(원본파일)
         Path dstPath = srcPath.getParent().resolve(fileName + "_enc");
@@ -124,14 +117,14 @@ public class MarkanyDrmService {
             //03. 암호화 진행
             retVal = clMadn.strMadn(outFile);
             int strRetCode = Integer.parseInt(retVal); //타입변환
-            log.debug("[ENCRYPT][암호화 결과] : {}", strRetCode);
+            log.debug("[ENCRYPT][암호화 결과] : {}", strRetCode); //00000일 경우 정상암호화 완료
 
             if (strRetCode!=0) {
                 DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(strRetCode);
                 log.info("[FAIL][ENCRYPT][MARKANY] {} , {} , {} ", drmErrorVo.getCode(), drmErrorVo.getValue(), drmErrorVo.getDesc());
                 throw new DRMException(strRetCode);
             }
-            return Files.readAllBytes(Paths.get(dstPath.toFile().toURI())); // * 암호화 바이너리 반환
+            return Files.readAllBytes(Paths.get(dstPath.toFile().toURI())); // 암호화 바이너리 반환
         } catch (IOException e) {
             DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(DrmErrorEnum.FILE_IO.value());
             log.info("[FAIL][ENCRYPT][FILE IO] {} , {} , {} ", drmErrorVo.getCode(), drmErrorVo.getValue(), e.getMessage());
@@ -151,7 +144,6 @@ public class MarkanyDrmService {
 
         //02. 암호화 여부 확인
         if(!isEncrypted(fileName, inputBytes)){
-            //log.info("[DECRYPT] [SRC:{}] [DST:{}]",srcPath.toAbsolutePath(),dstPath.toAbsolutePath());
             throw new DRMException(DrmErrorEnum.PLAIN_FILE_ON_DECRYPT_REQUEST.value()); //일반파일의 경우 에러
         }
 
@@ -163,7 +155,7 @@ public class MarkanyDrmService {
             BufferedInputStream inFile = new BufferedInputStream(Files.newInputStream(srcPath));
             BufferedOutputStream outFile = new BufferedOutputStream(Files.newOutputStream(dstPath));
             long lFileLen = Files.size(srcPath);  //복호화 대상파일 크기
-            long OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFile); //🔴(파일명, lFileLen,inFile)
+            long OutFileLength = clMadec.lGetDecryptFileSize(fileName, lFileLen, inFile);
 
             if(OutFileLength<=0){
                 retVal=clMadec.strGetErrorCode();
@@ -172,12 +164,11 @@ public class MarkanyDrmService {
             //03. 복호화 진행
             retVal=clMadec.strMadec(outFile);
             int strRetCode = Integer.parseInt(retVal);
-            log.debug("[DECRYPT][복호화 결과] :{}", retVal);
+            log.debug("[DECRYPT][복호화 결과] :{}", retVal); //00000의 경우 정상 복호화
             //정상이 아니면 에러발생
             if(strRetCode!=0){
                 DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(strRetCode);
                 log.info("[FAIL][DECRYPT][MARKANY] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(), drmErrorVo.getDesc());
-//                checkResult(strRetCode);
                 throw new DRMException(strRetCode);
             }return Files.readAllBytes(dstPath);
         }
@@ -186,19 +177,10 @@ public class MarkanyDrmService {
             log.info("[FAIL][DECRYPT][FILE IO] {} , {} , {} ",drmErrorVo.getCode(),drmErrorVo.getValue(),e.getMessage());
             throw new DRMException(DrmErrorEnum.FILE_IO.value());
         }finally {
-            fileManagerService.clearTmpDir(srcPath); //임시파일 삭제
+            //04. 임시파일 삭제
+            fileManagerService.clearTmpDir(srcPath);
         }
     }
-
-//    private boolean checkResult(int retVal) throws DRMException {
-//        if (retVal == 0) {
-//            return true;
-//        } else {
-//            DrmErrorVo drmErrorVo = DrmErrorEnum.getDrmErrorVo(retVal);
-//            log.info("[FAIL][ENCRYPT][MARKANY] {} , {} , {} ", drmErrorVo.getCode(), drmErrorVo.getValue(), drmErrorVo.getDesc());
-//            throw new DRMException(retVal);
-//        }
-//    }
 
     private long initMarkany(Path srcPath,BufferedInputStream inFile, Madn clMadn, DrmProp prop) throws IOException {
         long lFileLen = Files.size(srcPath);
@@ -269,79 +251,6 @@ public class MarkanyDrmService {
                 prop.getStrReserved04(),// 지정 필드4
                 prop.getStrReserved05(),// 지정 필드5
                 inFile //암호화 스트림파일
-        );//🔴인수값
-    }
-
-/**
-    @Autowired
-    public long getEncryptFileSize(String fileName, long lfileLen, BufferedInputStream inFile) {
-        return clMadn.lGetEncryptFileSize(
-                prop.getPiAclFlag(),        // ACL 참조 방식( 고정값 0 )
-                prop.getPstrDocLevel(),     // 암호화 문서 등급 ( 고정값 0 )
-                prop.getPstrUserId(),       // 사용자 ID
-                fileName,                   // 파일 이름
-                lfileLen,                    // 암호화하려는 원본 파일 크기
-                prop.getPstrOwnerId(),      // 암호화 대상 파일 소유자
-                prop.setStrCompanyId("RUSHNCASH-391E-ADB5-A056"),     // 회사코드 ID    "RUSHNCASH-391E-ADB5-A056" ); //🟢
-                prop.getGroupId(),          // 그룹코드 ID
-                prop.getPstrPositionId(),   // 직위코드 ID
-                prop.getPstrGrade(),        // 등급
-                prop.getPstrFileId(),       // 파일 고유 ID
-                prop.getPiCanSave(),        // 저장 권한 (가능 1, 불가 0)
-                prop.getPiCanEdit(),        // 수정 권한 (가능 1, 불가 0)
-                prop.getPiBlockCopy(),      // 블룩복사 권한 (가능 1, 불가 0)
-                prop.getPiOpenCount(),      // 열람 가능 회수 (회수 또는 제한없음 -99)
-                prop.getPiPrintCount(),     // 출력 가능 회수 (회수 또는 제한없음 -99)
-                prop.getPiPrintCount(),     // 문서 사용 가능 기간(기간 또는 제한없음 -99)
-                prop.getPiSaveLog(),        // 저장 로그 (가능 1, 불가 0)
-                prop.getPiPrintLog(),       // 출력 로그 (가능 1, 불가 0)
-                prop.getPiOpenLog(),        // 열람 로그 (가능 1, 불가 0)
-                prop.getPiVisualPrint(),    // 인쇄시 워터마크 적용(적용1, 미적용 0)
-                prop.getPiImageSafer(),     // 캡쳐방지 적용(적용1, 미적용 0)
-                prop.getPiRealTimeAcl(),    // 사용하지 않음
-                prop.getPstrDocumentTitle(),// 문서 제목
-                prop.getPstrCompanyName(),  // 회사명
-                prop.getPstrGroupName(),    // 그룹명
-                prop.getPstrPositionName(), // 직위명
-                prop.getPstrUserName(),     // 사용자 이름
-                prop.getPstrUserIp(),       // 사용자 PC IP
-                prop.getPstrServerOrigin(), // 시스템명
-                prop.getPiExchangePolicy(), // 암호화 문서 정책 ( 고정값 1 )
-                prop.getPiDrmFlag(),        // 암호화 여부( 고정값 0 )
-                prop.getIBlockSize(),       // 블럭크기 ( 고정값 0 )
-                prop.getStrMachineKey(),    // 머신키
-
-                prop.getStrFileVersion(),   // 암호화 파일 버전
-                prop.getStrMultiUserID(),   // 다중 사용자 ID
-                prop.getStrMultiUserName(), // 다중 사용명
-                prop.setStrEnterpriseID("RUSHNCASHG-B0A4-894C-2638"),  // 회사 대표 ID
-                prop.getStrEnterpriseName(),// 회사 대표명
-                prop.getStrDeptID(),         // 부서코드 ID
-                prop.getStrDeptName(),       // 부서명
-                prop.getStrPositionLevel(), // 직위레벨
-                prop.getStrSecurityLevel(), // 보안레벨
-                prop.getStrSecurityLevelName(),// 보안레벨명
-                prop.getStrPgCode(),        // 사용하지 않음
-                prop.getStrCipherBlockSize(), // 사이퍼블럭크기 ( 고정값 16 )
-                prop.getStrCreatorID(),     // 생성자 ID
-                prop.getStrCreatorName(),   // 생성자 이름
-                prop.getStrOnlineControl(), // 고정값 0
-                prop.getStrOfflinePolicy(), // 고정값
-                prop.getStrValidPeriodType(),// 고정값
-                prop.getStrUsableAlways(),  // 고정값 0
-                prop.getStrPriPubKey(),     // 고정값
-                prop.getStrCreatorCompanyId(), // 생성자 회사코드 ID
-                prop.getStrCreatorDeptId(), // 생성자 부서코드 ID
-                prop.getStrCreatorGroupId(),// 생성자 그룹코드 ID
-                prop.getStrCreatorPositionId(),// 생성자 직위코드 ID
-                prop.getStrFileSize(),      // 원본파일크기
-                prop.getStrHeaderUpdateTime(),//	헤더업데이트시간
-                prop.getStrReserved01(),// 지정 필드1
-                prop.getStrReserved02(),// 지정 필드2
-                prop.getStrReserved03(),// 지정 필드3
-                prop.getStrReserved04(),// 지정 필드4
-                prop.getStrReserved05(),// 지정 필드5
-                inFile //암호화 스트림파일
         );
-    }*/
+    }
 }
