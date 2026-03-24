@@ -129,7 +129,7 @@ class DrmControllerTest {
     
     @Test
     @DisplayName("이미 암호화 된 파일 → 200 already-encrypted")
-    void encrypt_skip_when_already_decrypt() throws Exception {
+    void encrypt_skip_when_already_encrypt() throws Exception {
         MvcResult result = genMvcResult(ENC_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
@@ -147,8 +147,8 @@ class DrmControllerTest {
     }
 
     @Test
-    @DisplayName("빈 파일 암호화 요청 → 200 OK")
-    void encrypt_failed() throws Exception {
+    @DisplayName("빈 파일 암호화 요청 → 200 원본파일 전달")
+    void encrypt_failed_file_empty() throws Exception {
         MvcResult result = genMvcResult(EMPTY_FILE, "/v1/drm/encrypt");
 
         // --- Status ---
@@ -156,13 +156,13 @@ class DrmControllerTest {
         assertThat(status).as("상태")
                 .isEqualTo(200);
 
-//        // --- Body ---
-//        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
-//        //원본파일 가지고 오기
-//        byte[] sourceFileByte = getOriginFile(EMPTY_FILE);
-//
-//        assertThat(resultFileByte).as("파일비교")
-//                .isEqualTo(sourceFileByte);
+        // --- Body ---
+        byte[] resultFileByte = result.getResponse().getContentAsByteArray();
+        //원본파일 가지고 오기
+        byte[] sourceFileByte = getOriginFile(EMPTY_FILE);
+
+        assertThat(resultFileByte).as("파일비교")
+                .isEqualTo(sourceFileByte);
     }
 
     @Test
